@@ -16,6 +16,7 @@ import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconduct
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
 import { transformToBattery } from './utils/transformToBattery.js'
 import { transformToEnvironment } from './utils/transformToEnvironment.js'
+import { transformToGnss } from './utils/transformToGnss.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -100,7 +101,20 @@ export const converter = (
 		env = maybeValidEnvironment.result
 	}
 
-	console.log(battery, env)
+	const location = input[Location_6_urn]
+	let gnss = undefined
+	if (location === undefined) {
+		console.error('Location (6) object is missing')
+	} else {
+		const maybeValidGnss = transformToGnss(location, metadata)
+		if ('error' in maybeValidGnss) {
+			console.log(maybeValidGnss.error)
+		} else {
+			gnss = maybeValidGnss.result
+		}
+	}
+
+	console.log(battery, env, gnss)
 
 	return {
 		bat: {
