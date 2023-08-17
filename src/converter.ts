@@ -17,6 +17,7 @@ import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
 import { transformToBattery } from './utils/transformToBattery.js'
 import { transformToEnvironment } from './utils/transformToEnvironment.js'
 import { transformToGnss } from './utils/transformToGnss.js'
+import { transformToRoam } from './utils/transformToRoam.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -114,7 +115,20 @@ export const converter = (
 		}
 	}
 
-	console.log(battery, env, gnss)
+	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
+	let roam = undefined
+	if (connectivityMonitoring === undefined) {
+		console.error('Device (3) object is missing')
+	} else {
+		const maybeValidRoam = transformToRoam(connectivityMonitoring, metadata)
+		if ('error' in maybeValidRoam) {
+			console.log(maybeValidRoam.error)
+		} else {
+			roam = maybeValidRoam.result
+		}
+	}
+
+	console.log(battery, env, gnss, roam)
 
 	return {
 		bat: {
