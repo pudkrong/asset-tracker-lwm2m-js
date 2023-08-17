@@ -1,19 +1,20 @@
-import type {
-	ConnectivityMonitoring_4,
+import {
+	type ConnectivityMonitoring_4,
 	ConnectivityMonitoring_4_urn,
-	Device_3,
+	type Device_3,
 	Device_3_urn,
-	Humidity_3304,
+	type Humidity_3304,
 	Humidity_3304_urn,
-	Location_6,
+	type Location_6,
 	Location_6_urn,
-	Pressure_3323,
+	type Pressure_3323,
 	Pressure_3323_urn,
-	Temperature_3303,
+	type Temperature_3303,
 	Temperature_3303_urn,
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
+import { transformToBattery } from './utils/transformToBattery.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -59,7 +60,20 @@ export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
 ): AssetTrackerWebApp => {
-	console.log(input, metadata)
+	const device = input[Device_3_urn]
+	let battery = undefined
+	if (device === undefined) {
+		console.error('Device (3) object is missing')
+	} else {
+		const maybeValidBattery = transformToBattery(device, metadata)
+		if ('error' in maybeValidBattery) {
+			console.log(maybeValidBattery.error)
+		} else {
+			battery = maybeValidBattery.result
+		}
+	}
+	console.log(battery)
+
 	return {
 		bat: {
 			v: 2754,
