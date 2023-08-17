@@ -19,6 +19,7 @@ import { transformToEnvironment } from './utils/transformToEnvironment.js'
 import { transformToGnss } from './utils/transformToGnss.js'
 import { transformToRoam } from './utils/transformToRoam.js'
 import { transformToConfig } from './utils/transformToConfig.js'
+import { transformToDevice } from './utils/transformToDevice.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -66,14 +67,23 @@ export const converter = (
 ): AssetTrackerWebApp => {
 	const device = input[Device_3_urn]
 	let battery = undefined
+	let dev = undefined
 	if (device === undefined) {
 		console.error('Device (3) object is missing')
 	} else {
 		const maybeValidBattery = transformToBattery(device, metadata)
+		const maybeValidDevice = transformToDevice(device, metadata)
+
 		if ('error' in maybeValidBattery) {
 			console.log(maybeValidBattery.error)
 		} else {
 			battery = maybeValidBattery.result
+		}
+
+		if ('error' in maybeValidDevice) {
+			console.log(maybeValidDevice.error)
+		} else {
+			dev = maybeValidDevice.result
 		}
 	}
 
@@ -145,7 +155,7 @@ export const converter = (
 		*/
 	}
 
-	console.log(battery, env, gnss, roam, cfg)
+	console.log(battery, env, gnss, roam, cfg, dev)
 
 	return {
 		bat: {
