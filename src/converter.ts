@@ -1,8 +1,65 @@
+import type {
+	ConnectivityMonitoring_4,
+	ConnectivityMonitoring_4_urn,
+	Device_3,
+	Device_3_urn,
+	Humidity_3304,
+	Humidity_3304_urn,
+	Location_6,
+	Location_6_urn,
+	Pressure_3323,
+	Pressure_3323_urn,
+	Temperature_3303,
+	Temperature_3303_urn,
+} from '@nordicsemiconductor/lwm2m-types'
+import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
+import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
+
+export type LwM2MAssetTrackerV2 = {
+	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
+	[Device_3_urn]: Device_3
+	[Humidity_3304_urn]: Humidity_3304
+	[Location_6_urn]: Location_6
+	[Pressure_3323_urn]: Pressure_3323
+	[Temperature_3303_urn]: Temperature_3303
+	[Config_50009_urn]: Config_50009
+}
+
+export type Metadata = {
+	$lastUpdated: string
+	lwm2m: LwM2M_Metadata
+}
+
+export type LwM2M_Metadata = {
+	[key: `${number}`]: Obj // object ID : object
+	$lastUpdated: string
+}
+
+type Obj = {
+	[key: `${number}`]: Instance // Instance id : instance
+	$lastUpdated: string
+}
+
+type Instance = {
+	[key: `${number}`]: Resource // Resource id : resource
+	$lastUpdated: string
+}
+
+type Resource = {
+	$lastUpdated: string
+	value: {
+		$lastUpdated: string
+	}
+}
+
 /**
  * convert LwM2M Asset Tracker v2 format into Asset Tracker Web App format
  */
-export const converter = (input: unknown): any => {
-	console.log(input)
+export const converter = (
+	input: LwM2MAssetTrackerV2,
+	metadata: Metadata,
+): AssetTrackerWebApp => {
+	console.log(input, metadata)
 	return {
 		bat: {
 			v: 2754,
