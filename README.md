@@ -25,7 +25,7 @@ import {
 } from "@nordicsemiconductor/lwm2m-types";
 import { Config_50009_urn } from "schemas/Config_50009";
 
-export const output = {
+export const input = {
   [Device_3_urn]: {
     "0": "Nordic Semiconductor ASA",
     "1": "Thingy:91",
