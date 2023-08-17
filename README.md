@@ -165,7 +165,7 @@ The output is an object with the structure described in
 
 ## Data transition
 
-| LwM2M                                                                                                                                             | Name                    | Asset Tracker                                           |
+| LwM2M                                                                                                                                             | Name                    | Asset Tracker Web App                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------- |
 | [3](https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/version_history/3-1_1.xml)                                                     | Device                  | [bat](documents/battery.md), [dev](documents/device.md) |
 | [4](https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/version_history/4-1_1.xml)                                                     | Connectivity Monitoring | [roam](documents/roaming.md)                            |
