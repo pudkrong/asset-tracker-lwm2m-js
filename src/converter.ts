@@ -15,6 +15,7 @@ import {
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
 import { transformToBattery } from './utils/transformToBattery.js'
+import { transformToEnvironment } from './utils/transformToEnvironment.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -72,7 +73,34 @@ export const converter = (
 			battery = maybeValidBattery.result
 		}
 	}
-	console.log(battery)
+
+	const temperature = input[Temperature_3303_urn]
+	const humidity = input[Humidity_3304_urn]
+	const pressure = input[Pressure_3323_urn]
+	let env = undefined
+
+	if (temperature === undefined) {
+		console.error('Temperature (3303) object is missing')
+	}
+	if (humidity === undefined) {
+		console.error('Humidity (3304) object is missing')
+	}
+	if (pressure === undefined) {
+		console.error('Pressure (3323) object is missing')
+	}
+	const maybeValidEnvironment = transformToEnvironment(
+		temperature,
+		humidity,
+		pressure,
+		metadata,
+	)
+	if ('error' in maybeValidEnvironment) {
+		console.log(maybeValidEnvironment.error)
+	} else {
+		env = maybeValidEnvironment.result
+	}
+
+	console.log(battery, env)
 
 	return {
 		bat: {
