@@ -14,12 +14,11 @@ import {
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
-import { transformToRoam } from './utils/transformToRoam.js'
-import { transformToConfig } from './utils/transformToConfig.js'
 import { getBat } from './utils/getBat.js'
 import { getDev } from './utils/getDevice.js'
 import { getEnv } from './utils/getEnv.js'
 import { getGnss } from './utils/getGnss.js'
+import { getRoam } from './utils/getRoam.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -71,6 +70,8 @@ export const converter = (
 	const humidity = input[Humidity_3304_urn]
 	const pressure = input[Pressure_3323_urn]
 	const location = input[Location_6_urn]
+	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
+	const config = input[Config_50009_urn]
 
 	const bat = getBat(device, metadata)
 	if ('error' in bat) {
@@ -100,25 +101,29 @@ export const converter = (
 		result['gnss'] = gnss.result
 	}
 
-	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
-	let roam = undefined
-	if (connectivityMonitoring === undefined) {
-		console.error('Connectivity Monitoring (4) object is missing')
+	const roam = getRoam(connectivityMonitoring, metadata)
+	if ('error' in roam) {
+		console.error(roam.error)
 	} else {
-		const maybeValidRoam = transformToRoam(connectivityMonitoring, metadata)
-		if ('error' in maybeValidRoam) {
-			console.log(maybeValidRoam.error)
-		} else {
-			roam = maybeValidRoam.result
-		}
+		result['roam'] = roam.result
 	}
 
-	const config = input[Config_50009_urn]
-	let cfg = undefined
 	if (config === undefined) {
 		console.error('Config (50009) object is missing')
 	} else {
-		cfg = transformToConfig(config)
+		//cfg = transformToConfig(config)
+
+		result['cfg'] = {
+			loct: 60,
+			act: false,
+			actwt: 60,
+			mvres: 60,
+			mvt: 3600,
+			accath: 10.5,
+			accith: 5.2,
+			accito: 1.7,
+			nod: [],
+		}
 		/*
 		TODO: follow same pattern
 		if ('error' in maybeValidCfg) {
@@ -129,37 +134,5 @@ export const converter = (
 		*/
 	}
 
-	console.log(env, gnss, roam, cfg, dev)
-	console.log(result)
-
-	return {
-		bat: (bat as { result: unknown }).result as any,
-		env: (env as { result: unknown }).result as any,
-		gnss: (gnss as { result: unknown }).result as any,
-		cfg: {
-			loct: 60,
-			act: false,
-			actwt: 60,
-			mvres: 60,
-			mvt: 3600,
-			accath: 10.5,
-			accith: 5.2,
-			accito: 1.7,
-			nod: [],
-		},
-		dev: (dev as { result: unknown }).result as any,
-		roam: {
-			v: {
-				band: 3, // ***** origin missing *****
-				nw: 'NB-IoT',
-				rsrp: -97,
-				area: 12,
-				mccmnc: 24202,
-				cell: 33703719,
-				ip: '10.81.183.99',
-				eest: 5, // ***** origin missing *****
-			},
-			ts: 1563968743666,
-		},
-	}
+	return result
 }

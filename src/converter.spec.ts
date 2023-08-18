@@ -31,7 +31,7 @@ describe('converter', () => {
 				'3': 23,
 				'4': ['10.160.120.155'],
 				'8': 34237196,
-				'9': 2,
+				'9': 20,
 				'10': 242,
 				'12': 12,
 			},
@@ -166,16 +166,16 @@ describe('converter', () => {
 			},
 			roam: {
 				v: {
-					band: 3, // ***** origin missing *****
-					nw: 'NB-IoT',
-					rsrp: -97,
+					band: 1, // ***** origin missing *****
+					nw: '6',
+					rsrp: -85,
 					area: 12,
-					mccmnc: 24202,
-					cell: 33703719,
-					ip: '10.81.183.99',
+					mccmnc: 24220,
+					cell: 34237196,
+					ip: '10.160.120.155',
 					eest: 5, // ***** origin missing *****
 				},
-				ts: 1563968743666,
+				ts: 1688731863032,
 			},
 		}
 
