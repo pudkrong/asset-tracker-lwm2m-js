@@ -156,12 +156,12 @@ describe('converter', () => {
 			},
 			dev: {
 				v: {
-					imei: '352656106111232',
+					imei: '351358815340515',
 					iccid: '0000000000000000000', // ***** origin missing *****
-					modV: 'mfw_nrf9160_1.0.0',
-					brdV: 'thingy91_nrf9160',
+					modV: '22.8.1+0',
+					brdV: 'Nordic Semiconductor ASA',
 				},
-				ts: 1563968743666,
+				ts: 1675874731000,
 			},
 			roam: {
 				v: {

@@ -18,8 +18,8 @@ import { transformToEnvironment } from './utils/transformToEnvironment.js'
 import { transformToGnss } from './utils/transformToGnss.js'
 import { transformToRoam } from './utils/transformToRoam.js'
 import { transformToConfig } from './utils/transformToConfig.js'
-import { transformToDevice } from './utils/transformToDevice.js'
 import { getBat } from './utils/getBat.js'
+import { getDev } from './utils/getDevice.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -75,16 +75,11 @@ export const converter = (
 		result['bat'] = bat.result
 	}
 
-	let dev = undefined
-	if (device === undefined) {
-		console.error('Device (3) object is missing')
+	const dev = getDev(device, metadata)
+	if ('error' in dev) {
+		console.error(dev.error)
 	} else {
-		const maybeValidDevice = transformToDevice(device, metadata)
-		if ('error' in maybeValidDevice) {
-			console.log(maybeValidDevice.error)
-		} else {
-			dev = maybeValidDevice.result
-		}
+		result['dev'] = dev.result
 	}
 
 	const temperature = input[Temperature_3303_urn]
@@ -190,15 +185,7 @@ export const converter = (
 			accito: 1.7,
 			nod: [],
 		},
-		dev: {
-			v: {
-				imei: '352656106111232',
-				iccid: '0000000000000000000', // ***** origin missing *****
-				modV: 'mfw_nrf9160_1.0.0',
-				brdV: 'thingy91_nrf9160',
-			},
-			ts: 1563968743666,
-		},
+		dev: (dev as { result: unknown }).result as any,
 		roam: {
 			v: {
 				band: 3, // ***** origin missing *****
