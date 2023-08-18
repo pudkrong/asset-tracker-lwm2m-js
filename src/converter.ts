@@ -14,12 +14,12 @@ import {
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
-import { transformToBattery } from './utils/transformToBattery.js'
 import { transformToEnvironment } from './utils/transformToEnvironment.js'
 import { transformToGnss } from './utils/transformToGnss.js'
 import { transformToRoam } from './utils/transformToRoam.js'
 import { transformToConfig } from './utils/transformToConfig.js'
 import { transformToDevice } from './utils/transformToDevice.js'
+import { getBat } from './utils/getBat.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -65,21 +65,21 @@ export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
 ): AssetTrackerWebApp => {
+	const result = {} as AssetTrackerWebApp
 	const device = input[Device_3_urn]
-	let battery = undefined
+
+	const bat = getBat(device, metadata)
+	if ('error' in bat) {
+		console.error(bat.error)
+	} else {
+		result['bat'] = bat.result
+	}
+
 	let dev = undefined
 	if (device === undefined) {
 		console.error('Device (3) object is missing')
 	} else {
-		const maybeValidBattery = transformToBattery(device, metadata)
 		const maybeValidDevice = transformToDevice(device, metadata)
-
-		if ('error' in maybeValidBattery) {
-			console.log(maybeValidBattery.error)
-		} else {
-			battery = maybeValidBattery.result
-		}
-
 		if ('error' in maybeValidDevice) {
 			console.log(maybeValidDevice.error)
 		} else {
@@ -155,13 +155,11 @@ export const converter = (
 		*/
 	}
 
-	console.log(battery, env, gnss, roam, cfg, dev)
+	console.log(env, gnss, roam, cfg, dev)
+	console.log(result)
 
 	return {
-		bat: {
-			v: 2754,
-			ts: 1563968747123,
-		},
+		bat: (bat as { result: unknown }).result as any,
 		env: {
 			v: {
 				temp: 23.6,
