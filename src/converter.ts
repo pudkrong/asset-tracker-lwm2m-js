@@ -14,12 +14,12 @@ import {
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
-import { transformToGnss } from './utils/transformToGnss.js'
 import { transformToRoam } from './utils/transformToRoam.js'
 import { transformToConfig } from './utils/transformToConfig.js'
 import { getBat } from './utils/getBat.js'
 import { getDev } from './utils/getDevice.js'
 import { getEnv } from './utils/getEnv.js'
+import { getGnss } from './utils/getGnss.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -70,6 +70,7 @@ export const converter = (
 	const temperature = input[Temperature_3303_urn]
 	const humidity = input[Humidity_3304_urn]
 	const pressure = input[Pressure_3323_urn]
+	const location = input[Location_6_urn]
 
 	const bat = getBat(device, metadata)
 	if ('error' in bat) {
@@ -92,17 +93,11 @@ export const converter = (
 		result['env'] = env.result
 	}
 
-	const location = input[Location_6_urn]
-	let gnss = undefined
-	if (location === undefined) {
-		console.error('Location (6) object is missing')
+	const gnss = getGnss(location, metadata)
+	if ('error' in gnss) {
+		console.error(gnss.error)
 	} else {
-		const maybeValidGnss = transformToGnss(location, metadata)
-		if ('error' in maybeValidGnss) {
-			console.log(maybeValidGnss.error)
-		} else {
-			gnss = maybeValidGnss.result
-		}
+		result['gnss'] = gnss.result
 	}
 
 	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
@@ -140,17 +135,7 @@ export const converter = (
 	return {
 		bat: (bat as { result: unknown }).result as any,
 		env: (env as { result: unknown }).result as any,
-		gnss: {
-			v: {
-				lng: 10.436642,
-				lat: 63.421133,
-				acc: 24.798573,
-				alt: 170.528305,
-				spd: 0.579327,
-				hdg: 0, // ***** origin missing *****
-			},
-			ts: 1563968752991,
-		},
+		gnss: (gnss as { result: unknown }).result as any,
 		cfg: {
 			loct: 60,
 			act: false,
