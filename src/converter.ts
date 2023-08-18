@@ -14,12 +14,12 @@ import {
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
-import { transformToEnvironment } from './utils/transformToEnvironment.js'
 import { transformToGnss } from './utils/transformToGnss.js'
 import { transformToRoam } from './utils/transformToRoam.js'
 import { transformToConfig } from './utils/transformToConfig.js'
 import { getBat } from './utils/getBat.js'
 import { getDev } from './utils/getDevice.js'
+import { getEnv } from './utils/getEnv.js'
 
 export type LwM2MAssetTrackerV2 = {
 	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
@@ -67,6 +67,9 @@ export const converter = (
 ): AssetTrackerWebApp => {
 	const result = {} as AssetTrackerWebApp
 	const device = input[Device_3_urn]
+	const temperature = input[Temperature_3303_urn]
+	const humidity = input[Humidity_3304_urn]
+	const pressure = input[Pressure_3323_urn]
 
 	const bat = getBat(device, metadata)
 	if ('error' in bat) {
@@ -82,30 +85,11 @@ export const converter = (
 		result['dev'] = dev.result
 	}
 
-	const temperature = input[Temperature_3303_urn]
-	const humidity = input[Humidity_3304_urn]
-	const pressure = input[Pressure_3323_urn]
-	let env = undefined
-
-	if (temperature === undefined) {
-		console.error('Temperature (3303) object is missing')
-	}
-	if (humidity === undefined) {
-		console.error('Humidity (3304) object is missing')
-	}
-	if (pressure === undefined) {
-		console.error('Pressure (3323) object is missing')
-	}
-	const maybeValidEnvironment = transformToEnvironment(
-		temperature,
-		humidity,
-		pressure,
-		metadata,
-	)
-	if ('error' in maybeValidEnvironment) {
-		console.log(maybeValidEnvironment.error)
+	const env = getEnv(temperature, humidity, pressure, metadata)
+	if ('error' in env) {
+		console.error(env.error)
 	} else {
-		env = maybeValidEnvironment.result
+		result['env'] = env.result
 	}
 
 	const location = input[Location_6_urn]
@@ -155,14 +139,7 @@ export const converter = (
 
 	return {
 		bat: (bat as { result: unknown }).result as any,
-		env: {
-			v: {
-				temp: 23.6,
-				hum: 50.5,
-				atmp: 100.36,
-			},
-			ts: 1563968743666,
-		},
+		env: (env as { result: unknown }).result as any,
 		gnss: {
 			v: {
 				lng: 10.436642,

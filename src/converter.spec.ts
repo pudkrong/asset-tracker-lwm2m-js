@@ -126,11 +126,11 @@ describe('converter', () => {
 			},
 			env: {
 				v: {
-					temp: 23.6,
-					hum: 50.5,
-					atmp: 100.36,
+					temp: 27.18,
+					hum: 24.057,
+					atmp: 10,
 				},
-				ts: 1563968743666,
+				ts: 1688731863032,
 			},
 			gnss: {
 				v: {
