@@ -183,4 +183,76 @@ describe('converter', () => {
 			converter(input as unknown as LwM2MAssetTrackerV2, metadata), // TODO: solve type error
 		).toStrictEqual(output)
 	})
+
+	it(`should create Asset Tracker web app expected input even when some objects are not been created`, () => {
+		const input = {
+			[Device_3_urn]: {
+				'0': 'Nordic Semiconductor ASA',
+				'1': 'Thingy:91',
+				'2': '351358815340515',
+				'3': '22.8.1+0',
+				'7': 2754,
+				'11': [0],
+				'13': 1675874731,
+				'16': 'UQ',
+				'19': '3.2.1',
+			},
+		}
+		const metadata = {
+			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+			lwm2m: {
+				'3': {
+					'0': {
+						'0': {
+							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+							value: {
+								$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+							},
+						},
+						'3': {
+							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+							value: {
+								$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+							},
+						},
+						'7': {
+							$lastUpdated: '2023-08-03T12:11:03.0324459Z',
+							value: {
+								$lastUpdated: '2023-08-03T12:11:03.0324459Z',
+							},
+						},
+						'13': {
+							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+							value: {
+								$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+							},
+						},
+						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+					},
+					$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+				},
+				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
+			},
+		}
+
+		const output = {
+			bat: {
+				v: 2754,
+				ts: 1675874731000,
+			},
+			dev: {
+				v: {
+					imei: '351358815340515',
+					iccid: '0000000000000000000', // ***** origin missing *****
+					modV: '22.8.1+0',
+					brdV: 'Nordic Semiconductor ASA',
+				},
+				ts: 1675874731000,
+			},
+		}
+
+		expect(
+			converter(input as unknown as LwM2MAssetTrackerV2, metadata), // TODO: solve type error
+		).toStrictEqual(output)
+	})
 })
