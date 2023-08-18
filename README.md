@@ -9,6 +9,24 @@
 > Convert the LwM2M Asset Tracker v2 JSON encoding to Asset Tracker web app JSON
 > encoding
 
+## Installation
+
+```
+npm install
+```
+
+## Test
+
+```
+npm test
+```
+
+## Coverage
+
+```
+npm test -- --coverage
+```
+
 ## Expected input
 
 Result of
@@ -163,6 +181,23 @@ The output is an object with the structure described in
   }
 }
 ```
+
+## Example
+
+```TypeScript
+import {
+	converter,
+	type LwM2MAssetTrackerV2,
+	type Metadata,
+} from './converter.js'
+
+const lwM2MAssetTrackerV2 = {} as LwM2MAssetTrackerV2 // Object with Asset Tracker v2 objects...
+const metadata = {} as Metadata // Metadata object from Azure Device Twin ...
+const result = converter(lwM2MAssetTrackerV2, metadata)
+console.log(result)
+```
+
+See [example.js](./src/example.ts) for more details.
 
 ## Data transition
 
