@@ -8,7 +8,7 @@ import { fromSecondsToMilliseconds } from '../utils/fromSecondsToMilliseconds.js
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
- * Transform Device LwM2M object into the battery object expected by Asset Tracker web app
+ * Transform Device LwM2M object (3) into the battery object expected by Asset Tracker web app
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/battery.md
  */
