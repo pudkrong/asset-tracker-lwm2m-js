@@ -11,7 +11,7 @@ import { fromSecondsToMilliseconds } from '../utils/fromSecondsToMilliseconds.js
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
- * Transform Location LwM2M object into the environment object expected by Asset Tracker web app
+ * Transform Location LwM2M object (6) into the environment object expected by Asset Tracker web app
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/gnss.md
  */

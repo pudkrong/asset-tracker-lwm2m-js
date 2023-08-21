@@ -10,7 +10,7 @@ import {
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
- * Transform Connectivity Monitoring LwM2M object into the roaming object expected by Asset Tracker web app
+ * Transform Connectivity Monitoring LwM2M object (4) into the roaming object expected by Asset Tracker web app
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/roaming.md
  */
