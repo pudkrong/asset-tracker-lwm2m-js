@@ -27,9 +27,7 @@ export const transformToRoam = (
 	const smnc = connectivityMonitoring[9]
 	const cell = connectivityMonitoring[8]
 	const ip =
-		Array.isArray(connectivityMonitoring[4]) === true
-			? connectivityMonitoring[4][0]
-			: connectivityMonitoring[4] // TODO: resolve
+		connectivityMonitoring[4] != null ? connectivityMonitoring[4][0] : undefined
 
 	// get timestamp from metadata
 	const time = getTimestamp(

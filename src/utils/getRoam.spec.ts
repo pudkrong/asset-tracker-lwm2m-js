@@ -42,10 +42,10 @@ describe('getRoam', () => {
 	it(`get the 'roam' object which is required in Asset Tracker web app`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
-			'1': 7, //[6, 7], // TODO: solve this
+			'1': [7, 6],
 			'2': -85,
 			'3': 23,
-			'4': '10.160.120.155', //['10.160.120.155'], // TODO: solve this
+			'4': ['10.160.120.155'],
 			'8': 34237196,
 			'9': 20,
 			'10': 242,
@@ -77,10 +77,10 @@ describe('getRoam', () => {
 	it(`should return error if conversion from Connectivity Monitoring (4) object to 'roam' went wrong`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
-			'1': 7, //[6, 7], // TODO: solve this
+			'1': [6, 7],
 			'2': -85,
 			'3': 23,
-			// required value is missing '4': '10.160.120.155' , //['10.160.120.155'], // TODO: solve this
+			// required value is missing '4': ['10.160.120.155']
 			'8': 34237196,
 			'9': 20,
 			'10': 242,

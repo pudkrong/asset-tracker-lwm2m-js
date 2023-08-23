@@ -25,11 +25,11 @@ describe('transformToRoam', () => {
 	it('should create roam object', () => {
 		const connectMonitoring: ConnectivityMonitoring_4 = {
 			'0': 6, // Network Bearer
-			'1': 6,
+			'1': [6],
 			'2': -97, // Radio Signal Strength
 			'3': 0,
-			'4': '10.160.225.39', // IP Addresses
-			'7': 'ibasis.iot',
+			'4': ['10.160.225.39'], // IP Addresses
+			'7': ['ibasis.iot'],
 			'8': 33703719, // Cell ID
 			'9': 2,
 			'10': 2420,
