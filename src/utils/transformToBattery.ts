@@ -16,10 +16,7 @@ export const transformToBattery = (
 	device: Device_3,
 	deviceTwinMetadata: Metadata,
 ): { error: Error } | { result: BatteryData } => {
-	const value =
-		typeof device['7'] === 'object' && device['7']?.length > 0
-			? device['7'][0]
-			: undefined
+	const value = device['7'] != null ? device['7'][0] : undefined
 
 	const time =
 		device['13'] != null

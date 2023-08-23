@@ -22,7 +22,7 @@ export const transformToDevice = (
 	const brdV = device['0']
 	const time =
 		device['13'] != null
-			? fromSecondsToMilliseconds(device[13])
+			? fromSecondsToMilliseconds(device['13'])
 			: getTimestamp(Device_3_urn, 13, deviceTwinMetadata)
 
 	const object = {

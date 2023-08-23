@@ -1,4 +1,4 @@
-import { getDev } from './getDevice.js'
+import { getDev } from './getDev.js'
 
 describe('getDev', () => {
 	const metadata = {
@@ -43,8 +43,8 @@ describe('getDev', () => {
 			'1': 'Thingy:91',
 			'2': '351358815340515',
 			'3': '22.8.1+0',
-			'7': 2754,
-			'11': 0, // [0] TODO
+			'7': [2754],
+			'11': [0],
 			'13': 1675874731,
 			'16': 'UQ',
 			'19': '3.2.1',
@@ -72,8 +72,8 @@ describe('getDev', () => {
 			'1': 'Thingy:91',
 			// '2': '351358815340515', // required value is missing
 			'3': '22.8.1+0',
-			'7': 2754,
-			'11': 0, // [0] TODO
+			'7': [2754],
+			'11': [0],
 			'13': 1675874731,
 			'16': 'UQ',
 			'19': '3.2.1',
