@@ -7,7 +7,7 @@ import {
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
 import { Config_50009_urn } from '../schemas/Config_50009.js'
-import { converter, type LwM2MAssetTrackerV2 } from './converter.js'
+import { converter } from './converter.js'
 
 describe('converter', () => {
 	it('should convert LwM2M Asset Tracker v2 format into Asset Tracker Web App format', () => {
@@ -74,11 +74,13 @@ describe('converter', () => {
 
 			[Config_50009_urn]: {
 				'0': true,
+				'1': 120,
 				'2': 120,
 				'3': 600,
 				'4': 7200,
-				'1': 120,
-				'5': 8.5,
+				'5': 120,
+				'6': false,
+				'7': true,
 				'8': 2.5,
 				'9': 0.5,
 			},
@@ -180,7 +182,7 @@ describe('converter', () => {
 		}
 
 		expect(
-			converter(input as unknown as LwM2MAssetTrackerV2, metadata), // TODO: solve type error
+			converter(input, metadata), // TODO: solve type error
 		).toStrictEqual(output)
 	})
 
@@ -191,7 +193,7 @@ describe('converter', () => {
 				'1': 'Thingy:91',
 				'2': '351358815340515',
 				'3': '22.8.1+0',
-				'7': 2754,
+				'7': [2754],
 				'11': [0],
 				'13': 1675874731,
 				'16': 'UQ',
@@ -252,7 +254,7 @@ describe('converter', () => {
 		}
 
 		expect(
-			converter(input as unknown as LwM2MAssetTrackerV2, metadata), // TODO: solve type error
+			converter(input, metadata), // TODO: solve type error
 		).toStrictEqual(output)
 	})
 })

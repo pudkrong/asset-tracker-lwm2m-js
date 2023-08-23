@@ -21,13 +21,13 @@ import { getGnss } from './utils/getGnss.js'
 import { getRoam } from './utils/getRoam.js'
 
 export type LwM2MAssetTrackerV2 = {
-	[ConnectivityMonitoring_4_urn]: ConnectivityMonitoring_4
-	[Device_3_urn]: Device_3
-	[Humidity_3304_urn]: Humidity_3304
-	[Location_6_urn]: Location_6
-	[Pressure_3323_urn]: Pressure_3323
-	[Temperature_3303_urn]: Temperature_3303
-	[Config_50009_urn]: Config_50009
+	[ConnectivityMonitoring_4_urn]?: ConnectivityMonitoring_4
+	[Device_3_urn]?: Device_3
+	[Humidity_3304_urn]?: Humidity_3304
+	[Location_6_urn]?: Location_6
+	[Pressure_3323_urn]?: Pressure_3323
+	[Temperature_3303_urn]?: Temperature_3303
+	[Config_50009_urn]?: Config_50009
 }
 
 export type Metadata = {
