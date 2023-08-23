@@ -42,11 +42,3 @@ export const transformToDevice = (
 
 	return { result: maybeValidDeviceData }
 }
-
-/*
-export const ensureDefined = <V>(maybeValue: V | null | undefined) => {
-	if (maybeValue === null || maybeValue === undefined)
-		throw Error(`Value may not be undefined!`)
-	return maybeValue
-}
-*/
