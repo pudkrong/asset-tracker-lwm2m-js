@@ -1,23 +1,28 @@
-import type { ConfigData } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
+import {
+	Config,
+	type ConfigData,
+	validateWithType,
+} from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import type { Config_50009 } from '../../schemas/Config_50009.js'
-import { checkAllRequired } from './checkAllRequired.js'
 
 /**
  * Transform Config object into the config object expected by Asset Tracker web app
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/config.md
  */
-export const transformToConfig = (input: Config_50009): ConfigData => {
-	const act = input[0]
-	const loct = input[1]
-	const actwt = input[2]
-	const mvres = input[3]
-	const mvt = input[4]
-	const accath = input[5]
-	const accith = input[8]
-	const accito = input[9]
+export const transformToConfig = (
+	config: Config_50009,
+): { error: Error } | { result: ConfigData } => {
+	const act = config[0]
+	const loct = config[1]
+	const actwt = config[2]
+	const mvres = config[3]
+	const mvt = config[4]
+	const accath = config[5]
+	const accith = config[8]
+	const accito = config[9]
 
-	const config = {
+	const cfg = {
 		loct,
 		act,
 		actwt,
@@ -28,9 +33,11 @@ export const transformToConfig = (input: Config_50009): ConfigData => {
 		accito,
 		nod: [],
 	}
-	const maybeValidRequiredValues = checkAllRequired(config)
-	if ('error' in maybeValidRequiredValues)
-		throw new Error(maybeValidRequiredValues.error) // TODO: return error
 
-	return config
+	const maybeValidCfg = validateWithType(Config)(cfg)
+
+	if ('errors' in maybeValidCfg)
+		return { error: new Error(JSON.stringify(maybeValidCfg.errors)) }
+
+	return { result: maybeValidCfg }
 }

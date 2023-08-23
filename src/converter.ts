@@ -19,6 +19,7 @@ import { getDev } from './utils/getDev.js'
 import { getEnv } from './utils/getEnv.js'
 import { getGnss } from './utils/getGnss.js'
 import { getRoam } from './utils/getRoam.js'
+import { getCfg } from './utils/getCfg.js'
 
 export type Metadata = {
 	$lastUpdated: string
@@ -108,30 +109,11 @@ export const converter = (
 		result['roam'] = roam.result
 	}
 
-	if (config === undefined) {
-		console.error('Config (50009) object is missing')
+	const cfg = getCfg(config)
+	if ('error' in cfg) {
+		console.error(cfg.error)
 	} else {
-		//cfg = transformToConfig(config)
-
-		result['cfg'] = {
-			loct: 60,
-			act: false,
-			actwt: 60,
-			mvres: 60,
-			mvt: 3600,
-			accath: 10.5,
-			accith: 5.2,
-			accito: 1.7,
-			nod: [],
-		}
-		/*
-		TODO: follow same pattern
-		if ('error' in maybeValidCfg) {
-			console.log(maybeValidCfg.error)
-		} else {
-			cfg = maybeValidCfg.result
-		}
-		*/
+		result['cfg'] = cfg.result
 	}
 
 	return result

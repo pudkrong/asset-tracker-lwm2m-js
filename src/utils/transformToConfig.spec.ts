@@ -3,7 +3,7 @@ import { transformToConfig } from './transformToConfig.js'
 
 describe('transformToConfig', () => {
 	it('should create config', () => {
-		const object: Config_50009 = {
+		const object = {
 			'0': true,
 			'1': 120,
 			'2': 120,
@@ -28,6 +28,25 @@ describe('transformToConfig', () => {
 			nod: [],
 		}
 
-		expect(transformToConfig(object)).toMatchObject(expected)
+		const config = transformToConfig(object) as { result: unknown }
+		expect(config.result).toMatchObject(expected)
+	})
+
+	it('should return error in case a required value is missing', () => {
+		const object = {
+			'0': true,
+			'1': 120,
+			'2': 120,
+			'3': 600,
+			'4': 7200,
+			// '5': 8.5, // required value is missing
+			'6': true,
+			'7': false,
+			'8': 2.5,
+			'9': 0.5,
+		} as Config_50009
+
+		const config = transformToConfig(object) as { error: Error }
+		expect(config.error).not.toBe(undefined)
 	})
 })
