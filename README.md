@@ -243,7 +243,7 @@ multiple instances. The default instance to be picked in order to build the
 result is the first of the array.
 
 More details in
-[select first instance when LwM2M object is an array](./src/converter.spec.ts)
+"[select first instance when LwM2M object is an array](./src/converter.spec.ts)"
 test.
 
 ### Timestamp Hierarchy
