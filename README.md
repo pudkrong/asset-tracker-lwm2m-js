@@ -246,6 +246,16 @@ More details in
 "[select first instance when LwM2M object is an array](./src/converter.spec.ts)"
 test.
 
+### Value selected when LwM2M resource is multiple instance
+
+When a LwM2M resource is array type by definition its means that it could has
+multiple values. The default value to be picked in order to build the result is
+the first of the array.
+
+More details in
+"[select first value when LwM2M resource is an array](./src/converter.spec.ts)"
+test.
+
 ### Timestamp Hierarchy
 
 The timestamp values reported in the final output of the process follows the

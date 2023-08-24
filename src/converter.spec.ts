@@ -337,4 +337,29 @@ describe('converter', () => {
 
 		expect(converter(input, {} as Metadata)).toMatchObject(output)
 	})
+
+	it(`should select first value when LwM2M resource is an array`, () => {
+		const input = {
+			[Device_3_urn]: {
+				'0': 'Nordic Semiconductor ASA',
+				'1': 'Thingy:91',
+				'2': '351358815340515',
+				'3': '22.8.1+0',
+				'7': [2754, 0, 1, 2, 3, 4, 5, 6, 7],
+				'11': [0],
+				'13': 1675874731,
+				'16': 'UQ',
+				'19': '3.2.1',
+			},
+		}
+
+		const output = {
+			bat: {
+				v: 2754,
+				ts: 1675874731000,
+			},
+		}
+
+		expect(converter(input, {} as Metadata)).toMatchObject(output)
+	})
 })
