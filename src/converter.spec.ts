@@ -7,7 +7,7 @@ import {
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
 import { Config_50009_urn } from '../schemas/Config_50009.js'
-import { converter } from './converter.js'
+import { converter, type Metadata } from './converter.js'
 
 describe('converter', () => {
 	it('should convert LwM2M Asset Tracker v2 format into Asset Tracker Web App format', () => {
@@ -181,9 +181,7 @@ describe('converter', () => {
 			},
 		}
 
-		expect(
-			converter(input, metadata), // TODO: solve type error
-		).toStrictEqual(output)
+		expect(converter(input, metadata)).toStrictEqual(output)
 	})
 
 	it(`should create Asset Tracker web app expected input even when some objects are not been created`, () => {
@@ -256,5 +254,87 @@ describe('converter', () => {
 		expect(
 			converter(input, metadata), // TODO: solve type error
 		).toStrictEqual(output)
+	})
+
+	it(`should select first instance when LwM2M object is an array`, () => {
+		const input = {
+			[Temperature_3303_urn]: [
+				{
+					'5601': 27.18,
+					'5602': 27.71,
+					'5700': 27.18,
+					'5701': 'Cel',
+					'5518': 1675874731,
+				},
+				{
+					'5601': 0,
+					'5602': 0,
+					'5700': 0,
+					'5701': 'Cel',
+					'5518': 1675874731,
+				},
+				{
+					'5601': 0,
+					'5602': 0,
+					'5700': 0,
+					'5701': 'Cel',
+					'5518': 1675874731,
+				},
+			],
+
+			[Humidity_3304_urn]: [
+				{
+					'5601': 23.535,
+					'5602': 24.161,
+					'5700': 24.057,
+					'5701': '%RH',
+					'5518': 1675874731,
+				},
+				{
+					'5601': 0,
+					'5602': 0,
+					'5700': 0,
+					'5701': '%RH',
+					'5518': 1675874731,
+				},
+			],
+
+			[Pressure_3323_urn]: [
+				{
+					'5601': 101697,
+					'5602': 101705,
+					'5700': 10,
+					'5701': 'Pa',
+					'5518': 1675874731,
+				},
+				{
+					'5601': 0,
+					'5602': 0,
+					'5700': 0,
+					'5701': 'Pa',
+					'5518': 1675874731,
+				},
+				{
+					'5601': 0,
+					'5602': 0,
+					'5700': 0,
+					'5701': 'Pa',
+					'5518': 1675874731,
+				},
+			],
+		}
+
+		const output = {
+			env: {
+				v: {
+					temp: 27.18,
+					hum: 24.057,
+					atmp: 10,
+				},
+				ts: 1675874731000,
+			},
+		}
+
+		expect(converter(input, {} as Metadata)).toMatchObject(output)
 	})
 })

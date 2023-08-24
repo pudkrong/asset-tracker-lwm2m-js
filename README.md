@@ -236,6 +236,16 @@ The default LwM2M version used by this converter is `1.1`.
 related to missing timestamp resources in version `1.0`.
 [More info](https://github.com/MLopezJ/LwM2M-Asset-Tracker/issues/4)
 
+### Instance selected when LwM2M object is multiple instance
+
+When a LwM2M object is array type by definition its means that it could has
+multiple instances. The default instance to be picked in order to build the
+result is the first of the array.
+
+More details in
+[select first instance when LwM2M object is an array](./src/converter.spec.ts)
+test.
+
 ### Timestamp Hierarchy
 
 The timestamp values reported in the final output of the process follows the
