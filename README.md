@@ -256,6 +256,16 @@ More details in
 "[select first value when LwM2M resource is an array](./src/converter.spec.ts)"
 test.
 
+### Missing objects in input
+
+If an object required to build an output object is missing, that object will not
+be present in the output.
+
+See
+[create output even when some expected objects in the input are missing](./src/converter.spec.ts)
+for an example, and check [Data transition](#data-transition) to see the
+relationship between input and output objects.
+
 ### Timestamp Hierarchy
 
 The timestamp values reported in the final output of the process follows the

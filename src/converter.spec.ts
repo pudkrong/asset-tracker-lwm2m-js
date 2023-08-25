@@ -184,7 +184,7 @@ describe('converter', () => {
 		expect(converter(input, metadata)).toStrictEqual(output)
 	})
 
-	it(`should create Asset Tracker web app expected input even when some objects are not been created`, () => {
+	it(`should create output even when some expected objects in the input are missing`, () => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',
