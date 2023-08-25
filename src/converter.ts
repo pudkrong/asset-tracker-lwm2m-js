@@ -6,13 +6,13 @@ import {
 	Humidity_3304_urn,
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import {
-	type Device_3,
-	type ConnectivityMonitoring_4,
-	type Location_6,
-	type Temperature_3303,
-	type Humidity_3304,
-	type Pressure_3323,
+import type {
+	Device_3,
+	ConnectivityMonitoring_4,
+	Location_6,
+	Temperature_3303,
+	Humidity_3304,
+	Pressure_3323,
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
