@@ -263,7 +263,7 @@ be present in the output.
 
 See
 [create output even when some expected objects in the input are missing](./src/converter.spec.ts)
-for an example, and check [Data transition](#data-transition) to see the
+for an example, and check [Data Transition](#data-transition) to see the
 relationship between input and output objects.
 
 ### Timestamp Hierarchy
