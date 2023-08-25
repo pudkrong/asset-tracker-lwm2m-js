@@ -1,8 +1,4 @@
-import {
-	checkAllRequired,
-	type checkError,
-	type checkValue,
-} from './checkAllRequired.js'
+import { checkAllRequired } from './checkAllRequired.js'
 
 describe('checkAllRequired', () => {
 	it('should check that all the given values are not undefined', () => {
@@ -11,7 +7,7 @@ describe('checkAllRequired', () => {
 			alt: 2,
 			spd: 3,
 		}
-		const result = checkAllRequired(object) as checkValue
+		const result = checkAllRequired(object) as { value: true }
 		expect(result.value).toBe(true)
 	})
 
@@ -21,7 +17,7 @@ describe('checkAllRequired', () => {
 			alt: undefined,
 			spd: 3,
 		}
-		const result = checkAllRequired(object) as checkError
+		const result = checkAllRequired(object) as { error: string }
 		expect('error' in result).toBe(true)
 		expect(result.error).toBe(
 			'following objects are required but value is undefined: alt',

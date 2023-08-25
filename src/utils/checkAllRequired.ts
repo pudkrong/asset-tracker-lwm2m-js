@@ -1,8 +1,3 @@
-export type checkValue = { value: true }
-export type checkError = {
-	error: string
-}
-
 /**
  * Given a set of objects, it is expected that all of them are not undefined.
  * In case one of them is undefined, it should fail.
@@ -13,7 +8,7 @@ export type checkError = {
  */
 export const checkAllRequired = (
 	objects: Record<string, unknown>,
-): checkValue | checkError => {
+): { value: true } | { error: string } => {
 	const errors = []
 	for (const [id, value] of Object.entries(objects))
 		if (value === undefined) errors.push(id)
