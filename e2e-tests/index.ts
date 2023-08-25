@@ -1,4 +1,5 @@
 import {
+	ConnectivityMonitoring_4_urn,
 	Device_3_urn,
 	Location_6_urn,
 	Temperature_3303_urn,
@@ -48,3 +49,10 @@ assertThat((input as any)[Temperature_3303_urn], is(not(defined())))
  * to not be in the output
  */
 assertThat(output['env'], is(not(defined())))
+
+/**
+ * Values must be the same
+ */
+const ipInput = input[ConnectivityMonitoring_4_urn][4][0]
+const ipOutput = output['roam']?.v.ip
+assertThat(ipInput, is(ipOutput))
