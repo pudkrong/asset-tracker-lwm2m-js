@@ -251,9 +251,7 @@ describe('converter', () => {
 			},
 		}
 
-		expect(
-			converter(input, metadata), // TODO: solve type error
-		).toStrictEqual(output)
+		expect(converter(input, metadata)).toStrictEqual(output)
 	})
 
 	it(`should select first instance when LwM2M object is an array`, () => {
