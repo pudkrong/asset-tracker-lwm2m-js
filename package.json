@@ -22,8 +22,8 @@
     "asset-tracker-v2",
     "nrf-asset-tracker"
   ],
-  "author": "Nordic Semiconductor",
-  "license": "ISC",
+  "author": "Nordic Semiconductor ASA | nordicsemi.no",
+  "license": "BSD-3-Clause",
   "jest": {
     "transform": {
       "^.+\\.(t|j)sx?$": [
