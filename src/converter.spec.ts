@@ -336,7 +336,7 @@ describe('converter', () => {
 		expect(converter(input, {} as Metadata)).toMatchObject(output)
 	})
 
-	it(`should select first value when LwM2M resource is an array`, () => {
+	it(`should select first element when LwM2M instance is an array`, () => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',
