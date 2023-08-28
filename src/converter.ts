@@ -66,6 +66,7 @@ export type LwM2MAssetTrackerV2 = {
 export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
+	onError?: (error: Error) => unknown,
 ): AssetTrackerWebApp => {
 	const result = {} as AssetTrackerWebApp
 	const device = input[Device_3_urn]
@@ -78,42 +79,42 @@ export const converter = (
 
 	const bat = getBat(device, metadata)
 	if ('error' in bat) {
-		console.error(bat.error)
+		onError?.(bat.error)
 	} else {
 		result['bat'] = bat.result
 	}
 
 	const dev = getDev(device, metadata)
 	if ('error' in dev) {
-		console.error(dev.error)
+		onError?.(dev.error)
 	} else {
 		result['dev'] = dev.result
 	}
 
 	const env = getEnv(temperature, humidity, pressure, metadata)
 	if ('error' in env) {
-		console.error(env.error)
+		onError?.(env.error)
 	} else {
 		result['env'] = env.result
 	}
 
 	const gnss = getGnss(location, metadata)
 	if ('error' in gnss) {
-		console.error(gnss.error)
+		onError?.(gnss.error)
 	} else {
 		result['gnss'] = gnss.result
 	}
 
 	const roam = getRoam(connectivityMonitoring, metadata)
 	if ('error' in roam) {
-		console.error(roam.error)
+		onError?.(roam.error)
 	} else {
 		result['roam'] = roam.result
 	}
 
 	const cfg = getCfg(config)
 	if ('error' in cfg) {
-		console.error(cfg.error)
+		onError?.(cfg.error)
 	} else {
 		result['cfg'] = cfg.result
 	}
