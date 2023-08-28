@@ -7,7 +7,6 @@ import {
 	type Location_6,
 	Location_6_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { fromSecondsToMilliseconds } from '../utils/fromSecondsToMilliseconds.js'
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
@@ -28,7 +27,7 @@ export const transformToGnss = (
 
 	const time =
 		location['5'] != null
-			? fromSecondsToMilliseconds(location['5'])
+			? location['5'] * 1000
 			: getTimestamp(Location_6_urn, 5, deviceTwinMetadata)
 
 	const object = {
