@@ -6,7 +6,7 @@ result is the first of the array.
 
 For example for the next Temperature object
 
-``` TypeScript
+```TypeScript
 
 const example = {
     [Temperature_3303_urn]: [
@@ -35,9 +35,9 @@ const example = {
 }
 ```
 
-The value to be picked is 
+The value to be picked is
 
-``` JSON
+```JSON
 {
     "5601": 27.18,
     "5602": 27.71,
