@@ -221,6 +221,8 @@ See [example.js](./src/example.ts) for more details.
 
 ## Notes
 
+> FIXME: convert to ADRs
+
 ### Missing values
 
 There are some values from
@@ -233,12 +235,18 @@ whose origin is still missing.
 - `band` from `roam`. Until find the origin, default value is `3`
 - `eest` from `roam`. Until find the origin, default value is `5`
 
+> FIXME: remove reference to personal repository and inline documentation in
+> this repo.
+
 more info:
 [data transicion](https://github.com/MLopezJ/nRF-Asset-Tracker-through-Coiote-flow#data-transicion)
 
 ### Default LwM2M version
 
 The default LwM2M version used by this converter is `1.1`.
+
+> FIXME: remove reference to personal repository and inline documentation in
+> this repo.
 
 [Timestamp Hierarchy](#timestamp-hierarchy) is implemented to catch error
 related to missing timestamp resources in version `1.0`.
