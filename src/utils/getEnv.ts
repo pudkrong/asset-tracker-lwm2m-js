@@ -8,7 +8,7 @@ import type { Metadata } from './getTimestamp.js'
 import { transformToEnvironment } from './transformToEnvironment.js'
 
 /**
- * Check and create the 'env' object, expected by Asset Tracker Web App
+ * Check and create the 'env' object, expected by nRF Asset Tracker
  */
 export const getEnv = (
 	temperature: Temperature_3303 | undefined,

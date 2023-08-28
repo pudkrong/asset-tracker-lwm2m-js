@@ -4,7 +4,7 @@ import type { Metadata } from './getTimestamp.js'
 import { transformToGnss } from './transformToGnss.js'
 
 /**
- * Check the required values and create the GNSS object required in Asset Tracker web app
+ * Check the required values and create the GNSS object required in nRF Asset Tracker
  */
 export const getGnss = (
 	location: Location_6 | undefined,

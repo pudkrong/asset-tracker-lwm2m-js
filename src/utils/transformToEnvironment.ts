@@ -15,7 +15,7 @@ import { fromSecondsToMilliseconds } from '../utils/fromSecondsToMilliseconds.js
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
- * Transform Temperature (3303), Humidity (3304) and Pressure (3323) LwM2M objects into the environment object expected by Asset Tracker web app
+ * Transform Temperature (3303), Humidity (3304) and Pressure (3323) LwM2M objects into the environment object expected by nRF Asset Tracker
  *
  * @see https://github.com/NordicSemiconductor/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/environment.md
  */

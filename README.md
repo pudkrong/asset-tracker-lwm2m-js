@@ -122,8 +122,8 @@ export const input = {
 
 ## Expected output
 
-The output is an object with the structure described in
-[Asset Tracker Web Application input](https://github.com/NordicSemiconductor/asset-tracker-cloud-docs/blob/saga/docs/cloud-protocol/state.reported.azure.json)
+The output is an object with the structure described in the
+[nRF Asset Tracker protocol documentation](https://github.com/NordicSemiconductor/asset-tracker-cloud-docs/blob/saga/docs/cloud-protocol/state.reported.azure.json)
 
 ```json
 {
@@ -205,7 +205,7 @@ See [example.js](./src/example.ts) for more details.
 
 ## Data transition
 
-| LwM2M                                                                                                                                             | Name                    | Asset Tracker Web App                                   |
+| LwM2M                                                                                                                                             | Name                    | nRF Asset Tracker                                       |
 | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------- |
 | [3](https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/version_history/3-1_1.xml)                                                     | Device                  | [bat](documents/battery.md), [dev](documents/device.md) |
 | [4](https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/version_history/4-1_1.xml)                                                     | Connectivity Monitoring | [roam](documents/roaming.md)                            |
@@ -222,7 +222,7 @@ See [example.js](./src/example.ts) for more details.
 ### Missing values
 
 There are some values from
-[Asset Tracker Web App](https://github.com/NordicSemiconductor/asset-tracker-cloud-docs/blob/saga/docs/cloud-protocol/state.reported.azure.json)
+[nRF Asset Tracker](https://github.com/NordicSemiconductor/asset-tracker-cloud-docs/blob/saga/docs/cloud-protocol/state.reported.azure.json)
 whose origin is still missing.
 
 - `hdg` from `gnss`. Until find the origin, default value is `0`

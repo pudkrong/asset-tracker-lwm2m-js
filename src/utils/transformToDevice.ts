@@ -8,7 +8,7 @@ import { fromSecondsToMilliseconds } from '../utils/fromSecondsToMilliseconds.js
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
- * Transform Device LwM2M object (3) into the device object expected by Asset Tracker web app
+ * Transform Device LwM2M object (3) into the device object expected by nRF Asset Tracker
  *
  * @see https://github.com/NordicSemiconductor/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/device.md
  */

@@ -39,7 +39,7 @@ describe('getEnv', () => {
 		},
 	}
 
-	it(`should create the env object expected by Asset Tracker web app`, () => {
+	it(`should create the env object expected by nRF Asset Tracker`, () => {
 		const temperature = [
 			{
 				'5601': 27.18,

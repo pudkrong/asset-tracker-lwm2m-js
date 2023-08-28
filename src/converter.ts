@@ -61,14 +61,14 @@ export type LwM2MAssetTrackerV2 = {
 }
 
 /**
- * convert LwM2M Asset Tracker v2 format into Asset Tracker Web App format
+ * convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format
  */
 export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
 	onError?: (error: Error) => unknown,
-): AssetTrackerWebApp => {
-	const result = {} as AssetTrackerWebApp
+): nRFAssetTrackerReportedType => {
+	const result = {} as nRFAssetTrackerReportedType
 	const device = input[Device_3_urn]
 	const temperature = input[Temperature_3303_urn]
 	const humidity = input[Humidity_3304_urn]
