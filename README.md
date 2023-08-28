@@ -1,6 +1,6 @@
-# LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app
+# `asset_tracker_v2` LwM2M JSON to nRF Asset Tracker JSON
 
-[![Test and Release](https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app/actions/workflows/test-and-release.yaml/badge.svg)](https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app/actions/workflows/test-and-release.yaml)
+[![Test and Release](https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js/actions/workflows/test-and-release.yaml/badge.svg)](https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js/actions/workflows/test-and-release.yaml)
 [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier/)
@@ -35,8 +35,10 @@ npm test -- --coverage
 
 ## Expected input
 
-Result of
-[Coiote to LwM2M Asset Tracker v2](https://github.com/MLopezJ/coiote-to-LwM2M-asset-tracker-v2)
+A JSON document containing the
+[`asset_tracker_v2`](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/applications/asset_tracker_v2/README.html)
+device and sensor data encoded as JSON, following the schema in
+[`lwm2m-types-js`](https://github.com/NordicSemiconductor/lwm2m-types-js).
 
 ```TypeScript
 import {

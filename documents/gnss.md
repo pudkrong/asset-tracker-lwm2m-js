@@ -4,15 +4,15 @@
 
 ## Data
 
-| nRF Asset Tracker | LwM2M                                                                                                                                   |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| lng               | /6/0/1                                                                                                                                  |
-| lat               | /6/0/0                                                                                                                                  |
-| acc               | /6/0/3                                                                                                                                  |
-| alt               | /6/0/2                                                                                                                                  |
-| spd               | /6/0/6                                                                                                                                  |
-| hdg               | **???????**                                                                                                                             |
-| ts                | /6/0/5 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
+| nRF Asset Tracker | LwM2M                                                             |
+| ----------------- | ----------------------------------------------------------------- |
+| lng               | /6/0/1                                                            |
+| lat               | /6/0/0                                                            |
+| acc               | /6/0/3                                                            |
+| alt               | /6/0/2                                                            |
+| spd               | /6/0/6                                                            |
+| hdg               | **???????**                                                       |
+| ts                | /6/0/5 or [Timestamp Hierarchy](../README.md#timestamp-hierarchy) |
 
 ## Details
 

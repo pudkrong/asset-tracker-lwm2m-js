@@ -4,17 +4,17 @@
 
 ## Data
 
-| Field  | LwM2M                                                                                                                                    |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| band   | **????**                                                                                                                                 |
-| nw     | /4/0/0                                                                                                                                   |
-| rsrp   | /4/0/2                                                                                                                                   |
-| area   | /4/0/12                                                                                                                                  |
-| mccmnc | /4/0/10 & /4/0/9                                                                                                                         |
-| cell   | /4/0/8                                                                                                                                   |
-| ip     | /4/0/4                                                                                                                                   |
-| eest   | **????**                                                                                                                                 |
-| ts     | /3/0/13 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
+| Field  | LwM2M                                                              |
+| ------ | ------------------------------------------------------------------ |
+| band   | **????**                                                           |
+| nw     | /4/0/0                                                             |
+| rsrp   | /4/0/2                                                             |
+| area   | /4/0/12                                                            |
+| mccmnc | /4/0/10 & /4/0/9                                                   |
+| cell   | /4/0/8                                                             |
+| ip     | /4/0/4                                                             |
+| eest   | **????**                                                           |
+| ts     | /3/0/13 or [Timestamp Hierarchy](../README.md#timestamp-hierarchy) |
 
 ## Details
 

@@ -31,7 +31,7 @@ type Resource = {
 /**
  *
  * Pick timestamp from metadata object following Timestamp Hierarchy
- * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js#timestamp-hierarchy
+ * @see https://github.com/NordicSemiconductor/asset-tracker-cloud-coiote-azure-converter-js#timestamp-hierarchy
  */
 const timestampHierarchy = (
 	metadata: Metadata,

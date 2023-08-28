@@ -4,10 +4,10 @@
 
 ## Data
 
-| Field | LwM2M                                                                                                                                    |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| v     | /3/0/7                                                                                                                                   |
-| ts    | /3/0/13 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
+| Field | LwM2M                                                              |
+| ----- | ------------------------------------------------------------------ |
+| v     | /3/0/7                                                             |
+| ts    | /3/0/13 or [Timestamp Hierarchy](../README.md#timestamp-hierarchy) |
 
 ## Details
 

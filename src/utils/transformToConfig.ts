@@ -8,7 +8,7 @@ import type { Config_50009 } from '../../schemas/Config_50009.js'
 /**
  * Transform Config object into the config object expected by Asset Tracker web app
  *
- * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/config.md
+ * @see https://github.com/NordicSemiconductor/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/config.md
  */
 export const transformToConfig = (
 	config: Config_50009,

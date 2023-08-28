@@ -1,8 +1,7 @@
 {
-  "name": "lwm2m-asset-tracker-v2-to-asset-tracker-web-app",
-  "version": "1.0.0",
-  "description": "Convert the LwM2M Asset Tracker v2 JSON encoding to Asset Tracker web app JSON encoding",
-  "main": "index.js",
+  "name": "@nordicsemiconductor/asset-tracker-lwm2m-js",
+  "version": "0.0.0-development",
+  "description": "Converts a JSON document containing the asset_tracker_v2 device and sensor data encoded as LwM2M to the JSON document required by nRF Asset Tracker.",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "prepare": "husky install",
@@ -18,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app.git"
+    "url": "git+https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js.git"
   },
   "bugs": {
-    "url": "https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app/issues"
+    "url": "https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js/issues"
   },
-  "homepage": "https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app#readme",
+  "homepage": "https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js#readme",
   "keywords": [
     "LwM2M Asset Tracker v2",
     "Asset Tracker Web App"
