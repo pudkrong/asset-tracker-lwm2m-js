@@ -18,8 +18,6 @@ export const transformToRoam = (
 	connectivityMonitoring: ConnectivityMonitoring_4,
 	deviceTwinMetadata: Metadata,
 ): { result: RoamingInfoData } | { error: Error } => {
-	const defaultBand = 1
-	const defaultEest = 5
 	const nw = String(connectivityMonitoring[0])
 	const rsrp = connectivityMonitoring[2]
 	const area = connectivityMonitoring[12]
@@ -38,14 +36,12 @@ export const transformToRoam = (
 
 	const object = {
 		v: {
-			band: defaultBand, // ***** origin missing *****
 			nw,
 			rsrp,
 			area,
 			mccmnc: Number(`${smcc}${smnc}`), // /4/0/10 & /4/0/9
 			cell,
 			ip,
-			eest: defaultEest, // ***** origin missing *****
 		},
 		ts: time,
 	}

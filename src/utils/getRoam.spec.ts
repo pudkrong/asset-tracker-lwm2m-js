@@ -56,14 +56,12 @@ describe('getRoam', () => {
 		}
 		expect(roam.result).toStrictEqual({
 			v: {
-				band: 1, // ***** origin missing *****
 				nw: '6', //'NB-IoT',
 				rsrp: -85,
 				area: 12,
 				mccmnc: 24220,
 				cell: 34237196,
 				ip: '10.160.120.155',
-				eest: 5, // ***** origin missing *****
 			},
 			ts: 1688731863032,
 		})

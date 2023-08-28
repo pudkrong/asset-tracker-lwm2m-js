@@ -53,7 +53,6 @@ describe('getDev', () => {
 		expect(dev.result).toStrictEqual({
 			v: {
 				imei: '351358815340515',
-				iccid: '0000000000000000000',
 				modV: '22.8.1+0',
 				brdV: 'Nordic Semiconductor ASA',
 			},

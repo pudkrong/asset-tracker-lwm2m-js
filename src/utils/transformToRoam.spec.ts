@@ -39,14 +39,12 @@ describe('transformToRoam', () => {
 
 		const expected = {
 			v: {
-				band: 1, // ***** origin missing *****
 				nw: '6', //'NB-IoT', // /4/0/0
 				rsrp: -97, // 4/0/2
 				area: 12, // /4/0/12
 				mccmnc: 24202, // /4/0/10 & /4/0/9
 				cell: 33703719, // /4/0/8
 				ip: '10.160.225.39', // /4/0/4
-				eest: 5, // ***** origin missing *****
 			},
 			ts: 1688731863032,
 		}

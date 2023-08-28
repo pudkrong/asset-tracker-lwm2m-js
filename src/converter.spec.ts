@@ -142,7 +142,6 @@ describe('converter', () => {
 					acc: 24.798573,
 					alt: 2,
 					spd: 0.579327,
-					hdg: 0, // ***** origin missing *****
 				},
 				ts: 1665149633000,
 			},
@@ -160,7 +159,6 @@ describe('converter', () => {
 			dev: {
 				v: {
 					imei: '351358815340515',
-					iccid: '0000000000000000000', // ***** origin missing *****
 					modV: '22.8.1+0',
 					brdV: 'Nordic Semiconductor ASA',
 				},
@@ -168,14 +166,12 @@ describe('converter', () => {
 			},
 			roam: {
 				v: {
-					band: 1, // ***** origin missing *****
 					nw: '6',
 					rsrp: -85,
 					area: 12,
 					mccmnc: 24220,
 					cell: 34237196,
 					ip: '10.160.120.155',
-					eest: 5, // ***** origin missing *****
 				},
 				ts: 1688731863032,
 			},
@@ -243,7 +239,6 @@ describe('converter', () => {
 			dev: {
 				v: {
 					imei: '351358815340515',
-					iccid: '0000000000000000000', // ***** origin missing *****
 					modV: '22.8.1+0',
 					brdV: 'Nordic Semiconductor ASA',
 				},

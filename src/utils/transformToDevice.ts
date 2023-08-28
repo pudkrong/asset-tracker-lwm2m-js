@@ -15,7 +15,6 @@ export const transformToDevice = (
 	device: Device_3,
 	deviceTwinMetadata: Metadata,
 ): { error: Error } | { result: DeviceData } => {
-	const defaultIccid = '0000000000000000000'
 	const imei = device['2']
 	const modV = device['3']
 	const brdV = device['0']
@@ -27,7 +26,6 @@ export const transformToDevice = (
 	const object = {
 		v: {
 			imei,
-			iccid: defaultIccid, // ***** origin missing *****
 			modV,
 			brdV,
 		},
