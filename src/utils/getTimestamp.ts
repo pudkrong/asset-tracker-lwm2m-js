@@ -1,5 +1,4 @@
 import { parseURN } from '@nordicsemiconductor/lwm2m-types'
-import { fromStringToUnixTimestamp } from './fromStringToUnixTimestamp.js'
 
 export type Metadata = {
 	$lastUpdated: string
@@ -27,6 +26,8 @@ type Resource = {
 		$lastUpdated: string
 	}
 }
+
+const parseTime = (time: string) => new Date(time).getTime()
 
 /**
  *
@@ -60,30 +61,30 @@ const timestampHierarchy = (
 			if (resource !== undefined) {
 				lastUpdated = resource.value.$lastUpdated
 				if (lastUpdated !== undefined) {
-					return { value: fromStringToUnixTimestamp(lastUpdated) }
+					return { value: parseTime(lastUpdated) }
 				}
 			}
 
 			lastUpdated = instance?.['$lastUpdated']
 			if (lastUpdated !== undefined) {
-				return { value: fromStringToUnixTimestamp(lastUpdated) }
+				return { value: parseTime(lastUpdated) }
 			}
 		}
 
 		lastUpdated = object?.['$lastUpdated']
 		if (lastUpdated !== undefined) {
-			return { value: fromStringToUnixTimestamp(lastUpdated) }
+			return { value: parseTime(lastUpdated) }
 		}
 	}
 
 	lastUpdated = metadata.lwm2m?.['$lastUpdated']
 	if (lastUpdated !== undefined) {
-		return { value: fromStringToUnixTimestamp(lastUpdated) }
+		return { value: parseTime(lastUpdated) }
 	}
 
 	lastUpdated = metadata['$lastUpdated']
 	if (lastUpdated !== undefined) {
-		return { value: fromStringToUnixTimestamp(lastUpdated) }
+		return { value: parseTime(lastUpdated) }
 	}
 
 	return {

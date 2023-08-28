@@ -11,7 +11,6 @@ import {
 	type Temperature_3303,
 	Temperature_3303_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { fromSecondsToMilliseconds } from '../utils/fromSecondsToMilliseconds.js'
 import { getTimestamp, type Metadata } from '../utils/getTimestamp.js'
 
 /**
@@ -41,8 +40,7 @@ export const transformToEnvironment = (
 					5518,
 					deviceTwinMetadata,
 			  )
-			: fromSecondsToMilliseconds(time)
-
+			: time * 1000
 	const object = {
 		v: {
 			temp,
