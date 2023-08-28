@@ -6,7 +6,7 @@ import {
 import type { Config_50009 } from '../../schemas/Config_50009.js'
 
 /**
- * Transform Config object into the config object expected by Asset Tracker web app
+ * Transform Config object into the config object expected by nRF Asset Tracker
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/config.md
  */

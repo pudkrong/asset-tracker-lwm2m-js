@@ -3,7 +3,7 @@ import type { ConfigData } from '@nordicsemiconductor/asset-tracker-cloud-docs/p
 import { transformToConfig } from './transformToConfig.js'
 
 /**
- * Check required values and build config object, expected by Asset Tracker web app
+ * Check required values and build config object, expected by nRF Asset Tracker
  */
 export const getCfg = (
 	config?: Config_50009,

@@ -39,7 +39,7 @@ describe('getGnss', () => {
 		},
 	}
 
-	it(`should get the gnss object which is required in Asset Tracker web app`, () => {
+	it(`should get the gnss object which is required in nRF Asset Tracker`, () => {
 		const location = {
 			'0': -43.5723,
 			'1': 153.2176,

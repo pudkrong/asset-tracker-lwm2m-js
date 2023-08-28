@@ -4,7 +4,7 @@ import type { Metadata } from './getTimestamp.js'
 import { transformToRoam } from './transformToRoam.js'
 
 /**
- * Check the required values and create roam object, which is required in Asset Tracker web app
+ * Check the required values and create roam object, which is required in nRF Asset Tracker
  */
 export const getRoam = (
 	connectivityMonitoring: ConnectivityMonitoring_4 | undefined,

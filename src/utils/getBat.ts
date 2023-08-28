@@ -4,7 +4,7 @@ import type { Metadata } from './getTimestamp.js'
 import { transformToBattery } from './transformToBattery.js'
 
 /**
- * Check the required values and create the object expected by Asset Tracker web app related to battery
+ * Check the required values and create the object expected by nRF Asset Tracker related to battery
  */
 export const getBat = (
 	device: Device_3 | undefined,

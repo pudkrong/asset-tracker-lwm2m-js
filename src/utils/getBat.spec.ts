@@ -38,7 +38,7 @@ describe('bat', () => {
 		},
 	}
 
-	it(`should create the 'bat' object expected by Asset Tracker Web app`, () => {
+	it(`should create the 'bat' object expected by nRF Asset Tracker`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',

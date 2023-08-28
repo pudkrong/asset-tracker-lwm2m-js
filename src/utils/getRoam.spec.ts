@@ -39,7 +39,7 @@ describe('getRoam', () => {
 		},
 	}
 
-	it(`get the 'roam' object which is required in Asset Tracker web app`, () => {
+	it(`get the 'roam' object which is required in nRF Asset Tracker`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
 			'1': [7, 6],

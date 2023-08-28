@@ -37,7 +37,7 @@ describe('getDev', () => {
 			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		},
 	}
-	it(`should get the 'dev' object expected by the Asset Tracker web app`, () => {
+	it(`should get the 'dev' object expected by the nRF Asset Tracker`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',

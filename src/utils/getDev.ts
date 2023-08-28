@@ -4,7 +4,7 @@ import type { Metadata } from './getTimestamp.js'
 import { transformToDevice } from './transformToDevice.js'
 
 /**
- * Check required values and build the dev object, expected by Asset Tracker web app
+ * Check required values and build the dev object, expected by nRF Asset Tracker
  */
 export const getDev = (
 	device: Device_3 | undefined,

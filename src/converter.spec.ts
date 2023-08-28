@@ -10,7 +10,7 @@ import { Config_50009_urn } from '../schemas/Config_50009.js'
 import { converter, type Metadata } from './converter.js'
 
 describe('converter', () => {
-	it('should convert LwM2M Asset Tracker v2 format into Asset Tracker Web App format', () => {
+	it('should convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format', () => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',

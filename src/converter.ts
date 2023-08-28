@@ -61,7 +61,7 @@ export type LwM2MAssetTrackerV2 = {
 }
 
 /**
- * convert LwM2M Asset Tracker v2 format into Asset Tracker Web App format
+ * convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format
  */
 export const converter = (
 	input: LwM2MAssetTrackerV2,
