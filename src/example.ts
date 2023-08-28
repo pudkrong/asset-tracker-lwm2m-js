@@ -8,6 +8,7 @@ import {
 } from '@nordicsemiconductor/lwm2m-types'
 import { Config_50009_urn } from '../schemas/Config_50009.js'
 import { converter, type LwM2MAssetTrackerV2 } from './converter.js'
+// FIXME: add type for the asset_tracker_v2 shadow document encoded as LwM2M JSON
 const lwM2MAssetTrackerV2 = {
 	[Device_3_urn]: {
 		'0': 'Nordic Semiconductor ASA',
@@ -80,6 +81,12 @@ const lwM2MAssetTrackerV2 = {
 		'9': 0.5,
 	},
 }
+
+// FIXME: add type for Metadata
+// Problem: This is Azure specific and needs to be converted in a structure that matches the document above
+// - `lwm2m` key does not exist
+// - use Date objects
+// - remove last update for objects
 const metadata = {
 	$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 	lwm2m: {
