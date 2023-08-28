@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app#readme",
   "keywords": [
-    "LwM2M Asset Tracker v2",
-    "Asset Tracker Web App"
+    "lwm2m",
+    "asset-tracker-v2",
+    "nrf-asset-tracker"
   ],
   "author": "Nordic Semiconductor",
   "license": "ISC",
