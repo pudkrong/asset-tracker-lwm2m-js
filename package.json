@@ -8,13 +8,6 @@
     "prepublish": "npx swc -d dist ./src"
   },
   "type": "module",
-  "types": "./index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./export.js",
-      "node": "./export.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js.git"
