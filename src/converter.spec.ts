@@ -9,6 +9,8 @@ import {
 import { Config_50009_urn } from '../schemas/Config_50009.js'
 import { converter, type Metadata } from './converter.js'
 
+// FIXME: convert to 'node:test', 'node:assert' and if needed 'tsmatchers'
+
 describe('converter', () => {
 	it('should convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format', () => {
 		const input = {
