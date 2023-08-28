@@ -23,12 +23,6 @@ npm install
 npm test
 ```
 
-## End-to-end tests
-
-```
-npx tsx e2e-tests/index.ts
-```
-
 ## Coverage
 
 ```
