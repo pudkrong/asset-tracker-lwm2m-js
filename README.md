@@ -1,13 +1,15 @@
 # `asset_tracker_v2` LwM2M JSON to nRF Asset Tracker JSON
 
+> FIXME: release to NPM
+
 [![Test and Release](https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js/actions/workflows/test-and-release.yaml/badge.svg)](https://github.com/NordicSemiconductor/asset-tracker-lwm2m-js/actions/workflows/test-and-release.yaml)
 [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier/)
 [![ESLint: TypeScript](https://img.shields.io/badge/ESLint-TypeScript-blue.svg)](https://github.com/typescript-eslint/typescript-eslint)
 
-> Convert the LwM2M Asset Tracker v2 JSON encoding to Asset Tracker web app JSON
-> encoding
+> Converts a JSON document containing the `asset_tracker_v2` device and sensor
+> data encoded as LwM2M to the JSON document required by nRF Asset Tracker.
 
 ## Installation
 
@@ -37,7 +39,7 @@ npm test -- --coverage
 
 A JSON document containing the
 [`asset_tracker_v2`](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/applications/asset_tracker_v2/README.html)
-device and sensor data encoded as JSON, following the schema in
+device and sensor data encoded as LwM2M, following the schema in
 [`lwm2m-types-js`](https://github.com/NordicSemiconductor/lwm2m-types-js).
 
 ```TypeScript
@@ -294,4 +296,4 @@ next hierarchy in order to select the value to be reported:
 5. $lastUpdated value from the LwM2M reported in device twin metadata
 6. $lastUpdated value reported to the metadata object in device twin
 
-[device twin metadata](src/utils/getTimestamp.ts) type
+[device twin metadata](./src/utils/getTimestamp.ts) type
