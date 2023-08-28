@@ -95,6 +95,9 @@ export const converter = (
 	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
 	const config = input[Config_50009_urn]
 
+	// FIXME: merge getX and transformToX into one function:
+	// - they cannot be used independently and they have a 1:1 relationship, meaning that they are always and exclusively used together.
+
 	const bat = getBat(device, metadata)
 	if ('error' in bat) {
 		onError?.(bat.error)
