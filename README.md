@@ -250,16 +250,6 @@ The default LwM2M version used by this converter is `1.1`.
 related to missing timestamp resources in version `1.0`.
 [More info](https://github.com/MLopezJ/LwM2M-Asset-Tracker/issues/4)
 
-### Value selected when LwM2M resource is multiple instance
-
-When a LwM2M resource is array type by definition its means that it could has
-multiple values. The default value to be picked in order to build the result is
-the first of the array.
-
-More details in
-"[select first value when LwM2M resource is an array](./src/converter.spec.ts)"
-test.
-
 ### Missing objects in input
 
 If an object required to build an output object is missing, that object will not
