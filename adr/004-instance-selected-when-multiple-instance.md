@@ -1,4 +1,4 @@
-### Instance selected when LwM2M object is multiple instance
+# ADR 004: Instance selected when LwM2M object is multiple instance
 
 When a LwM2M object is array type by definition its means that it could has
 multiple instances. The default instance to be picked in order to build the
