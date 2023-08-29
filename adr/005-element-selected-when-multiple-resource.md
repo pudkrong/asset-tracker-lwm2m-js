@@ -1,4 +1,4 @@
-### Element selected when LwM2M resource is multiple instance
+# ADR 005: Element selected when LwM2M resource is multiple instance
 
 When a LwM2M resource is array type by definition its means that it could has
 multiple values. The default value to be picked in order to build the result is
