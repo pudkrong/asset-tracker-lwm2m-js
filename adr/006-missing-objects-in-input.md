@@ -1,4 +1,4 @@
-# Missing objects in input
+# ADR 006: Missing objects in input
 
 If an object required to build an output object is missing, that object will not
 be present in the output.
