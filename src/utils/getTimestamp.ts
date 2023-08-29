@@ -32,7 +32,14 @@ const parseTime = (time: string) => new Date(time).getTime()
 /**
  *
  * Pick timestamp from metadata object following Timestamp Hierarchy
- * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js#timestamp-hierarchy
+ * 
+ * 	1. `$lastUpdated` value from the **resource** reported in device twin metadata
+ *	2. `$lastUpdated` value from the **instance** reported in device twin metadata
+ * 	3. `$lastUpdated` value from the **object** reported in device twin metadata
+ * 	4. `$lastUpdated` value from the **LwM2M** reported in device twin metadata
+ *	5. `$lastUpdated` value reported to the **metadata** object in device twin
+
+ * @see ../adr/007-timestamp-hierarchy.md
  */
 const timestampHierarchy = (
 	metadata: Metadata,

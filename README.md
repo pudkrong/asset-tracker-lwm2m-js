@@ -249,17 +249,3 @@ The default LwM2M version used by this converter is `1.1`.
 [Timestamp Hierarchy](#timestamp-hierarchy) is implemented to catch error
 related to missing timestamp resources in version `1.0`.
 [More info](https://github.com/MLopezJ/LwM2M-Asset-Tracker/issues/4)
-
-### Timestamp Hierarchy
-
-The timestamp values reported in the final output of the process follows the
-next hierarchy in order to select the value to be reported:
-
-1. Resource value of the object related to timestamp
-2. $lastUpdated value from the resource reported in device twin metadata
-3. $lastUpdated value from the instance reported in device twin metadata
-4. $lastUpdated value from the object reported in device twin metadata
-5. $lastUpdated value from the LwM2M reported in device twin metadata
-6. $lastUpdated value reported to the metadata object in device twin
-
-[device twin metadata](./src/utils/getTimestamp.ts) type
