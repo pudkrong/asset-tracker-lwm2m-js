@@ -67,7 +67,7 @@ describe('transformToEnvironment', () => {
 
 		const result = transformToEnvironment(
 			temperature,
-			humidity as any,
+			humidity as never,
 			pressure,
 			deviceTwinMetadata,
 		) as {
@@ -101,7 +101,7 @@ describe('transformToEnvironment', () => {
 
 		const env = transformToEnvironment(
 			temperature,
-			humidity as any,
+			humidity,
 			pressure,
 			deviceTwinMetadata,
 		) as { result: EnvironmentData }

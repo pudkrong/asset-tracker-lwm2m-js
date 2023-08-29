@@ -40,7 +40,7 @@ assertThat(output['gnss'], is(defined()))
 /**
  * Temperature object was not in the input
  */
-assertThat((input as any)[Temperature_3303_urn], is(not(defined())))
+assertThat((input as never)[Temperature_3303_urn], is(not(defined())))
 
 /**
  * Because it was not present in the input,
