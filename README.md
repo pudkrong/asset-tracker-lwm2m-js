@@ -1,4 +1,4 @@
-# LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app
+# `asset_tracker_v2` LwM2M JSON to nRF Asset Tracker JSON
 
 > FIXME: release to NPM TODO: Update test and release badges
 
