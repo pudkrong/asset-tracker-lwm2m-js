@@ -32,3 +32,8 @@ jobs:
 
       - name: Run example
         run: npx tsx src/example.ts
+
+      - name: Run default versions checker
+        run:
+          node --loader tsx --test non-functionals\
+          tests/defaultLwM2MVersions.spec.ts

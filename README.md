@@ -241,11 +241,3 @@ whose origin is still missing.
 
 more info:
 [data transicion](https://github.com/MLopezJ/nRF-Asset-Tracker-through-Coiote-flow#data-transicion)
-
-### Default LwM2M version
-
-The default LwM2M version used by this converter is `1.1`.
-
-[Timestamp Hierarchy](#timestamp-hierarchy) is implemented to catch error
-related to missing timestamp resources in version `1.0`.
-[More info](https://github.com/MLopezJ/LwM2M-Asset-Tracker/issues/4)
