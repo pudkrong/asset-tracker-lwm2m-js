@@ -1,7 +1,9 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import { type Device_3 } from '@nordicsemiconductor/lwm2m-types'
 import { getDev } from './getDev.js'
 
-describe('getDev', () => {
+void describe('getDev', () => {
 	const metadata = {
 		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		lwm2m: {
@@ -38,7 +40,7 @@ describe('getDev', () => {
 			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		},
 	}
-	it(`should get the 'dev' object expected by the nRF Asset Tracker`, () => {
+	void it(`should create the 'dev' object expected by the nRF Asset Tracker`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
@@ -51,7 +53,7 @@ describe('getDev', () => {
 			'19': '3.2.1',
 		}
 		const dev = getDev(device, metadata) as { result: unknown }
-		expect(dev.result).toStrictEqual({
+		const expected = {
 			v: {
 				imei: '351358815340515',
 				iccid: '0000000000000000000',
@@ -59,17 +61,18 @@ describe('getDev', () => {
 				brdV: 'Nordic Semiconductor ASA',
 			},
 			ts: 1675874731000,
-		})
+		}
+		assert.deepEqual(dev.result, expected)
 	})
 
-	it('should follow Timestamp Hierarchy in case timestamp is not found from Device object', () => {
+	void it('should follow Timestamp Hierarchy in case timestamp resource is not found from Device object', () => {
 		const input: Device_3 = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
 			'2': '351358815340515',
 			'3': '22.8.1+0',
 			'11': [0],
-			// '13': 1675874731000, // timestamp from Device object
+			// '13': 1675874731000, // timestamp resource from Device object
 			'16': 'UQ',
 			'19': '3.2.1',
 		}
@@ -87,19 +90,19 @@ describe('getDev', () => {
 		const device = getDev(input, metadata) as {
 			result: unknown
 		}
-		expect(device.result).toMatchObject(expected)
+		assert.deepEqual(device.result, expected)
 	})
 
-	it(`should return error if Device object is undefined`, () => {
+	void it(`should return error if Device object is undefined`, () => {
 		const dev = getDev(undefined, metadata) as { error: Error }
-		expect(dev.error).not.toBe(undefined)
+		assert.notEqual(dev.error, undefined)
 	})
 
-	it(`should return error in case a required value is missing`, () => {
+	void it(`should return error in case a required resource is missing`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
-			// '2': '351358815340515', // required value is missing
+			// '2': '351358815340515', // required resource is missing
 			'3': '22.8.1+0',
 			'7': [2754],
 			'11': [0],
@@ -108,6 +111,6 @@ describe('getDev', () => {
 			'19': '3.2.1',
 		}
 		const dev = getDev(device, metadata) as { error: Error }
-		expect(dev.error).not.toBe(undefined)
+		assert.notEqual(dev.error, undefined)
 	})
 })
