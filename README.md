@@ -225,6 +225,8 @@ See [example.js](./src/example.ts) for more details.
 | [3323](https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/version_history/3323-1_1.xml)                                               | Pressure                | [env](documents/environment.md)                         |
 | [50009](https://github.com/NordicSemiconductor/asset-tracker-cloud-firmware-aws/blob/saga/src/cloud/lwm2m_integration/config_object_descript.xml) | Config                  | [cfg](documents/config.md)                              |
 
+Architecture decision records (ADRs)
+See [./adr](./adr/).
 ## Notes
 
 ### Missing values
