@@ -1,7 +1,9 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import type { Location_6 } from '@nordicsemiconductor/lwm2m-types'
 import { getGnss } from './getGnss.js'
 
-describe('getGnss', () => {
+void describe('getGnss', () => {
 	const metadata = {
 		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		lwm2m: {
@@ -39,7 +41,7 @@ describe('getGnss', () => {
 		},
 	}
 
-	it(`should create gnss`, () => {
+	void it(`should create gnss`, () => {
 		const location = {
 			'0': -43.5723,
 			'1': 153.2176,
@@ -49,7 +51,7 @@ describe('getGnss', () => {
 			'6': 0.579327,
 		}
 		const gnss = getGnss(location, metadata) as { result: unknown }
-		expect(gnss.result).toStrictEqual({
+		const expected = {
 			v: {
 				lng: 153.2176,
 				lat: -43.5723,
@@ -59,10 +61,14 @@ describe('getGnss', () => {
 				hdg: 0, // ***** origin missing *****
 			},
 			ts: 1665149633000,
-		})
+		}
+		assert.deepEqual(gnss.result, expected)
 	})
 
-	it('should create gnss using server time', () => {
+	/**
+	 * @see adr/007-timestamp-hierarchy.md
+	 */
+	void it('should create gnss using server time', () => {
 		const input: Location_6 = {
 			'0': -43.5723,
 			'1': 153.2176,
@@ -87,15 +93,16 @@ describe('getGnss', () => {
 		const gnss = getGnss(input, metadata) as {
 			result: unknown
 		}
-		expect(gnss.result).toMatchObject(expected)
+		assert.deepEqual(gnss.result, expected)
 	})
 
-	it(`should return error in case Location object is undefined`, () => {
+	void it(`should return error in case Location object is undefined`, () => {
 		const result = getGnss(undefined, metadata) as { error: Error }
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 
-	it(`should return error in case required resource is missing`, () => {
+	void it(`should return error in case required resource is missing`, () => {
 		const location = {
 			// '0': -43.5723, // required resource is missing
 			'1': 153.2176,
@@ -105,6 +112,7 @@ describe('getGnss', () => {
 			'6': 0.579327,
 		} as unknown as Location_6
 		const result = getGnss(location, metadata) as { error: Error }
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 })
