@@ -1,7 +1,9 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import type { Temperature_3303 } from '@nordicsemiconductor/lwm2m-types'
 import { getEnv } from './getEnv.js'
 
-describe('getEnv', () => {
+void describe('getEnv', () => {
 	const metadata = {
 		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		lwm2m: {
@@ -39,7 +41,7 @@ describe('getEnv', () => {
 		},
 	}
 
-	it(`should create the env object expected by nRF Asset Tracker`, () => {
+	void it(`should create the 'env' object expected by nRF Asset Tracker`, () => {
 		const temperature = [
 			{
 				'5601': 27.18,
@@ -67,17 +69,54 @@ describe('getEnv', () => {
 		const env = getEnv(temperature, humidity, pressure, metadata) as {
 			result: unknown
 		}
-		expect(env.result).toStrictEqual({
+		const expected = {
 			v: {
 				temp: 27.18,
 				hum: 24.057,
 				atmp: 10,
 			},
 			ts: 1688731863032,
-		})
+		}
+
+		assert.deepEqual(env.result, expected)
 	})
 
-	it(`should return error if required objects are undefined`, () => {
+	/**
+	 * @see adr/007-timestamp-hierarchy.md
+	 */
+	 void it('should follow Timestamp Hierarchy in case timestamp resource is not found from LwM2M objects', () => {
+		const temperature = [{ '5700': 15 }]
+		const humidity = [{ '5700': 30 }]
+		const pressure = [
+			{
+				'5601': 101697,
+				'5602': 101705,
+				'5700': 101705,
+				'5701': 'Pa',
+				//'5518': 45612456 // Missing timestamp resource
+			},
+		]
+
+		const expected = {
+			v: {
+				temp: 15,
+				hum: 30,
+				atmp: 101705,
+			},
+			ts: 1688731863032,
+		}
+
+		const env = getEnv(
+			temperature,
+			humidity,
+			pressure,
+			metadata,
+		) as { result: unknown }
+
+		assert.deepEqual(env.result,expected)
+	})
+
+	void it(`should return error if required objects are undefined`, () => {
 		const temperature = [
 			{
 				'5601': 27.18,
@@ -98,10 +137,11 @@ describe('getEnv', () => {
 		const result = getEnv(temperature, humidity, pressure, metadata) as {
 			error: Error
 		}
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 
-	it(`should return error if required resources are missing`, () => {
+	void it(`should return error if required resources are missing`, () => {
 		const temperature = [
 			{
 				'5601': 27.18,
@@ -129,38 +169,7 @@ describe('getEnv', () => {
 		const result = getEnv(temperature, humidity, pressure, metadata) as {
 			error: Error
 		}
-		expect(result.error).not.toBe(undefined)
-	})
-
-	it('should follow Timestamp Hierarchy in case timestamp is not found from LwM2M objects', () => {
-		const temperature = [{ '5700': 15 }]
-		const humidity = [{ '5700': 30 }]
-		const pressure = [
-			{
-				'5601': 101697,
-				'5602': 101705,
-				'5700': 101705,
-				'5701': 'Pa',
-				//'5518': 45612456 // Missing timestamp value
-			},
-		]
-
-		const expected = {
-			v: {
-				temp: 15,
-				hum: 30,
-				atmp: 101705,
-			},
-			ts: 1688731863032,
-		}
-
-		const env = getEnv(
-			temperature,
-			humidity,
-			pressure,
-			metadata,
-		) as { result: unknown }
-
-		expect(env.result).toMatchObject(expected)
+		assert.notEqual(result.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 })
