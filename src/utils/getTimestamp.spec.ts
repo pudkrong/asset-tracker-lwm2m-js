@@ -1,3 +1,5 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import {
 	Device_3_urn,
 	Humidity_3304_urn,
@@ -7,8 +9,8 @@ import {
 import type { LwM2M_Metadata, Metadata } from './getTimestamp'
 import { getTimestamp } from './getTimestamp.js'
 
-describe('getTimestamp', () => {
-	it(`should get timestamp from RESOURCE's value reported in device twin`, () => {
+void describe('getTimestamp', () => {
+	void it(`should get timestamp from RESOURCE's value reported in device twin`, () => {
 		const objectURN = Device_3_urn
 		const resourceId = 7
 		const metadata = {
@@ -48,11 +50,10 @@ describe('getTimestamp', () => {
 				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 			},
 		}
-
-		expect(getTimestamp(objectURN, resourceId, metadata)).toBe(1691064663032)
+		assert.equal(getTimestamp(objectURN, resourceId, metadata), 1691064663032)
 	})
 
-	it(`should get timestamp from INSTANCE's value reported in device twin`, () => {
+	void it(`should get timestamp from INSTANCE's value reported in device twin`, () => {
 		const objectURN = Device_3_urn
 		const resourceId = 7
 		const metadata = {
@@ -74,11 +75,10 @@ describe('getTimestamp', () => {
 				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 			},
 		}
-
-		expect(getTimestamp(objectURN, resourceId, metadata)).toBe(1691015150032)
+		assert.equal(getTimestamp(objectURN, resourceId, metadata), 1691015150032)
 	})
 
-	it(`should get timestamp from OBJECT's value reported in device twin`, () => {
+	void it(`should get timestamp from OBJECT's value reported in device twin`, () => {
 		const objectURN = Device_3_urn
 		const resourceId = 7
 		const metadata = {
@@ -91,11 +91,10 @@ describe('getTimestamp', () => {
 				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 			},
 		}
-
-		expect(getTimestamp(objectURN, resourceId, metadata)).toBe(1690918873032)
+		assert.equal(getTimestamp(objectURN, resourceId, metadata), 1690918873032)
 	})
 
-	it(`should get timestamp from LwM2M's value reported in device twin`, () => {
+	void it(`should get timestamp from LwM2M's value reported in device twin`, () => {
 		const objectURN = Device_3_urn
 		const resourceId = 7
 		const metadata = {
@@ -117,11 +116,10 @@ describe('getTimestamp', () => {
 				$lastUpdated: '2023-08-04T18:01:53.0324459Z', // so the LwM2M reported time should be selected
 			},
 		}
-
-		expect(getTimestamp(objectURN, resourceId, metadata)).toBe(1691172113032)
+		assert.equal(getTimestamp(objectURN, resourceId, metadata), 1691172113032)
 	})
 
-	it(`should get timestamp from METADATA's value reported in device twin`, () => {
+	void it(`should get timestamp from METADATA's value reported in device twin`, () => {
 		const objectURN = Device_3_urn
 		const resourceId = 7
 		const metadata = {
@@ -129,21 +127,20 @@ describe('getTimestamp', () => {
 			lwm2m: {} as unknown as LwM2M_Metadata,
 			$lastUpdated: '2023-08-05T15:15:43.0322359Z', // so the metadata reported time should be selected
 		}
-
-		expect(getTimestamp(objectURN, resourceId, metadata)).toBe(1691248543032)
+		assert.equal(getTimestamp(objectURN, resourceId, metadata), 1691248543032)
 	})
 
-	it(`should return error when metadata objects is empty`, () => {
+	void it(`should return error when metadata objects is empty`, () => {
 		const objectURN = Device_3_urn
 		const resourceId = 7
 		const metadata = {} as Metadata
 		const result = getTimestamp(objectURN, resourceId, metadata) as {
 			error: Error
 		}
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
 	})
 
-	it(`should get more recent timestamp from a set of objects in metadata`, () => {
+	void it(`should get more recent timestamp from a set of objects in metadata`, () => {
 		const objectsURNs = [
 			Temperature_3303_urn,
 			Humidity_3304_urn,
@@ -193,6 +190,6 @@ describe('getTimestamp', () => {
 				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 			},
 		}
-		expect(getTimestamp(objectsURNs, resourceId, metadata)).toBe(1691496663032)
+		assert.equal(getTimestamp(objectsURNs, resourceId, metadata), 1691496663032)
 	})
 })
