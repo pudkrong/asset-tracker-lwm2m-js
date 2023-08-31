@@ -62,7 +62,7 @@ void describe('getBat', () => {
 	/**
 	 * @see adr/007-timestamp-hierarchy.md
 	 */
-	void it('should follow Timestamp Hierarchy in case timestamp is not found from Device object', () => {
+	void it('should follow Timestamp Hierarchy in case timestamp resource is not found from Device object', () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
