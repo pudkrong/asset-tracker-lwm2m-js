@@ -1,6 +1,9 @@
 import { getBat } from './getBat.js'
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
+import { type BatteryData } from '@nordicsemiconductor/asset-tracker-cloud-docs'
 
-describe('getBat', () => {
+void describe('getBat', () => {
 	const metadata = {
 		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		lwm2m: {
@@ -38,7 +41,7 @@ describe('getBat', () => {
 		},
 	}
 
-	it(`should create the 'bat' object expected by nRF Asset Tracker`, () => {
+	void it(`should create the 'bat' object expected by nRF Asset Tracker`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
@@ -50,17 +53,16 @@ describe('getBat', () => {
 			'16': 'UQ',
 			'19': '3.2.1',
 		}
-		const bat = getBat(device, metadata) as { result: unknown }
-		expect(bat.result).toStrictEqual({
-			v: 2754,
-			ts: 1675874731000,
-		})
+		const bat = getBat(device, metadata) as { result: BatteryData }
+
+		assert.equal(bat.result.v, 2754)
+		assert.equal(bat.result.ts, 1675874731000)
 	})
 
 	/**
 	 * @see adr/007-timestamp-hierarchy.md
 	 */
-	it('should follow Timestamp Hierarchy in case timestamp is not found from Device object', () => {
+	void it('should follow Timestamp Hierarchy in case timestamp is not found from Device object', () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
@@ -73,19 +75,17 @@ describe('getBat', () => {
 			'19': '3.2.1',
 		}
 
-		const battery = getBat(device, metadata) as { result: unknown }
-		expect(battery.result).toMatchObject({
-			v: 80,
-			ts: 1688731863032,
-		})
+		const battery = getBat(device, metadata) as { result: BatteryData }
+		assert.equal(battery.result.v, 80)
+		assert.equal(battery.result.ts, 1688731863032)
 	})
 
-	it(`should return error if Device object is undefined`, () => {
+	void it(`should return error if Device object is undefined`, () => {
 		const result = getBat(undefined, metadata) as { error: Error }
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
 	})
 
-	it(`should return error if conversion from Device object to 'bat' object went wrong`, () => {
+	void it(`should return error if required resource is missing in input object`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
 			'1': 'Thingy:91',
@@ -98,6 +98,6 @@ describe('getBat', () => {
 			'19': '3.2.1',
 		}
 		const bat = getBat(device, metadata) as { error: Error }
-		expect(bat.error).not.toBe(undefined)
+		assert.notEqual(bat.error, undefined)
 	})
 })
