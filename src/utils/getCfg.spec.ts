@@ -1,8 +1,10 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import type { Config_50009 } from 'schemas/Config_50009'
 import { getCfg } from './getCfg.js'
 
-describe('getCfg', () => {
-	it('should return cfg object', () => {
+void describe('getCfg', () => {
+	void it(`should create the 'cfg' object expected by nRF Asset Tracker`, () => {
 		const object: Config_50009 = {
 			'0': true,
 			'1': 120,
@@ -29,15 +31,16 @@ describe('getCfg', () => {
 		}
 
 		const cfg = getCfg(object) as { result: unknown }
-		expect(cfg.result).toMatchObject(expected)
+		assert.deepEqual(cfg.result, expected)
 	})
 
-	it('should return error if config object is undefined', () => {
+	
+	void it('should return error if config object is undefined', () => {
 		const cfg = getCfg(undefined) as { error: Error }
-		expect(cfg.error).not.toBe(undefined)
+		assert.notEqual(cfg.error, undefined)
 	})
 
-	it('should return error in case a required value is missing', () => {
+	void it('should return error in case a required value is missing', () => {
 		const object = {
 			'0': true,
 			'1': 120,
@@ -52,6 +55,7 @@ describe('getCfg', () => {
 		} as Config_50009
 
 		const config = getCfg(object) as { error: Error }
-		expect(config.error).not.toBe(undefined)
+		assert.notEqual(config.error, undefined)
 	})
+	
 })

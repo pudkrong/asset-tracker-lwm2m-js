@@ -1,6 +1,6 @@
-import { getBat } from './getBat.js'
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
+import { getBat } from './getBat.js'
 import { type BatteryData } from '@nordicsemiconductor/asset-tracker-cloud-docs'
 
 void describe('getBat', () => {
