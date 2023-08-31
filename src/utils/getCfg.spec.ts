@@ -38,6 +38,7 @@ void describe('getCfg', () => {
 	void it('should return error if config object is undefined', () => {
 		const cfg = getCfg(undefined) as { error: Error }
 		assert.notEqual(cfg.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 
 	void it('should return error in case a required value is missing', () => {
@@ -56,6 +57,7 @@ void describe('getCfg', () => {
 
 		const config = getCfg(object) as { error: Error }
 		assert.notEqual(config.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 	
 })
