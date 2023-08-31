@@ -84,6 +84,7 @@ void describe('getBat', () => {
 		const result = getBat(undefined, metadata) as { error: Error }
 		assert.notEqual(result.error, undefined)
 	})
+		// TODO: check if tsmatchers could be used to check error
 
 	void it(`should return error if required resource is missing in input object`, () => {
 		const device = {
@@ -101,3 +102,4 @@ void describe('getBat', () => {
 		assert.notEqual(bat.error, undefined)
 	})
 })
+		// TODO: check if tsmatchers could be used to check error
