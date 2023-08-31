@@ -1,7 +1,9 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import type { ConnectivityMonitoring_4 } from '@nordicsemiconductor/lwm2m-types'
 import { getRoam } from './getRoam.js'
 
-describe('getRoam', () => {
+void describe('getRoam', () => {
 	const metadata = {
 		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 		lwm2m: {
@@ -39,7 +41,7 @@ describe('getRoam', () => {
 		},
 	}
 
-	it(`should create roam object`, () => {
+	void it(`should create roam object`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
 			'1': [7, 6],
@@ -54,7 +56,7 @@ describe('getRoam', () => {
 		const roam = getRoam(connectivityMonitoring, metadata) as {
 			result: unknown
 		}
-		expect(roam.result).toStrictEqual({
+		const expected = {
 			v: {
 				band: 1, // ***** origin missing *****
 				nw: '6', //'NB-IoT',
@@ -66,15 +68,17 @@ describe('getRoam', () => {
 				eest: 5, // ***** origin missing *****
 			},
 			ts: 1688731863032,
-		})
+		}
+		assert.deepEqual(roam.result, expected)
 	})
 
-	it(`should return error if Connectivity Monitoring (4) object is missing`, () => {
+	void it(`should return error if Connectivity Monitoring (4) object is missing`, () => {
 		const result = getRoam(undefined, metadata) as { error: Error }
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 
-	it(`should return error if required resource is missing`, () => {
+	void it(`should return error if required resource is missing`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
 			'1': [6, 7],
@@ -87,6 +91,7 @@ describe('getRoam', () => {
 			'12': 12,
 		} as ConnectivityMonitoring_4
 		const result = getRoam(connectivityMonitoring, metadata) as { error: Error }
-		expect(result.error).not.toBe(undefined)
+		assert.notEqual(result.error, undefined)
+		// TODO: check if tsmatchers could be used to check error
 	})
 })
