@@ -101,12 +101,12 @@ describe('getEnv', () => {
 		expect(result.error).not.toBe(undefined)
 	})
 
-	it(`should return error if conversion to 'env' went wrong`, () => {
+	it(`should return error if required resources are missing`, () => {
 		const temperature = [
 			{
 				'5601': 27.18,
 				'5602': 27.71,
-				//'5700': 27.18, // required value is missing
+				//'5700': 27.18, // required resource is missing
 				'5701': 'Cel',
 			},
 		] as unknown as Temperature_3303
@@ -130,5 +130,37 @@ describe('getEnv', () => {
 			error: Error
 		}
 		expect(result.error).not.toBe(undefined)
+	})
+
+	it('should follow Timestamp Hierarchy in case timestamp is not found from LwM2M objects', () => {
+		const temperature = [{ '5700': 15 }]
+		const humidity = [{ '5700': 30 }]
+		const pressure = [
+			{
+				'5601': 101697,
+				'5602': 101705,
+				'5700': 101705,
+				'5701': 'Pa',
+				//'5518': 45612456 // Missing timestamp value
+			},
+		]
+
+		const expected = {
+			v: {
+				temp: 15,
+				hum: 30,
+				atmp: 101705,
+			},
+			ts: 1688731863032,
+		}
+
+		const env = getEnv(
+			temperature,
+			humidity,
+			pressure,
+			metadata,
+		) as { result: unknown }
+
+		expect(env.result).toMatchObject(expected)
 	})
 })

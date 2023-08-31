@@ -1,11 +1,17 @@
-import type { EnvironmentData } from '@nordicsemiconductor/asset-tracker-cloud-docs'
-import type {
+import {
+	Environment,
+	EnvironmentData,
+	validateWithType,
+} from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
+import {
 	Humidity_3304,
+	Humidity_3304_urn,
 	Pressure_3323,
+	Pressure_3323_urn,
 	Temperature_3303,
+	Temperature_3303_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import type { Metadata } from './getTimestamp.js'
-import { transformToEnvironment } from './transformToEnvironment.js'
+import { getTimestamp, Metadata } from './getTimestamp.js'
 
 /**
  * Check and create the 'env' object, expected by nRF Asset Tracker
@@ -25,14 +31,36 @@ export const getEnv = (
 	if (pressure === undefined)
 		return { error: new Error('Pressure (3323) object is missing') }
 
-	const maybeValidEnv = transformToEnvironment(
-		temperature,
-		humidity,
-		pressure,
-		metadata,
-	)
+	const temp = temperature?.[0]?.['5700']
+	const hum = humidity?.[0]?.['5700']
+	const atmp = pressure?.[0]?.['5700']
 
-	if ('error' in maybeValidEnv) return { error: maybeValidEnv.error }
+	let time: number | undefined | { error: Error } =
+		temperature?.[0]?.['5518'] ??
+		humidity?.[0]?.['5518'] ??
+		pressure?.[0]?.['5518']
 
-	return { result: maybeValidEnv.result }
+	time =
+		time === undefined
+			? getTimestamp(
+					[Temperature_3303_urn, Humidity_3304_urn, Pressure_3323_urn],
+					5518,
+					metadata,
+			  )
+			: time * 1000
+
+	const object = {
+		v: {
+			temp,
+			hum,
+			atmp,
+		},
+		ts: time,
+	}
+
+	const maybeValidEnvironment = validateWithType(Environment)(object)
+	if ('errors' in maybeValidEnvironment)
+		return { error: new Error(JSON.stringify(maybeValidEnvironment.errors)) }
+
+	return { result: maybeValidEnvironment }
 }
