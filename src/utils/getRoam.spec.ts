@@ -39,7 +39,7 @@ describe('getRoam', () => {
 		},
 	}
 
-	it(`get the 'roam' object which is required in nRF Asset Tracker`, () => {
+	it(`should create roam object`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
 			'1': [7, 6],
@@ -74,13 +74,13 @@ describe('getRoam', () => {
 		expect(result.error).not.toBe(undefined)
 	})
 
-	it(`should return error if conversion from Connectivity Monitoring (4) object to 'roam' went wrong`, () => {
+	it(`should return error if required resource is missing`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
 			'1': [6, 7],
 			'2': -85,
 			'3': 23,
-			// required value is missing '4': ['10.160.120.155']
+			// required resource is missing '4': ['10.160.120.155']
 			'8': 34237196,
 			'9': 20,
 			'10': 242,
