@@ -39,7 +39,7 @@ describe('getGnss', () => {
 		},
 	}
 
-	it(`should get the gnss object which is required in nRF Asset Tracker`, () => {
+	it(`should create gnss`, () => {
 		const location = {
 			'0': -43.5723,
 			'1': 153.2176,
@@ -62,14 +62,42 @@ describe('getGnss', () => {
 		})
 	})
 
+	it('should create gnss using server time', () => {
+		const input: Location_6 = {
+			'0': -43.5723,
+			'1': 153.2176,
+			'2': 170.528305,
+			'3': 24.798573,
+			// '5': 1665149633, // timestamp from Location object
+			'6': 0.579327,
+		} as unknown as Location_6
+
+		const expected = {
+			v: {
+				lng: 153.2176,
+				lat: -43.5723,
+				acc: 24.798573,
+				alt: 170.528305,
+				spd: 0.579327,
+				hdg: 0, // ***** origin missing *****
+			},
+			ts: 1688731863032,
+		}
+
+		const gnss = getGnss(input, metadata) as {
+			result: unknown
+		}
+		expect(gnss.result).toMatchObject(expected)
+	})
+
 	it(`should return error in case Location object is undefined`, () => {
 		const result = getGnss(undefined, metadata) as { error: Error }
 		expect(result.error).not.toBe(undefined)
 	})
 
-	it(`should return error in case something went wrong in conversion from Location object to GNSS`, () => {
+	it(`should return error in case required resource is missing`, () => {
 		const location = {
-			// '0': -43.5723, // required value is missing
+			// '0': -43.5723, // required resource is missing
 			'1': 153.2176,
 			'2': 2,
 			'3': 24.798573,
