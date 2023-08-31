@@ -1,3 +1,5 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import {
 	Device_3_urn,
 	ConnectivityMonitoring_4_urn,
@@ -9,8 +11,8 @@ import {
 import { Config_50009_urn } from '../schemas/Config_50009.js'
 import { converter, type Metadata } from './converter.js'
 
-describe('converter', () => {
-	it('should convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format', () => {
+void describe('converter', () => {
+	void it('should convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format', () => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',
@@ -181,10 +183,10 @@ describe('converter', () => {
 			},
 		}
 
-		expect(converter(input, metadata)).toStrictEqual(output)
+		assert.deepEqual(converter(input, metadata), output)
 	})
 
-	it(`should create output even when some expected objects in the input are missing`, () => {
+	void it(`should create output even when some expected objects in the input are missing`, () => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',
@@ -251,10 +253,10 @@ describe('converter', () => {
 			},
 		}
 
-		expect(converter(input, metadata)).toStrictEqual(output)
+		assert.deepEqual(converter(input, metadata), output)
 	})
 
-	it(`should select first instance when LwM2M object is an array`, () => {
+	void it(`should select first instance when LwM2M object is an array`, () => {
 		const input = {
 			[Temperature_3303_urn]: [
 				{
@@ -332,11 +334,10 @@ describe('converter', () => {
 				ts: 1675874731000,
 			},
 		}
-
-		expect(converter(input, {} as Metadata)).toMatchObject(output)
+		assert.deepEqual(converter(input, {} as Metadata), output)
 	})
 
-	it(`should select first element when LwM2M instance is an array`, () => {
+	void it(`should select first element when LwM2M instance is an array`, () => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',
@@ -356,8 +357,18 @@ describe('converter', () => {
 				v: 2754,
 				ts: 1675874731000,
 			},
+			dev: {
+				ts: 1675874731000,
+				v: {
+				  brdV: 'Nordic Semiconductor ASA',
+				  iccid: '0000000000000000000',
+				  imei: '351358815340515',
+				  modV: '22.8.1+0'
+				}
+			  }
+		  
 		}
 
-		expect(converter(input, {} as Metadata)).toMatchObject(output)
+		assert.deepEqual(converter(input, {} as Metadata), output)
 	})
 })
