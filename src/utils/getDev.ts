@@ -3,8 +3,8 @@ import {
 	type DeviceData,
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
-import { Device_3, Device_3_urn } from '@nordicsemiconductor/lwm2m-types'
-import { getTimestamp, Metadata } from './getTimestamp.js'
+import { type Device_3, Device_3_urn } from '@nordicsemiconductor/lwm2m-types'
+import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
  * Check required values and build the dev object, expected by nRF Asset Tracker

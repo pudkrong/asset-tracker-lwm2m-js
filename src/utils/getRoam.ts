@@ -4,10 +4,10 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import {
-	ConnectivityMonitoring_4,
+	type ConnectivityMonitoring_4,
 	ConnectivityMonitoring_4_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { getTimestamp, Metadata } from './getTimestamp.js'
+import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
  * Check the required values and create roam object, which is required in nRF Asset Tracker

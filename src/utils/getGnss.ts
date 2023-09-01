@@ -1,10 +1,13 @@
 import {
 	GNSS,
-	GNSSData,
+	type GNSSData,
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
-import { Location_6, Location_6_urn } from '@nordicsemiconductor/lwm2m-types'
-import { getTimestamp, Metadata } from './getTimestamp.js'
+import {
+	type Location_6,
+	Location_6_urn,
+} from '@nordicsemiconductor/lwm2m-types'
+import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
  * Check the required values and create the GNSS object required in nRF Asset Tracker

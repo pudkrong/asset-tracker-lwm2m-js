@@ -1,17 +1,17 @@
 import {
 	Environment,
-	EnvironmentData,
+	type EnvironmentData,
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import {
-	Humidity_3304,
+	type Humidity_3304,
 	Humidity_3304_urn,
-	Pressure_3323,
+	type Pressure_3323,
 	Pressure_3323_urn,
-	Temperature_3303,
+	type Temperature_3303,
 	Temperature_3303_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { getTimestamp, Metadata } from './getTimestamp.js'
+import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
  * Check and create the 'env' object, expected by nRF Asset Tracker
