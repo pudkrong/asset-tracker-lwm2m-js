@@ -4,7 +4,7 @@
   "description": "Convert the LwM2M Asset Tracker v2 JSON encoding to Asset Tracker web app JSON encoding",
   "main": "index.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "find ./ -type f -name '*.spec.ts' ! -path '*/node_modules/*' -exec npx tsx {} ';'",
     "prepare": "husky install",
     "prepublish": "npx swc -d dist ./src"
   },
@@ -67,14 +67,12 @@
     "hamjest": "4.0.1"
   },
   "devDependencies": {
+    "@types/node": "20.5.0",
     "@nordicsemiconductor/asset-tracker-cloud-code-style": "12.0.68",
     "@nordicsemiconductor/eslint-config-asset-tracker-cloud-typescript": "16.0.11",
     "@swc/cli": "0.1.62",
-    "@swc/jest": "0.2.28",
-    "@types/jest": "^29.5.3",
     "@typescript-eslint/eslint-plugin": "6.2.1",
     "husky": "8.0.3",
-    "jest": "29.6.2",
     "prettier": "3.0.1",
     "tsx": "3.12.7",
     "typescript": "5.1.6"
