@@ -1,5 +1,5 @@
 {
-  "name": "lwm2m-asset-tracker-v2-to-asset-tracker-web-app",
+  "name": "asset-tracker-lwm2m",
   "version": "1.0.0",
   "description": "Convert the LwM2M Asset Tracker v2 JSON encoding to Asset Tracker web app JSON encoding",
   "main": "index.js",
@@ -11,12 +11,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app.git"
+    "url": "git+https://github.com/MLopezJ/asset-tracker-lwm2m.git"
   },
   "bugs": {
-    "url": "https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app/issues"
+    "url": "https://github.com/MLopezJ/asset-tracker-lwm2m/issues"
   },
-  "homepage": "https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app#readme",
+  "homepage": "https://github.com/MLopezJ/asset-tracker-lwm2m#readme",
   "keywords": [
     "lwm2m",
     "asset-tracker-v2",
