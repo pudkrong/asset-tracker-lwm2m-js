@@ -37,3 +37,10 @@ jobs:
         run:
           node --loader tsx --test
           non-functional-tests/defaultLwM2MVersions.spec.ts
+
+      - name: Semantic release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+        run: npx semantic-release
