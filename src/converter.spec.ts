@@ -8,7 +8,7 @@ import {
 	Humidity_3304_urn,
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { Config_50009_urn } from '../schemas/Config_50009.js'
+import { Config_50009_urn } from './schemas/Config_50009.js'
 import { converter, type Metadata } from './converter.js'
 
 void describe('converter', () => {
@@ -360,13 +360,12 @@ void describe('converter', () => {
 			dev: {
 				ts: 1675874731000,
 				v: {
-				  brdV: 'Nordic Semiconductor ASA',
-				  iccid: '0000000000000000000',
-				  imei: '351358815340515',
-				  modV: '22.8.1+0'
-				}
-			  }
-		  
+					brdV: 'Nordic Semiconductor ASA',
+					iccid: '0000000000000000000',
+					imei: '351358815340515',
+					modV: '22.8.1+0',
+				},
+			},
 		}
 
 		assert.deepEqual(converter(input, {} as Metadata), output)

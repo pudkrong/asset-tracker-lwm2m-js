@@ -1,4 +1,4 @@
-import type { Config_50009 } from 'schemas/Config_50009'
+import type { Config_50009 } from '../schemas/Config_50009.js'
 import {
 	Config,
 	type ConfigData,
@@ -7,7 +7,7 @@ import {
 
 /**
  * Check required values and build config object, expected by nRF Asset Tracker
- * 
+ *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/config.md
  */
 export const getCfg = (

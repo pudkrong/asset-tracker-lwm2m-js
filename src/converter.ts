@@ -15,7 +15,7 @@ import type {
 	Pressure_3323,
 } from '@nordicsemiconductor/lwm2m-types'
 import type { AzureReportedData as AssetTrackerWebApp } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
-import { type Config_50009, Config_50009_urn } from '../schemas/Config_50009.js'
+import { type Config_50009, Config_50009_urn } from './schemas/Config_50009.js'
 import { getBat } from './utils/getBat.js'
 import { getDev } from './utils/getDev.js'
 import { getEnv } from './utils/getEnv.js'

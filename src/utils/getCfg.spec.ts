@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import type { Config_50009 } from 'schemas/Config_50009'
+import type { Config_50009 } from '../schemas/Config_50009.js'
 import { getCfg } from './getCfg.js'
 
 void describe('getCfg', () => {
@@ -34,7 +34,6 @@ void describe('getCfg', () => {
 		assert.deepEqual(cfg.result, expected)
 	})
 
-	
 	void it('should return error if config object is undefined', () => {
 		const cfg = getCfg(undefined) as { error: Error }
 		assert.notEqual(cfg.error, undefined)
@@ -59,5 +58,4 @@ void describe('getCfg', () => {
 		assert.notEqual(config.error, undefined)
 		// TODO: check if tsmatchers could be used to check error
 	})
-	
 })

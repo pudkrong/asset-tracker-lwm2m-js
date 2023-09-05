@@ -5,7 +5,7 @@ import {
 	Location_6_urn,
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { Config_50009_urn } from '../schemas/Config_50009.js'
+import { Config_50009_urn } from '../src/schemas/Config_50009.js'
 
 export const input = {
 	[Device_3_urn]: {
