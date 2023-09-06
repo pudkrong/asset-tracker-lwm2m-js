@@ -7,14 +7,19 @@ import {
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
 import { Config_50009_urn } from './schemas/Config_50009.js'
-import { converter, type LwM2MAssetTrackerV2 } from './converter.js'
-const lwM2MAssetTrackerV2 = {
+import {
+	converter,
+	type Metadata,
+	type LwM2MAssetTrackerV2,
+} from './converter.js'
+
+const lwM2MAssetTrackerV2: LwM2MAssetTrackerV2 = {
 	[Device_3_urn]: {
 		'0': 'Nordic Semiconductor ASA',
 		'1': 'Thingy:91',
 		'2': '351358815340515',
 		'3': '22.8.1+0',
-		'7': 2754,
+		'7': [2754],
 		'11': [0],
 		'13': 1675874731,
 		'16': 'UQ',
@@ -71,16 +76,19 @@ const lwM2MAssetTrackerV2 = {
 
 	[Config_50009_urn]: {
 		'0': true,
+		'1': 120,
 		'2': 120,
 		'3': 600,
 		'4': 7200,
-		'1': 120,
 		'5': 8.5,
+		'6': false,
+		'7': true,
 		'8': 2.5,
 		'9': 0.5,
 	},
 }
-const metadata = {
+
+const metadata: Metadata = {
 	$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 	lwm2m: {
 		'3': {
@@ -116,69 +124,58 @@ const metadata = {
 		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
 	},
 }
-const result = converter(
-	lwM2MAssetTrackerV2 as unknown as LwM2MAssetTrackerV2,
-	metadata,
-)
+
+const result = converter(lwM2MAssetTrackerV2, metadata)
 console.log(result)
 
 /**
  {
-			bat: {
-				v: 2754,
-				ts: 1675874731000,
-			},
-			env: {
-				v: {
-					temp: 27.18,
-					hum: 24.057,
-					atmp: 10,
-				},
-				ts: 1688731863032,
-			},
-			gnss: {
-				v: {
-					lng: 153.2176,
-					lat: -43.5723,
-					acc: 24.798573,
-					alt: 2,
-					spd: 0.579327,
-					hdg: 0, // ***** origin missing *****
-				},
-				ts: 1665149633000,
-			},
-			cfg: {
-				loct: 60,
-				act: false,
-				actwt: 60,
-				mvres: 60,
-				mvt: 3600,
-				accath: 10.5,
-				accith: 5.2,
-				accito: 1.7,
-				nod: [],
-			},
-			dev: {
-				v: {
-					imei: '351358815340515',
-					iccid: '0000000000000000000', // ***** origin missing *****
-					modV: '22.8.1+0',
-					brdV: 'Nordic Semiconductor ASA',
-				},
-				ts: 1675874731000,
-			},
-			roam: {
-				v: {
-					band: 1, // ***** origin missing *****
-					nw: '6',
-					rsrp: -85,
-					area: 12,
-					mccmnc: 24220,
-					cell: 34237196,
-					ip: '10.160.120.155',
-					eest: 5, // ***** origin missing *****
-				},
-				ts: 1688731863032,
-			},
-		}
+  bat: { v: 2754, ts: 1675874731000 },
+  dev: {
+    v: {
+      imei: '351358815340515',
+      iccid: '0000000000000000000',
+      modV: '22.8.1+0',
+      brdV: 'Nordic Semiconductor ASA'
+    },
+    ts: 1675874731000
+  },
+  env: { v: { temp: 27.18, hum: 24.057, atmp: 10 }, ts: 1688731863032 },
+  gnss: {
+    v: {
+      lng: 153.2176,
+      lat: -43.5723,
+      acc: 24.798573,
+      alt: 2,
+      spd: 0.579327,
+      hdg: 0
+    },
+    ts: 1665149633000
+  },
+  roam: {
+    v: {
+      band: 1,
+      nw: '6',
+      rsrp: -85,
+      area: 12,
+      mccmnc: 24220,
+      cell: 34237196,
+      ip: '10.160.120.155',
+      eest: 5
+    },
+    ts: 1688731863032
+  },
+  cfg: {
+    loct: 120,
+    act: true,
+    actwt: 120,
+    mvres: 600,
+    mvt: 7200,
+    accath: 8.5,
+    accith: 2.5,
+    accito: 0.5,
+    nod: []
+  }
+}
+
  */
