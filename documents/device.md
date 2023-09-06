@@ -4,13 +4,13 @@
 
 ## Data
 
-| Field | LwM2M                                                                                                                                    |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| imei  | /3/0/2                                                                                                                                   |
-| iccid | **????**                                                                                                                                 |
-| modV  | /3/0/3                                                                                                                                   |
-| brdV  | /3/0/0                                                                                                                                   |
-| ts    | /3/0/13 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
+| Field | LwM2M                                                               |
+| ----- | ------------------------------------------------------------------- |
+| imei  | /3/0/2                                                              |
+| iccid | **????**                                                            |
+| modV  | /3/0/3                                                              |
+| brdV  | /3/0/0                                                              |
+| ts    | /3/0/13 or [Timestamp Hierarchy](../adr/007-timestamp-hierarchy.md) |
 
 // TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
 instead of MLopezJ
