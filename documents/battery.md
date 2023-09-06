@@ -9,6 +9,9 @@
 | v     | /3/0/7                                                                                                                                   |
 | ts    | /3/0/13 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
 
+// TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
+instead of MLopezJ
+
 ## Details
 
 | Field | Description                                              | Type    | Minimum       | Required |

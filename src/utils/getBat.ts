@@ -10,6 +10,8 @@ import { getTimestamp, type Metadata } from './getTimestamp.js'
  * Check the required values and create the object expected by nRF Asset Tracker related to battery transforming Device LwM2M object (3) into it
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/battery.md
+ *
+ * // TODO: Update link related to documentation. Use NordicSemiconductor instead of MLopezJ
  */
 export const getBat = (
 	device: Device_3 | undefined,

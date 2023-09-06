@@ -11,6 +11,9 @@
 | atmp  | /3323/0/5700                                                                                                                                                                  |
 | ts    | /3303/0/5518 or /3304/0/5518 or /3323/0/5518 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
 
+// TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
+instead of MLopezJ
+
 ## Details
 
 | Field | Description                                              | Type    | Minimum       | Maximum | Required |

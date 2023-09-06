@@ -16,6 +16,9 @@
 | eest   | **????**                                                                                                                                 |
 | ts     | /3/0/13 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
 
+// TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
+instead of MLopezJ
+
 ## Details
 
 | Field  | Type                                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Minimum Value | Maximum Value | Examples                                                                                  | Required |

@@ -14,6 +14,9 @@
 | hdg               | **???????**                                                                                                                             |
 | ts                | /6/0/5 or [Timestamp Hierarchy](https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/tree/saga#timestamp-hierarchy) |
 
+// TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
+instead of MLopezJ
+
 ## Details
 
 | Field | Description                                              | Type    | Minimum       | Maximum | Required |
