@@ -11,6 +11,10 @@ import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
  * Check the required values and create the GNSS object required in nRF Asset Tracker
+ *
+ * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/gnss.md
+ * @see {@link ../../documents/gnss.md}
+ * // TODO: Take a decision here
  */
 export const getGnss = (
 	location: Location_6 | undefined,

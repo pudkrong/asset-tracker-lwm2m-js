@@ -11,6 +11,10 @@ import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
  * Check the required values and create roam object, which is required in nRF Asset Tracker
+ *
+ * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/roam.md
+ * @see {@link ../../documents/roam.md}
+ * // TODO: Take a decision here
  */
 export const getRoam = (
 	connectivityMonitoring: ConnectivityMonitoring_4 | undefined,
