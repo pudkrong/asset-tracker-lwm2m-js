@@ -85,8 +85,8 @@ export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
 	onError?: (error: Error) => unknown,
-): AssetTrackerWebApp => {
-	const result = {} as AssetTrackerWebApp
+): typeof nRFAssetTrackerReported => {
+	const result = {} as typeof nRFAssetTrackerReported
 	const device = input[Device_3_urn]
 	const temperature = input[Temperature_3303_urn]
 	const humidity = input[Humidity_3304_urn]
