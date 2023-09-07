@@ -23,8 +23,6 @@ export const getRoam = (
 	if (connectivityMonitoring === undefined)
 		return { error: new Error('Connectivity Monitoring (4) object is missing') }
 
-	const defaultBand = 1
-	const defaultEest = 5
 	const nw = String(connectivityMonitoring[0])
 	const rsrp = connectivityMonitoring[2]
 	const area = connectivityMonitoring[12]
@@ -39,14 +37,12 @@ export const getRoam = (
 
 	const object = {
 		v: {
-			band: defaultBand, // ***** origin missing *****
 			nw,
 			rsrp,
 			area,
 			mccmnc: Number(`${smcc}${smnc}`), // /4/0/10 & /4/0/9
 			cell,
 			ip,
-			eest: defaultEest, // ***** origin missing *****
 		},
 		ts: time,
 	}

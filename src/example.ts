@@ -134,7 +134,6 @@ console.log(result)
   dev: {
     v: {
       imei: '351358815340515',
-      iccid: '0000000000000000000',
       modV: '22.8.1+0',
       brdV: 'Nordic Semiconductor ASA'
     },
@@ -148,20 +147,17 @@ console.log(result)
       acc: 24.798573,
       alt: 2,
       spd: 0.579327,
-      hdg: 0
     },
     ts: 1665149633000
   },
   roam: {
     v: {
-      band: 1,
       nw: '6',
       rsrp: -85,
       area: 12,
       mccmnc: 24220,
       cell: 34237196,
       ip: '10.160.120.155',
-      eest: 5
     },
     ts: 1688731863032
   },

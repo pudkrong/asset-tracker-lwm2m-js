@@ -155,8 +155,7 @@ The output is an object with the structure described in the
       "lat": 63.421133,
       "acc": 24.798573,
       "alt": 170.528305,
-      "spd": 0.579327,
-      "hdg": 0 // ***** origin missing *****
+      "spd": 0.579327
     },
     "ts": 1563968752991
   },
@@ -174,7 +173,6 @@ The output is an object with the structure described in the
   "dev": {
     "v": {
       "imei": "352656106111232",
-      "iccid": "0000000000000000000", // ***** origin missing *****
       "modV": "mfw_nrf9160_1.0.0",
       "brdV": "thingy91_nrf9160"
     },
@@ -182,14 +180,12 @@ The output is an object with the structure described in the
   },
   "roam": {
     "v": {
-      "band": 3, // ***** origin missing *****
       "nw": "NB-IoT",
       "rsrp": -97,
       "area": 12,
       "mccmnc": 24202,
       "cell": 33703719,
-      "ip": "10.81.183.99",
-      "eest": 5 // ***** origin missing *****
+      "ip": "10.81.183.99"
     },
     "ts": 1563968743666
   }
@@ -225,23 +221,6 @@ See [example.js](./src/example.ts) for more details.
 | [3323](https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/version_history/3323-1_1.xml)                                               | Pressure                | [env](documents/environment.md)                         |
 | [50009](https://github.com/NordicSemiconductor/asset-tracker-cloud-firmware-aws/blob/saga/src/cloud/lwm2m_integration/config_object_descript.xml) | Config                  | [cfg](documents/config.md)                              |
 
-Architecture decision records (ADRs) See [./adr](./adr/).
+## Architecture decision records (ADRs)
 
-## Notes
-
-### Missing values
-
-There are some values from
-[nRF Asset Tracker](https://github.com/NordicSemiconductor/asset-tracker-cloud-docs/blob/saga/docs/cloud-protocol/state.reported.azure.json)
-whose origin is still missing.
-
-- `hdg` from `gnss`. Until find the origin, default value is `0`
-- `iccid` from `dev`. Until find the origin, default value is
-  `'0000000000000000000'`
-- `band` from `roam`. Until find the origin, default value is `3`
-- `eest` from `roam`. Until find the origin, default value is `5`
-
-more info:
-[data transicion](https://github.com/MLopezJ/nRF-Asset-Tracker-through-Coiote-flow#data-transicion)
-
-// TODO: Remove link after decision related to `Missing Values` is taken
+See [./adr](./adr/).

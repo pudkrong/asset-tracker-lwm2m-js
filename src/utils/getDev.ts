@@ -20,7 +20,6 @@ export const getDev = (
 	if (device === undefined)
 		return { error: new Error('Device object (3) is missing') }
 
-	const defaultIccid = '0000000000000000000'
 	const imei = device['2']
 	const modV = device['3']
 	const brdV = device['0']
@@ -32,7 +31,6 @@ export const getDev = (
 	const object = {
 		v: {
 			imei,
-			iccid: defaultIccid, // ***** origin missing *****
 			modV,
 			brdV,
 		},

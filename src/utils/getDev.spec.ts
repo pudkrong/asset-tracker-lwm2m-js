@@ -56,7 +56,6 @@ void describe('getDev', () => {
 		const expected = {
 			v: {
 				imei: '351358815340515',
-				iccid: '0000000000000000000',
 				modV: '22.8.1+0',
 				brdV: 'Nordic Semiconductor ASA',
 			},
@@ -80,7 +79,6 @@ void describe('getDev', () => {
 		const expected = {
 			v: {
 				imei: '351358815340515', // /3/0/2
-				iccid: '0000000000000000000', // ***** origin missing *****
 				modV: '22.8.1+0', // /3/0/3
 				brdV: 'Nordic Semiconductor ASA', // /3/0/0
 			},

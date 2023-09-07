@@ -23,7 +23,6 @@ export const getGnss = (
 	if (location === undefined)
 		return { error: new Error('Location (6) object is missing') }
 
-	const defaultHdg = 0
 	const lat = location['0']
 	const alt = location['2']
 	const spd = location['6']
@@ -42,7 +41,6 @@ export const getGnss = (
 			acc,
 			alt,
 			spd,
-			hdg: defaultHdg, // ***** origin missing *****
 		},
 		ts: time,
 	}

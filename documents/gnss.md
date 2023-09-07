@@ -4,15 +4,15 @@
 
 ## Data
 
-| nRF Asset Tracker | LwM2M                                                              |
-| ----------------- | ------------------------------------------------------------------ |
-| lng               | /6/0/1                                                             |
-| lat               | /6/0/0                                                             |
-| acc               | /6/0/3                                                             |
-| alt               | /6/0/2                                                             |
-| spd               | /6/0/6                                                             |
-| hdg               | **???????**                                                        |
-| ts                | /6/0/5 or [Timestamp Hierarchy](../adr/007-timestamp-hierarchy.md) |
+| nRF Asset Tracker | LwM2M                                                                     |
+| ----------------- | ------------------------------------------------------------------------- |
+| lng               | /6/0/1                                                                    |
+| lat               | /6/0/0                                                                    |
+| acc               | /6/0/3                                                                    |
+| alt               | /6/0/2                                                                    |
+| spd               | /6/0/6                                                                    |
+| hdg               | [value not provided](../adr/009-nrf-asset-tracker-values-not-provided.md) |
+| ts                | /6/0/5 or [Timestamp Hierarchy](../adr/007-timestamp-hierarchy.md)        |
 
 // TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
 instead of MLopezJ
@@ -26,5 +26,5 @@ instead of MLopezJ
 | acc   | Accuracy (2D 1-sigma) in meters                          | number  | 0             |         | No       |
 | alt   | Altitude above WGS-84 ellipsoid in meters                | number  |               |         | Yes      |
 | spd   | Horizontal speed in meters                               | number  | 0             |         | Yes      |
-| hdg   | Heading of movement in degrees                           | number  | 0             | 360     | Yes      |
+| hdg   | Heading of movement in degrees                           | number  | 0             | 360     | No       |
 | ts    | Timestamp as Unix epoch with millisecond precision (UTC) | integer | 1234567890123 |         | Yes      |
