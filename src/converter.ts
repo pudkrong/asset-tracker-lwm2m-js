@@ -78,13 +78,41 @@ export type LwM2MAssetTrackerV2 = {
 	[Config_50009_urn]?: Config_50009
 }
 
+type ErrorDescription = {
+	instancePath: string
+	schemaPath: string
+	keyword: string
+	params: Record<string, unknown>
+	message?: string
+}
+
+export class typeError extends Error {
+	description: ErrorDescription[]
+
+	constructor({
+		name,
+		message,
+		description,
+	}: {
+		name: string
+		message: string
+		description: ErrorDescription[]
+	}) {
+		super()
+
+		this.name = name
+		this.message = message
+		this.description = description
+	}
+}
+
 /**
  * convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format
  */
 export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
-	onError?: (error: Error) => unknown,
+	onError?: (error: Error | typeError) => unknown,
 ): typeof nRFAssetTrackerReported => {
 	const result = {} as typeof nRFAssetTrackerReported
 	const device = input[Device_3_urn]

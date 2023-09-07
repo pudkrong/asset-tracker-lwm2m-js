@@ -7,6 +7,7 @@ import {
 	type Location_6,
 	Location_6_urn,
 } from '@nordicsemiconductor/lwm2m-types'
+import { typeError } from '../converter.js'
 import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
@@ -19,9 +20,9 @@ import { getTimestamp, type Metadata } from './getTimestamp.js'
 export const getGnss = (
 	location: Location_6 | undefined,
 	metadata: Metadata,
-): { result: GNSSData } | { error: Error } => {
+): { result: GNSSData } | { error: Error | typeError } => {
 	if (location === undefined)
-		return { error: new Error('Location (6) object is missing') }
+		return { error: new Error('Location (6) object is undefined') }
 
 	const lat = location['0']
 	const alt = location['2']
@@ -46,8 +47,15 @@ export const getGnss = (
 	}
 
 	const maybeValidGnss = validateWithType(GNSS)(object)
-	if ('errors' in maybeValidGnss)
-		return { error: new Error(JSON.stringify(maybeValidGnss.errors)) }
+	if ('errors' in maybeValidGnss) {
+		return {
+			error: new typeError({
+				name: 'type error',
+				message: 'error validating type',
+				description: maybeValidGnss.errors,
+			}),
+		}
+	}
 
 	return { result: maybeValidGnss }
 }
