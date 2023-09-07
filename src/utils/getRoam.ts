@@ -7,6 +7,7 @@ import {
 	type ConnectivityMonitoring_4,
 	ConnectivityMonitoring_4_urn,
 } from '@nordicsemiconductor/lwm2m-types'
+import { typeError } from '../converter.js'
 import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
@@ -21,7 +22,9 @@ export const getRoam = (
 	metadata: Metadata,
 ): { result: RoamingInfoData } | { error: Error } => {
 	if (connectivityMonitoring === undefined)
-		return { error: new Error('Connectivity Monitoring (4) object is missing') }
+		return {
+			error: new Error('Connectivity Monitoring (4) object is undefined'),
+		}
 
 	const nw = String(connectivityMonitoring[0])
 	const rsrp = connectivityMonitoring[2]
@@ -48,8 +51,15 @@ export const getRoam = (
 	}
 
 	const maybeValidRoam = validateWithType(RoamingInfo)(object)
-	if ('errors' in maybeValidRoam)
-		return { error: new Error(JSON.stringify(maybeValidRoam.errors)) }
+	if ('errors' in maybeValidRoam) {
+		return {
+			error: new typeError({
+				name: 'type error',
+				message: 'error validating type',
+				description: maybeValidRoam.errors,
+			}),
+		}
+	}
 
 	return { result: maybeValidRoam }
 }

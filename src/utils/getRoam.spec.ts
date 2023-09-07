@@ -2,6 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import type { ConnectivityMonitoring_4 } from '@nordicsemiconductor/lwm2m-types'
 import { getRoam } from './getRoam.js'
+import { typeError } from '../converter.js'
 
 void describe('getRoam', () => {
 	const metadata = {
@@ -72,8 +73,10 @@ void describe('getRoam', () => {
 
 	void it(`should return error if Connectivity Monitoring (4) object is missing`, () => {
 		const result = getRoam(undefined, metadata) as { error: Error }
-		assert.notEqual(result.error, undefined)
-		// TODO: check if tsmatchers could be used to check error
+		assert.equal(
+			result.error.message,
+			'Connectivity Monitoring (4) object is undefined',
+		)
 	})
 
 	void it(`should return error if required resource is missing`, () => {
@@ -88,8 +91,15 @@ void describe('getRoam', () => {
 			'10': 242,
 			'12': 12,
 		} as ConnectivityMonitoring_4
-		const result = getRoam(connectivityMonitoring, metadata) as { error: Error }
-		assert.notEqual(result.error, undefined)
-		// TODO: check if tsmatchers could be used to check error
+		const result = getRoam(connectivityMonitoring, metadata) as {
+			error: typeError
+		}
+		const instancePathError = result.error.description[0]?.instancePath
+		const message = result.error.description[0]?.message
+		const keyword = result.error.description[0]?.keyword
+
+		assert.equal(instancePathError, `/v`)
+		assert.equal(message, "must have required property 'ip'")
+		assert.equal(keyword, 'required')
 	})
 })
