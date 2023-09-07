@@ -2,6 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import { getBat } from './getBat.js'
 import { type BatteryData } from '@nordicsemiconductor/asset-tracker-cloud-docs'
+import { typeError } from '../converter.js'
 
 void describe('getBat', () => {
 	const metadata = {
@@ -82,9 +83,8 @@ void describe('getBat', () => {
 
 	void it(`should return error if Device object is undefined`, () => {
 		const result = getBat(undefined, metadata) as { error: Error }
-		assert.notEqual(result.error, undefined)
+		assert.equal(result.error.message, 'Device (3) object is undefined')
 	})
-		// TODO: check if tsmatchers could be used to check error
 
 	void it(`should return error if required resource is missing in input object`, () => {
 		const device = {
@@ -98,8 +98,12 @@ void describe('getBat', () => {
 			'16': 'UQ',
 			'19': '3.2.1',
 		}
-		const bat = getBat(device, metadata) as { error: Error }
+		const bat = getBat(device, metadata) as { error: typeError }
+		const message = bat.error.description[0]?.message
+		const keyword = bat.error.description[0]?.keyword
+
+		assert.equal(message, "must have required property 'v'")
+		assert.equal(keyword, 'required')
 		assert.notEqual(bat.error, undefined)
 	})
 })
-		// TODO: check if tsmatchers could be used to check error

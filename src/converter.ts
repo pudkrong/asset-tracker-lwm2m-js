@@ -112,7 +112,7 @@ export class typeError extends Error {
 export const converter = (
 	input: LwM2MAssetTrackerV2,
 	metadata: Metadata,
-	onError?: (error: Error | typeError) => unknown,
+	onError?: (error: Error) => unknown,
 ): typeof nRFAssetTrackerReported => {
 	const result = {} as typeof nRFAssetTrackerReported
 	const device = input[Device_3_urn]

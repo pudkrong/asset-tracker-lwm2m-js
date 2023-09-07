@@ -4,6 +4,7 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Device_3, Device_3_urn } from '@nordicsemiconductor/lwm2m-types'
+import { typeError } from '../converter.js'
 import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
@@ -18,7 +19,7 @@ export const getBat = (
 	metadata: Metadata,
 ): { result: BatteryData } | { error: Error } => {
 	if (device === undefined)
-		return { error: new Error('Device (3) object is missing') }
+		return { error: new Error('Device (3) object is undefined') }
 
 	const value = device['7'] != null ? device['7'][0] : undefined
 
@@ -33,8 +34,15 @@ export const getBat = (
 	}
 
 	const maybeValidBat = validateWithType(Battery)(object)
-	if ('errors' in maybeValidBat)
-		return { error: new Error(JSON.stringify(maybeValidBat.errors)) }
+	if ('errors' in maybeValidBat) {
+		return {
+			error: new typeError({
+				name: 'type error',
+				message: 'error validating type',
+				description: maybeValidBat.errors,
+			}),
+		}
+	}
 
 	return { result: maybeValidBat }
 }
