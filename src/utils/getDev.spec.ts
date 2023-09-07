@@ -2,6 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import { type Device_3 } from '@nordicsemiconductor/lwm2m-types'
 import { getDev } from './getDev.js'
+import { typeError } from '../converter.js'
 
 void describe('getDev', () => {
 	const metadata = {
@@ -93,7 +94,7 @@ void describe('getDev', () => {
 
 	void it(`should return error if Device object is undefined`, () => {
 		const dev = getDev(undefined, metadata) as { error: Error }
-		assert.notEqual(dev.error, undefined)
+		assert.equal(dev.error.message, 'Device object (3) is undefined')
 	})
 
 	void it(`should return error in case a required resource is missing`, () => {
@@ -108,7 +109,14 @@ void describe('getDev', () => {
 			'16': 'UQ',
 			'19': '3.2.1',
 		}
-		const dev = getDev(device, metadata) as { error: Error }
-		assert.notEqual(dev.error, undefined)
+
+		const dev = getDev(device, metadata) as { error: typeError }
+		const instancePathError = dev.error.description[0]?.instancePath
+		const message = dev.error.description[0]?.message
+		const keyword = dev.error.description[0]?.keyword
+
+		assert.equal(instancePathError, `/v`)
+		assert.equal(message, "must have required property 'imei'")
+		assert.equal(keyword, 'required')
 	})
 })

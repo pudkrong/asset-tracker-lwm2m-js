@@ -4,6 +4,7 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Device_3, Device_3_urn } from '@nordicsemiconductor/lwm2m-types'
+import { typeError } from '../converter.js'
 import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
@@ -18,7 +19,7 @@ export const getDev = (
 	metadata: Metadata,
 ): { error: Error } | { result: DeviceData } => {
 	if (device === undefined)
-		return { error: new Error('Device object (3) is missing') }
+		return { error: new Error('Device object (3) is undefined') }
 
 	const imei = device['2']
 	const modV = device['3']
@@ -39,7 +40,13 @@ export const getDev = (
 
 	const maybeValidDeviceData = validateWithType(Device)(object)
 	if ('errors' in maybeValidDeviceData) {
-		return { error: new Error(JSON.stringify(maybeValidDeviceData.errors)) }
+		return {
+			error: new typeError({
+				name: 'type error',
+				message: 'error validating type',
+				description: maybeValidDeviceData.errors,
+			}),
+		}
 	}
 
 	return { result: maybeValidDeviceData }
