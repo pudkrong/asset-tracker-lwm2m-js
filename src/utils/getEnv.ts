@@ -11,6 +11,7 @@ import {
 	type Temperature_3303,
 	Temperature_3303_urn,
 } from '@nordicsemiconductor/lwm2m-types'
+import { typeError } from '../converter.js'
 import { getTimestamp, type Metadata } from './getTimestamp.js'
 
 /**
@@ -27,13 +28,13 @@ export const getEnv = (
 	metadata: Metadata,
 ): { result: EnvironmentData } | { error: Error } => {
 	if (temperature === undefined)
-		return { error: new Error('Temperature (3303) object is missing') }
+		return { error: new Error('Temperature (3303) object is undefined') }
 
 	if (humidity === undefined)
-		return { error: new Error('Humidity (3304) object is missing') }
+		return { error: new Error('Humidity (3304) object is undefined') }
 
 	if (pressure === undefined)
-		return { error: new Error('Pressure (3323) object is missing') }
+		return { error: new Error('Pressure (3323) object is undefined') }
 
 	const temp = temperature?.[0]?.['5700']
 	const hum = humidity?.[0]?.['5700']
@@ -63,8 +64,15 @@ export const getEnv = (
 	}
 
 	const maybeValidEnvironment = validateWithType(Environment)(object)
-	if ('errors' in maybeValidEnvironment)
-		return { error: new Error(JSON.stringify(maybeValidEnvironment.errors)) }
+	if ('errors' in maybeValidEnvironment) {
+		return {
+			error: new typeError({
+				name: 'type error',
+				message: 'error validating type',
+				description: maybeValidEnvironment.errors,
+			}),
+		}
+	}
 
 	return { result: maybeValidEnvironment }
 }

@@ -2,6 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import type { Temperature_3303 } from '@nordicsemiconductor/lwm2m-types'
 import { getEnv } from './getEnv.js'
+import { typeError } from '../converter.js'
 
 void describe('getEnv', () => {
 	const metadata = {
@@ -84,7 +85,7 @@ void describe('getEnv', () => {
 	/**
 	 * @see adr/007-timestamp-hierarchy.md
 	 */
-	 void it('should follow Timestamp Hierarchy in case timestamp resource is not found from LwM2M objects', () => {
+	void it('should follow Timestamp Hierarchy in case timestamp resource is not found from LwM2M objects', () => {
 		const temperature = [{ '5700': 15 }]
 		const humidity = [{ '5700': 30 }]
 		const pressure = [
@@ -106,14 +107,11 @@ void describe('getEnv', () => {
 			ts: 1688731863032,
 		}
 
-		const env = getEnv(
-			temperature,
-			humidity,
-			pressure,
-			metadata,
-		) as { result: unknown }
+		const env = getEnv(temperature, humidity, pressure, metadata) as {
+			result: unknown
+		}
 
-		assert.deepEqual(env.result,expected)
+		assert.deepEqual(env.result, expected)
 	})
 
 	void it(`should return error if required objects are undefined`, () => {
@@ -137,8 +135,8 @@ void describe('getEnv', () => {
 		const result = getEnv(temperature, humidity, pressure, metadata) as {
 			error: Error
 		}
-		assert.notEqual(result.error, undefined)
-		// TODO: check if tsmatchers could be used to check error
+
+		assert.equal(result.error.message, 'Humidity (3304) object is undefined')
 	})
 
 	void it(`should return error if required resources are missing`, () => {
@@ -167,9 +165,14 @@ void describe('getEnv', () => {
 			},
 		]
 		const result = getEnv(temperature, humidity, pressure, metadata) as {
-			error: Error
+			error: typeError
 		}
-		assert.notEqual(result.error, undefined)
-		// TODO: check if tsmatchers could be used to check error
+		const instancePathError = result.error.description[0]?.instancePath
+		const message = result.error.description[0]?.message
+		const keyword = result.error.description[0]?.keyword
+
+		assert.equal(instancePathError, `/v`)
+		assert.equal(message, "must have required property 'temp'")
+		assert.equal(keyword, 'required')
 	})
 })
