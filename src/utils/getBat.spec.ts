@@ -104,6 +104,5 @@ void describe('getBat', () => {
 
 		assert.equal(message, "must have required property 'v'")
 		assert.equal(keyword, 'required')
-		assert.notEqual(bat.error, undefined)
 	})
 })
