@@ -7,8 +7,8 @@ import {
 	type ConnectivityMonitoring_4,
 	ConnectivityMonitoring_4_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
-import { getTimestamp, type Metadata } from './getTimestamp.js'
+import { type Metadata, typeError } from '../converter.js'
+import { getTimestamp } from './getTimestamp.js'
 
 /**
  * Check the required values and create roam object, which is required in nRF Asset Tracker

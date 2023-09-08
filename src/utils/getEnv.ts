@@ -11,8 +11,8 @@ import {
 	type Temperature_3303,
 	Temperature_3303_urn,
 } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
-import { getTimestamp, type Metadata } from './getTimestamp.js'
+import { type Metadata, typeError } from '../converter.js'
+import { getTimestamp } from './getTimestamp.js'
 
 /**
  * Check and create the 'env' object, expected by nRF Asset Tracker

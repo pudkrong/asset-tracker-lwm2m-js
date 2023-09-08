@@ -4,8 +4,8 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Device_3, Device_3_urn } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
-import { getTimestamp, type Metadata } from './getTimestamp.js'
+import { type Metadata, typeError } from '../converter.js'
+import { getTimestamp } from './getTimestamp.js'
 
 /**
  * Check the required values and create the object expected by nRF Asset Tracker related to battery transforming Device LwM2M object (3) into it
