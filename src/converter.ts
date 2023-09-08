@@ -42,30 +42,13 @@ export const nRFAssetTrackerReported = Type.Object({
 export type nRFAssetTrackerReportedType = Static<typeof nRFAssetTrackerReported>
 
 export type Metadata = {
-	$lastUpdated: string
-	lwm2m: LwM2M_Metadata
-}
-
-export type LwM2M_Metadata = {
-	[key: `${number}`]: Obj // object ID : object
-	$lastUpdated: string
-}
-
-type Obj = {
-	[key: `${number}`]: Instance // Instance id : instance
-	$lastUpdated: string
-}
-
-type Instance = {
-	[key: `${number}`]: Resource // Resource id : resource
-	$lastUpdated: string
-}
-
-type Resource = {
-	$lastUpdated: string
-	value: {
-		$lastUpdated: string
-	}
+	[Device_3_urn]?: Record<string, Date | Date[]>
+	[ConnectivityMonitoring_4_urn]?: Record<string, Date>
+	[Humidity_3304_urn]?: Record<string, Date>
+	[Location_6_urn]?: Record<string, Date>
+	[Pressure_3323_urn]?: Record<string, Date>
+	[Temperature_3303_urn]?: Record<string, Date>
+	[Config_50009_urn]?: Record<string, Date>
 }
 
 export type LwM2MAssetTrackerV2 = {
