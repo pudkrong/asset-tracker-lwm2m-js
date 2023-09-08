@@ -1,46 +1,10 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import { type Device_3 } from '@nordicsemiconductor/lwm2m-types'
+import { Device_3_urn, type Device_3 } from '@nordicsemiconductor/lwm2m-types'
 import { getDev } from './getDev.js'
 import { typeError } from '../converter.js'
 
 void describe('getDev', () => {
-	const metadata = {
-		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		lwm2m: {
-			'3': {
-				'0': {
-					'0': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'3': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'7': {
-						$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						},
-					},
-					'13': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-				},
-				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-			},
-			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		},
-	}
 	void it(`should create the 'dev' object expected by the nRF Asset Tracker`, () => {
 		const device = {
 			'0': 'Nordic Semiconductor ASA',
@@ -53,6 +17,7 @@ void describe('getDev', () => {
 			'16': 'UQ',
 			'19': '3.2.1',
 		}
+		const metadata = {}
 		const dev = getDev(device, metadata) as { result: unknown }
 		const expected = {
 			v: {
@@ -77,6 +42,20 @@ void describe('getDev', () => {
 			'19': '3.2.1',
 		}
 
+		const metadata = {
+			[Device_3_urn]: {
+				'0': new Date('2023-07-07T12:11:03.0324459Z'),
+				'1': new Date('2023-07-07T12:11:03.0324459Z'),
+				'2': new Date('2023-07-07T12:11:03.0324459Z'),
+				'3': new Date('2023-07-07T12:11:03.0324459Z'),
+				'7': [new Date('2023-08-03T12:11:03.0324459Z')],
+				'11': [new Date('2023-07-07T12:11:03.0324459Z')],
+				'13': new Date('2023-07-07T12:11:03.0324459Z'),
+				'16': new Date('2023-07-07T12:11:03.0324459Z'),
+				'19': new Date('2023-07-07T12:11:03.0324459Z'),
+			},
+		}
+
 		const expected = {
 			v: {
 				imei: '351358815340515', // /3/0/2
@@ -93,6 +72,7 @@ void describe('getDev', () => {
 	})
 
 	void it(`should return error if Device object is undefined`, () => {
+		const metadata = {}
 		const dev = getDev(undefined, metadata) as { error: Error }
 		assert.equal(dev.error.message, 'Device object (3) is undefined')
 	})
@@ -109,6 +89,7 @@ void describe('getDev', () => {
 			'16': 'UQ',
 			'19': '3.2.1',
 		}
+		const metadata = {}
 
 		const dev = getDev(device, metadata) as { error: typeError }
 		const instancePathError = dev.error.description[0]?.instancePath
