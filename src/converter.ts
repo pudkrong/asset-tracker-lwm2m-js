@@ -106,6 +106,8 @@ export const converter = (
 	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
 	const config = input[Config_50009_urn]
 
+	// TODO: Update ADR 007. document which resources are take for TimeStamp
+
 	const bat = getBat(device, metadata)
 	if ('error' in bat) {
 		onError?.(bat.error)
