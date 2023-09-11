@@ -41,9 +41,9 @@ export const getEnv = (
 	const atmp = pressure?.[0]?.['5700']
 
 	let time: number | undefined | { error: Error } =
-		temperature?.[0]?.['5518'] ??
-		humidity?.[0]?.['5518'] ??
-		pressure?.[0]?.['5518']
+		temperature?.[0]?.['5700'] ??
+		humidity?.[0]?.['5700'] ??
+		pressure?.[0]?.['5700']
 
 	time =
 		time === undefined

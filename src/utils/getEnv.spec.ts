@@ -1,47 +1,15 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import type { Temperature_3303 } from '@nordicsemiconductor/lwm2m-types'
+import {
+	Humidity_3304_urn,
+	Pressure_3323_urn,
+	Temperature_3303,
+	Temperature_3303_urn,
+} from '@nordicsemiconductor/lwm2m-types'
 import { getEnv } from './getEnv.js'
 import { typeError } from '../converter.js'
 
 void describe('getEnv', () => {
-	const metadata = {
-		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		lwm2m: {
-			'3': {
-				'0': {
-					'0': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'3': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'7': {
-						$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						},
-					},
-					'13': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-				},
-				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-			},
-			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		},
-	}
-
 	void it(`should create the 'env' object expected by nRF Asset Tracker`, () => {
 		const temperature = [
 			{
@@ -67,6 +35,7 @@ void describe('getEnv', () => {
 				'5701': 'Pa',
 			},
 		]
+		const metadata = {}
 		const env = getEnv(temperature, humidity, pressure, metadata) as {
 			result: unknown
 		}
@@ -97,6 +66,28 @@ void describe('getEnv', () => {
 				//'5518': 45612456 // Missing timestamp resource
 			},
 		]
+		const metadata = {
+			[Temperature_3303_urn]: [
+				{
+					'5700': new Date('2023-07-07T12:11:03.0324459Z'),
+				},
+			],
+
+			[Humidity_3304_urn]: [
+				{
+					'5700': new Date('2023-07-07T12:11:03.0324459Z'),
+				},
+			],
+
+			[Pressure_3323_urn]: [
+				{
+					'5601': new Date('2023-07-07T12:11:03.0324459Z'),
+					'5602': new Date('2023-07-07T12:11:03.0324459Z'),
+					'5700': new Date('2023-08-03T12:11:03.0324459Z'),
+					'5701': new Date('2023-07-07T12:11:03.0324459Z'),
+				},
+			],
+		}
 
 		const expected = {
 			v: {
@@ -132,6 +123,7 @@ void describe('getEnv', () => {
 				'5701': 'Pa',
 			},
 		]
+		const metadata = {}
 		const result = getEnv(temperature, humidity, pressure, metadata) as {
 			error: Error
 		}
@@ -164,6 +156,7 @@ void describe('getEnv', () => {
 				'5701': 'Pa',
 			},
 		]
+		const metadata = {}
 		const result = getEnv(temperature, humidity, pressure, metadata) as {
 			error: typeError
 		}
