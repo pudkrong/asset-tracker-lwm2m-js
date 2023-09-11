@@ -1,47 +1,13 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import type { Location_6 } from '@nordicsemiconductor/lwm2m-types'
+import {
+	type Location_6,
+	Location_6_urn,
+} from '@nordicsemiconductor/lwm2m-types'
 import { getGnss } from './getGnss.js'
 import { typeError } from '../converter.js'
 
 void describe('getGnss', () => {
-	const metadata = {
-		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		lwm2m: {
-			'3': {
-				'0': {
-					'0': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'3': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'7': {
-						$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						},
-					},
-					'13': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-				},
-				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-			},
-			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		},
-	}
-
 	void it(`should create gnss`, () => {
 		const location = {
 			'0': -43.5723,
@@ -51,6 +17,7 @@ void describe('getGnss', () => {
 			'5': 1665149633,
 			'6': 0.579327,
 		}
+		const metadata = {}
 		const gnss = getGnss(location, metadata) as { result: unknown }
 		const expected = {
 			v: {
@@ -69,6 +36,16 @@ void describe('getGnss', () => {
 	 * @see adr/007-timestamp-hierarchy.md
 	 */
 	void it('should create gnss using server time', () => {
+		const metadata = {
+			[Location_6_urn]: {
+				'0': new Date('2023-08-03T12:11:03.0324459Z'),
+				'1': new Date('2023-07-07T12:11:03.0324459Z'),
+				'2': new Date('2023-07-07T12:11:03.0324459Z'),
+				'3': new Date('2023-07-07T12:11:03.0324459Z'),
+				'6': new Date('2023-07-07T12:11:03.0324459Z'),
+			},
+		}
+
 		const input: Location_6 = {
 			'0': -43.5723,
 			'1': 153.2176,
@@ -96,6 +73,7 @@ void describe('getGnss', () => {
 	})
 
 	void it(`should return error in case Location object is undefined`, () => {
+		const metadata = {}
 		const result = getGnss(undefined, metadata) as { error: Error }
 		assert.equal(result.error.message, 'Location (6) object is undefined')
 	})
@@ -109,6 +87,7 @@ void describe('getGnss', () => {
 			'5': 1665149633,
 			'6': 0.579327,
 		} as unknown as Location_6
+		const metadata = {}
 		const result = getGnss(location, metadata) as { error: typeError }
 		const instancePathError = result.error.description[0]?.instancePath
 		const message = result.error.description[0]?.message

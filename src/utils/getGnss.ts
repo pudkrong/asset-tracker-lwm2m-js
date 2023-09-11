@@ -31,8 +31,8 @@ export const getGnss = (
 	const acc = location['3']
 
 	const time =
-		location['5'] != null
-			? location['5'] * 1000
+		location['0'] != null
+			? location['0'] * 1000
 			: getTimestamp(Location_6_urn, 5, metadata)
 
 	const object = {
