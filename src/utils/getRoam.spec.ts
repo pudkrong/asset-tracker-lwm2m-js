@@ -1,47 +1,13 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import type { ConnectivityMonitoring_4 } from '@nordicsemiconductor/lwm2m-types'
+import {
+	ConnectivityMonitoring_4,
+	ConnectivityMonitoring_4_urn,
+} from '@nordicsemiconductor/lwm2m-types'
 import { getRoam } from './getRoam.js'
 import { typeError } from '../converter.js'
 
 void describe('getRoam', () => {
-	const metadata = {
-		$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		lwm2m: {
-			'3': {
-				'0': {
-					'0': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'3': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					'7': {
-						$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-08-03T12:11:03.0324459Z',
-						},
-					},
-					'13': {
-						$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						value: {
-							$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-						},
-					},
-					$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-				},
-				$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-			},
-			$lastUpdated: '2023-07-07T12:11:03.0324459Z',
-		},
-	}
-
 	void it(`should create roam object`, () => {
 		const connectivityMonitoring = {
 			'0': 6,
@@ -53,6 +19,28 @@ void describe('getRoam', () => {
 			'9': 20,
 			'10': 242,
 			'12': 12,
+		}
+
+		const metadata = {
+			[ConnectivityMonitoring_4_urn]: {
+				'0': new Date('2023-07-07T12:11:03.0324459Z'),
+				'1': [
+					new Date('2023-07-07T12:11:03.0324459Z'),
+					new Date('2023-07-07T12:11:03.0324459Z'),
+				],
+				'2': new Date('2023-07-07T12:11:03.0324459Z'),
+				'3': new Date('2023-07-07T12:11:03.0324459Z'),
+				'4': [new Date('2023-07-07T12:11:03.0324459Z')],
+				'8': new Date('2023-07-07T12:11:03.0324459Z'),
+				'9': new Date('2023-07-07T12:11:03.0324459Z'),
+				'10': new Date('2023-07-07T12:11:03.0324459Z'),
+				'12': new Date('2023-08-03T12:11:03.0324459Z'),
+				/**
+				 * TimeStamp is take from resource 12 from metadata object
+				 *
+				 * @see adr/007-timestamp-hierarchy.md
+				 */
+			},
 		}
 		const roam = getRoam(connectivityMonitoring, metadata) as {
 			result: unknown
@@ -72,6 +60,7 @@ void describe('getRoam', () => {
 	})
 
 	void it(`should return error if Connectivity Monitoring (4) object is missing`, () => {
+		const metadata = {}
 		const result = getRoam(undefined, metadata) as { error: Error }
 		assert.equal(
 			result.error.message,
@@ -91,6 +80,7 @@ void describe('getRoam', () => {
 			'10': 242,
 			'12': 12,
 		} as ConnectivityMonitoring_4
+		const metadata = {}
 		const result = getRoam(connectivityMonitoring, metadata) as {
 			error: typeError
 		}

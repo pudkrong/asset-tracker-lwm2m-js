@@ -36,6 +36,7 @@ export const getRoam = (
 		connectivityMonitoring[4] != null ? connectivityMonitoring[4][0] : undefined
 
 	// get timestamp from metadata
+	// TODO: Add ADR to explain why timestamp is took from metadata instead of resource
 	const time = getTimestamp(ConnectivityMonitoring_4_urn, 12, metadata)
 
 	const object = {
