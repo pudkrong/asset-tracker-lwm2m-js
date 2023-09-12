@@ -21,6 +21,23 @@ void describe('getRoam', () => {
 			'12': 12,
 		}
 
+		const device = {
+			'0': 'Nordic Semiconductor ASA',
+			'1': 'Thingy:91',
+			'2': '351358815340515',
+			'3': '22.8.1+0',
+			'7': [2754],
+			'11': [0],
+			/**
+			 * Timestamp is taken from resource 13.
+			 * @see {@link adr/010-roam-timestamp-not-supported-by-lwm2m.md}
+			 *
+			 */
+			'13': 1675874731,
+			'16': 'UQ',
+			'19': '3.2.1',
+		}
+
 		const metadata = {
 			[ConnectivityMonitoring_4_urn]: {
 				'0': new Date('2023-07-07T12:11:03.0324459Z'),
@@ -35,14 +52,10 @@ void describe('getRoam', () => {
 				'9': new Date('2023-07-07T12:11:03.0324459Z'),
 				'10': new Date('2023-07-07T12:11:03.0324459Z'),
 				'12': new Date('2023-08-03T12:11:03.0324459Z'),
-				/**
-				 * TimeStamp is take from resource 12 from metadata object
-				 *
-				 * @see adr/007-timestamp-hierarchy.md
-				 */
 			},
 		}
-		const roam = getRoam(connectivityMonitoring, metadata) as {
+
+		const roam = getRoam(connectivityMonitoring, device, metadata) as {
 			result: unknown
 		}
 		const expected = {
@@ -54,14 +67,18 @@ void describe('getRoam', () => {
 				cell: 34237196,
 				ip: '10.160.120.155',
 			},
-			ts: 1688731863032,
+			ts: 1675874731000,
 		}
 		assert.deepEqual(roam.result, expected)
 	})
 
 	void it(`should return error if Connectivity Monitoring (4) object is missing`, () => {
 		const metadata = {}
-		const result = getRoam(undefined, metadata) as { error: Error }
+		const connectivityMonitoring = undefined
+		const device = undefined
+		const result = getRoam(connectivityMonitoring, device, metadata) as {
+			error: Error
+		}
 		assert.equal(
 			result.error.message,
 			'Connectivity Monitoring (4) object is undefined',
@@ -81,7 +98,7 @@ void describe('getRoam', () => {
 			'12': 12,
 		} as ConnectivityMonitoring_4
 		const metadata = {}
-		const result = getRoam(connectivityMonitoring, metadata) as {
+		const result = getRoam(connectivityMonitoring, undefined, metadata) as {
 			error: typeError
 		}
 		const instancePathError = result.error.description[0]?.instancePath

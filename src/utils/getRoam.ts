@@ -6,6 +6,7 @@ import {
 import {
 	type ConnectivityMonitoring_4,
 	ConnectivityMonitoring_4_urn,
+	Device_3,
 } from '@nordicsemiconductor/lwm2m-types'
 import { type Metadata, typeError } from '../converter.js'
 import { getTimestamp } from './getTimestamp.js'
@@ -19,6 +20,7 @@ import { getTimestamp } from './getTimestamp.js'
  */
 export const getRoam = (
 	connectivityMonitoring: ConnectivityMonitoring_4 | undefined,
+	device: Device_3 | undefined,
 	metadata: Metadata,
 ): { result: RoamingInfoData } | { error: Error } => {
 	if (connectivityMonitoring === undefined)
@@ -35,9 +37,14 @@ export const getRoam = (
 	const ip =
 		connectivityMonitoring[4] != null ? connectivityMonitoring[4][0] : undefined
 
-	// get timestamp from metadata
-	// TODO: Add ADR to explain why timestamp is took from metadata instead of resource
-	const time = getTimestamp(ConnectivityMonitoring_4_urn, 12, metadata)
+	/**
+	 * Connectivity Monitoring (4) object does not support timestamp
+	 * @see {@link adr/010-roam-timestamp-not-supported-by-lwm2m.md}
+	 */
+	const time =
+		device?.['13'] != null
+			? device['13'] * 1000
+			: getTimestamp(ConnectivityMonitoring_4_urn, 12, metadata)
 
 	/**
 	 * band and eest from Dev object are not provided.

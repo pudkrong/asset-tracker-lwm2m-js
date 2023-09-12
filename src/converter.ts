@@ -141,7 +141,7 @@ export const converter = (
 		result['gnss'] = gnss.result
 	}
 
-	const roam = getRoam(connectivityMonitoring, metadata)
+	const roam = getRoam(connectivityMonitoring, device, metadata)
 	if ('error' in roam) {
 		onError?.(roam.error)
 	} else {
