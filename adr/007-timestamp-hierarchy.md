@@ -1,4 +1,53 @@
-# ADR 007: Timestamp Hierarchy
+# ADR 007: Timestamp hierarchy
+//NOTE: timestamp hierarchy belows to first step of transformation
+
+The following object are expecting timestamp value as part of it
+
+| nRF Asset Tracker object  | Data transition                            |
+| ------------------------- | ------------------------------------------ |
+| bat                       | [link](.../documents/documents/battery.md) |
+| dev                       | [link](../documents/device.md)             |
+| roam                      | [link](../documents/roaming.md)            |
+| env                       | [link](../documents/environment.md)        |
+| gnss                      | [link](../documents/gnss.md)               |
+
+In case the expected resource is missing (see data transition link), first option will be to pick the reported timestamp of the object.
+
+
+
+In order with the TypeScript type definition, the reported timestamp object could be undefined.If that's the case, the global cloud timestamp will be used instead.
+
+```
+
+{
+    [Device_3_urn]: {
+        object: {
+            '0': 'Nordic Semiconductor ASA',
+            '1': 'Thingy:91',
+            '2': '351358815340515',
+            '3': '22.8.1+0',
+            '7': [2754],
+            '11': [0],
+            '13': 1675874731,
+            '16': 'UQ',
+            '19': '3.2.1',
+            },
+        timestamp: 1675874731
+    },
+    cloudTimestamp: 1675874731
+}
+
+```
+
+
+In this way, there are a hierarchy about the element to be used for the reported timestamp value.
+
+1. Resource from LwM2M object
+2. Timestamp from the respective object
+3. Cloud timestamp from input object
+
+See test for more details.
+
 
 Timestamps are expected as values in the objects of nRF Asset Tracker.
 

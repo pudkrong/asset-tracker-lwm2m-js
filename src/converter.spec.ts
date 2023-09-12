@@ -9,7 +9,7 @@ import {
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
 import { Config_50009_urn } from './schemas/Config_50009.js'
-import { converter, type Metadata } from './converter.js'
+import { converter } from './converter.js'
 
 void describe('converter', () => {
 	void it('should convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format', () => {
@@ -86,19 +86,8 @@ void describe('converter', () => {
 				'8': 2.5,
 				'9': 0.5,
 			},
-		}
-		const metadata = {
-			[Device_3_urn]: {
-				'0': new Date('2023-07-07T12:11:03.0324459Z'),
-				'1': new Date('2023-07-07T12:11:03.0324459Z'),
-				'2': new Date('2023-07-07T12:11:03.0324459Z'),
-				'3': new Date('2023-07-07T12:11:03.0324459Z'),
-				'7': [new Date('2023-08-03T12:11:03.0324459Z')],
-				'11': [new Date('2023-07-07T12:11:03.0324459Z')],
-				'13': new Date('2023-07-07T12:11:03.0324459Z'),
-				'16': new Date('2023-07-07T12:11:03.0324459Z'),
-				'19': new Date('2023-07-07T12:11:03.0324459Z'),
-			},
+
+			metadataTimestamp: 1675874731
 		}
 
 		const output = {
@@ -112,7 +101,7 @@ void describe('converter', () => {
 					hum: 24.057,
 					atmp: 10,
 				},
-				ts: 1688731863032,
+				ts: 1675874731000,
 			},
 			gnss: {
 				v: {
@@ -140,6 +129,7 @@ void describe('converter', () => {
 					imei: '351358815340515',
 					modV: '22.8.1+0',
 					brdV: 'Nordic Semiconductor ASA',
+					iccid: '1234567890123456789', // TODO: remove it
 				},
 				ts: 1675874731000,
 			},
@@ -156,7 +146,7 @@ void describe('converter', () => {
 			},
 		}
 
-		assert.deepEqual(converter(input, metadata), output)
+		assert.deepEqual(converter(input), output)
 	})
 
 	void it(`should create output even when some expected objects in the input are missing`, () => {
@@ -171,21 +161,7 @@ void describe('converter', () => {
 				'13': 1675874731,
 				'16': 'UQ',
 				'19': '3.2.1',
-			},
-		}
-
-		const metadata = {
-			[Device_3_urn]: {
-				'0': new Date('2023-07-07T12:11:03.0324459Z'),
-				'1': new Date('2023-07-07T12:11:03.0324459Z'),
-				'2': new Date('2023-07-07T12:11:03.0324459Z'),
-				'3': new Date('2023-07-07T12:11:03.0324459Z'),
-				'7': [new Date('2023-08-03T12:11:03.0324459Z')],
-				'11': [new Date('2023-07-07T12:11:03.0324459Z')],
-				'13': new Date('2023-07-07T12:11:03.0324459Z'),
-				'16': new Date('2023-07-07T12:11:03.0324459Z'),
-				'19': new Date('2023-07-07T12:11:03.0324459Z'),
-			},
+			}
 		}
 
 		const output = {
@@ -198,12 +174,13 @@ void describe('converter', () => {
 					imei: '351358815340515',
 					modV: '22.8.1+0',
 					brdV: 'Nordic Semiconductor ASA',
+					iccid: '1234567890123456789', // TODO: remove it
 				},
 				ts: 1675874731000,
 			},
 		}
 
-		assert.deepEqual(converter(input, metadata), output)
+		assert.deepEqual(converter(input), output)
 	})
 
 	void it(`should select first instance when LwM2M object is an array`, () => {
@@ -284,7 +261,7 @@ void describe('converter', () => {
 				ts: 1675874731000,
 			},
 		}
-		assert.deepEqual(converter(input, {} as Metadata), output)
+		assert.deepEqual(converter(input), output)
 	})
 
 	void it(`should select first element when LwM2M instance is an array`, () => {
@@ -313,10 +290,13 @@ void describe('converter', () => {
 					brdV: 'Nordic Semiconductor ASA',
 					imei: '351358815340515',
 					modV: '22.8.1+0',
+					iccid: '1234567890123456789', // TODO: remove it
 				},
 			},
 		}
 
-		assert.deepEqual(converter(input, {} as Metadata), output)
+		converter(input, (err) => console.log(err))
+
+		assert.deepEqual(converter(input), output)
 	})
 })

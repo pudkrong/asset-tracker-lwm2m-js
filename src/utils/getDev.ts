@@ -3,9 +3,8 @@ import {
 	type DeviceData,
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
-import { type Device_3, Device_3_urn } from '@nordicsemiconductor/lwm2m-types'
-import { type Metadata, typeError } from '../converter.js'
-import { getTimestamp } from './getTimestamp.js'
+import { type Device_3 } from '@nordicsemiconductor/lwm2m-types'
+import { typeError } from '../converter.js'
 
 /**
  * Check required values and build the dev object, expected by nRF Asset Tracker
@@ -15,8 +14,7 @@ import { getTimestamp } from './getTimestamp.js'
  * // TODO: Take a decision here
  */
 export const getDev = (
-	device: Device_3 | undefined,
-	metadata: Metadata,
+	device?: Device_3,
 ): { error: Error } | { result: DeviceData } => {
 	if (device === undefined)
 		return { error: new Error('Device object (3) is undefined') }
@@ -24,10 +22,7 @@ export const getDev = (
 	const imei = device['2']
 	const modV = device['3']
 	const brdV = device['0']
-	const time =
-		device['13'] != null
-			? device['13'] * 1000
-			: getTimestamp(Device_3_urn, 13, metadata)
+	const time = device['13'] != null ? device['13'] * 1000 : undefined
 
 	/**
 	 * iccid from Dev object is not provided.
@@ -38,6 +33,7 @@ export const getDev = (
 			imei,
 			modV,
 			brdV,
+			iccid: '1234567890123456789',
 		},
 		ts: time,
 	}

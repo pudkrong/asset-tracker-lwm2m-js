@@ -29,6 +29,7 @@ import { getEnv } from './utils/getEnv.js'
 import { getGnss } from './utils/getGnss.js'
 import { getRoam } from './utils/getRoam.js'
 import { getCfg } from './utils/getCfg.js'
+
 import { Type, type Static } from '@sinclair/typebox'
 
 /**
@@ -56,13 +57,16 @@ export type Metadata = {
 	[Config_50009_urn]?: Record<string, Date | Date[]>
 }
 
+/**
+ *
+ */
 export type LwM2MAssetTrackerV2 = {
-	[ConnectivityMonitoring_4_urn]?: ConnectivityMonitoring_4
 	[Device_3_urn]?: Device_3
-	[Humidity_3304_urn]?: Humidity_3304
+	[ConnectivityMonitoring_4_urn]?: ConnectivityMonitoring_4
 	[Location_6_urn]?: Location_6
-	[Pressure_3323_urn]?: Pressure_3323
 	[Temperature_3303_urn]?: Temperature_3303
+	[Humidity_3304_urn]?: Humidity_3304
+	[Pressure_3323_urn]?: Pressure_3323
 	[Config_50009_urn]?: Config_50009
 }
 
@@ -99,7 +103,6 @@ export class typeError extends Error {
  */
 export const converter = (
 	input: LwM2MAssetTrackerV2,
-	metadata: Metadata,
 	onError?: (error: Error) => unknown,
 ): typeof nRFAssetTrackerReported => {
 	const result = {} as typeof nRFAssetTrackerReported
@@ -111,37 +114,42 @@ export const converter = (
 	const connectivityMonitoring = input[ConnectivityMonitoring_4_urn]
 	const config = input[Config_50009_urn]
 
-	// TODO: Update ADR 007. document which resources are take for TimeStamp
-
-	const bat = getBat(device, metadata)
+	const bat = getBat(device)
 	if ('error' in bat) {
 		onError?.(bat.error)
 	} else {
 		result['bat'] = bat.result
 	}
 
-	const dev = getDev(device, metadata)
+	const dev = getDev(device)
 	if ('error' in dev) {
 		onError?.(dev.error)
 	} else {
 		result['dev'] = dev.result
 	}
 
-	const env = getEnv(temperature, humidity, pressure, metadata)
+	const env = getEnv({
+		temperature,
+		humidity,
+		pressure,
+	})
 	if ('error' in env) {
 		onError?.(env.error)
 	} else {
 		result['env'] = env.result
 	}
 
-	const gnss = getGnss(location, metadata)
+	const gnss = getGnss(location)
 	if ('error' in gnss) {
 		onError?.(gnss.error)
 	} else {
 		result['gnss'] = gnss.result
 	}
 
-	const roam = getRoam(connectivityMonitoring, device, metadata)
+	const roam = getRoam({
+		connectivityMonitoring,
+		device,
+	})
 	if ('error' in roam) {
 		onError?.(roam.error)
 	} else {

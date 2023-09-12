@@ -3,13 +3,11 @@ import {
 	type RoamingInfoData,
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
-import {
-	type ConnectivityMonitoring_4,
-	ConnectivityMonitoring_4_urn,
+import type {
 	Device_3,
+	ConnectivityMonitoring_4,
 } from '@nordicsemiconductor/lwm2m-types'
-import { type Metadata, typeError } from '../converter.js'
-import { getTimestamp } from './getTimestamp.js'
+import { typeError } from '../converter.js'
 
 /**
  * Check the required values and create roam object, which is required in nRF Asset Tracker
@@ -18,11 +16,13 @@ import { getTimestamp } from './getTimestamp.js'
  * @see {@link ../../documents/roam.md}
  * // TODO: Take a decision here
  */
-export const getRoam = (
-	connectivityMonitoring: ConnectivityMonitoring_4 | undefined,
-	device: Device_3 | undefined,
-	metadata: Metadata,
-): { result: RoamingInfoData } | { error: Error } => {
+export const getRoam = ({
+	connectivityMonitoring,
+	device,
+}: {
+	connectivityMonitoring: ConnectivityMonitoring_4 | undefined
+	device: Device_3 | undefined
+}): { result: RoamingInfoData } | { error: Error } => {
 	if (connectivityMonitoring === undefined)
 		return {
 			error: new Error('Connectivity Monitoring (4) object is undefined'),
@@ -41,10 +41,7 @@ export const getRoam = (
 	 * Connectivity Monitoring (4) object does not support timestamp
 	 * @see {@link adr/010-roam-timestamp-not-supported-by-lwm2m.md}
 	 */
-	const time =
-		device?.['13'] != null
-			? device['13'] * 1000
-			: getTimestamp(ConnectivityMonitoring_4_urn, 12, metadata)
+	 const time = device?.['13'] != null ? device['13'] * 1000 : undefined
 
 	/**
 	 * band and eest from Dev object are not provided.
@@ -58,6 +55,8 @@ export const getRoam = (
 			mccmnc: Number(`${smcc}${smnc}`), // /4/0/10 & /4/0/9
 			cell,
 			ip,
+			band: 3, // TODO: remove this
+			eest: 5, // TODO: remove this
 		},
 		ts: time,
 	}
