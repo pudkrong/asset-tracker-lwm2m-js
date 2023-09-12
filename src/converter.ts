@@ -30,6 +30,11 @@ import { getGnss } from './utils/getGnss.js'
 import { getRoam } from './utils/getRoam.js'
 import { getCfg } from './utils/getCfg.js'
 import { Type, type Static } from '@sinclair/typebox'
+
+/**
+ * TODO: finish link
+ * @see 006
+ */
 export const nRFAssetTrackerReported = Type.Object({
 	cfg: Type.Optional(Config),
 	dev: Type.Optional(Device),

@@ -35,6 +35,10 @@ export const getGnss = (
 			? location['0'] * 1000
 			: getTimestamp(Location_6_urn, 5, metadata)
 
+	/**
+	 * hdg from GNSS object is not provided.
+	 * @see {@link adr/009-nrf-asset-tracker-values-not-provided.md}
+	 */
 	const object = {
 		v: {
 			lng,

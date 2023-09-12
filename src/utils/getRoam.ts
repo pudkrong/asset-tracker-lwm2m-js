@@ -39,6 +39,10 @@ export const getRoam = (
 	// TODO: Add ADR to explain why timestamp is took from metadata instead of resource
 	const time = getTimestamp(ConnectivityMonitoring_4_urn, 12, metadata)
 
+	/**
+	 * band and eest from Dev object are not provided.
+	 * @see {@link adr/009-nrf-asset-tracker-values-not-provided.md}
+	 */
 	const object = {
 		v: {
 			nw,

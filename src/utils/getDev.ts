@@ -29,6 +29,10 @@ export const getDev = (
 			? device['13'] * 1000
 			: getTimestamp(Device_3_urn, 13, metadata)
 
+	/**
+	 * iccid from Dev object is not provided.
+	 * @see {@link adr/009-nrf-asset-tracker-values-not-provided.md}
+	 */
 	const object = {
 		v: {
 			imei,
