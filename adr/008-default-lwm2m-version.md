@@ -1,6 +1,6 @@
 # ADR 008: Default LwM2M version
 
-The next versions are expected to be used in the LwM2M objects:
+The following versions are expected to be used by the LwM2M objects:
 
 | Object ID | Object Version | LwM2M Version |
 | --------- | -------------- | ------------- |
@@ -11,9 +11,15 @@ The next versions are expected to be used in the LwM2M objects:
 | 3304      | 1.1            | 1.0           |
 | 3323      | 1.1            | 1.0           |
 
+Failure to follow these recommendations could lead to errors.
+
+// This explanation is Coiote related. This proyect do not know anything about Coiote. 
+
 It is known that in the object version `1.0` of objects `3303`, `3304` and
 `3323` there is missing the resource used to set timestamp value (`5518`) in the
 Environment object of nRF Asset Tracker. This case is cover by the
 implementation of [Timestamp Hierarchy](./007-timestamp-hierarchy.md), however
 there could be other cases no caught and it is recommended to use the versions
 listed above to avoid issues.
+
+//
