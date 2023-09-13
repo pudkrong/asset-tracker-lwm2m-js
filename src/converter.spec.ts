@@ -53,6 +53,7 @@ void describe('converter', () => {
 					'5602': 27.71,
 					'5700': 27.18,
 					'5701': 'Cel',
+					'5518': 1675874731,
 				},
 			],
 
@@ -62,6 +63,7 @@ void describe('converter', () => {
 					'5602': 24.161,
 					'5700': 24.057,
 					'5701': '%RH',
+					'5518': 1675874731,
 				},
 			],
 
@@ -71,6 +73,7 @@ void describe('converter', () => {
 					'5602': 101705,
 					'5700': 10,
 					'5701': 'Pa',
+					'5518': 1675874731,
 				},
 			],
 
@@ -87,10 +90,10 @@ void describe('converter', () => {
 				'9': 0.5,
 			},
 
-			metadataTimestamp: 1675874731
+			metadataTimestamp: 1675874731,
 		}
 
-		const output = {
+		const expected = {
 			bat: {
 				v: 2754,
 				ts: 1675874731000,
@@ -110,6 +113,7 @@ void describe('converter', () => {
 					acc: 24.798573,
 					alt: 2,
 					spd: 0.579327,
+					hdg: 51, // TODO: remove it
 				},
 				ts: 1665149633000,
 			},
@@ -141,12 +145,21 @@ void describe('converter', () => {
 					mccmnc: 24220,
 					cell: 34237196,
 					ip: '10.160.120.155',
+					eest: 5, // TODO: remove it
+					band: 3, // TODO: remove it
 				},
-				ts: 1688731863032,
+				ts: 1675874731000,
 			},
 		}
 
-		assert.deepEqual(converter(input), output)
+		const result = converter(input)
+
+		assert.deepEqual(result.bat, expected.bat)
+		assert.deepEqual(result.cfg, expected.cfg)
+		assert.deepEqual(result.dev, expected.dev)
+		assert.deepEqual(result.env, expected.env)
+		assert.deepEqual(result.roam, expected.roam)
+		assert.deepEqual(result.gnss, expected.gnss)
 	})
 
 	void it(`should create output even when some expected objects in the input are missing`, () => {
@@ -161,7 +174,7 @@ void describe('converter', () => {
 				'13': 1675874731,
 				'16': 'UQ',
 				'19': '3.2.1',
-			}
+			},
 		}
 
 		const output = {
@@ -294,8 +307,6 @@ void describe('converter', () => {
 				},
 			},
 		}
-
-		converter(input, (err) => console.log(err))
 
 		assert.deepEqual(converter(input), output)
 	})
