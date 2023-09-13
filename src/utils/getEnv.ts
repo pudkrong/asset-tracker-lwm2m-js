@@ -44,7 +44,7 @@ export const getEnv = ({
 		humidity?.[0]?.['5518'] ??
 		pressure?.[0]?.['5518']
 
-	if (time !== undefined) time = time * 100
+	if (time !== undefined) time = time * 1000
 	
 	const object = {
 		v: {
