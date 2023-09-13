@@ -33,8 +33,24 @@ import { getCfg } from './utils/getCfg.js'
 import { Type, type Static } from '@sinclair/typebox'
 
 /**
- * TODO: finish link
- * @see 006
+ * Expected input type
+ * 
+ * @see {@link adr/006-result-generation.md}
+ */
+ export type LwM2MAssetTrackerV2 = {
+	[Device_3_urn]?: Device_3
+	[ConnectivityMonitoring_4_urn]?: ConnectivityMonitoring_4
+	[Location_6_urn]?: Location_6
+	[Temperature_3303_urn]?: Temperature_3303
+	[Humidity_3304_urn]?: Humidity_3304
+	[Pressure_3323_urn]?: Pressure_3323
+	[Config_50009_urn]?: Config_50009
+}
+
+/**
+ * Expected output type
+ * 
+ * @see {@link adr/006-result-generation.md}
  */
 export const nRFAssetTrackerReported = Type.Object({
 	cfg: Type.Optional(Config),
@@ -46,19 +62,6 @@ export const nRFAssetTrackerReported = Type.Object({
 })
 
 export type nRFAssetTrackerReportedType = Static<typeof nRFAssetTrackerReported>
-
-/**
- *
- */
-export type LwM2MAssetTrackerV2 = {
-	[Device_3_urn]?: Device_3
-	[ConnectivityMonitoring_4_urn]?: ConnectivityMonitoring_4
-	[Location_6_urn]?: Location_6
-	[Temperature_3303_urn]?: Temperature_3303
-	[Humidity_3304_urn]?: Humidity_3304
-	[Pressure_3323_urn]?: Pressure_3323
-	[Config_50009_urn]?: Config_50009
-}
 
 type ErrorDescription = {
 	instancePath: string
