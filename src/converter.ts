@@ -129,25 +129,15 @@ export const converter = (
 	const config = input[Config_50009_urn]
 
 	const bat = getBat(device)
-	if ('warning' in bat) {
-		onWarning?.(bat.warning)
-	} else {
-		if ('error' in bat) {
-			onError?.(bat.error)
-		} else {
-			result['bat'] = bat.result
-		}
+	if ('result' in bat) result['bat'] = bat.result
+	else {
+		'warning' in bat ? onWarning?.(bat.warning) : onError?.(bat.error)
 	}
 
 	const dev = getDev(device)
-	if ('warning' in dev) {
-		onWarning?.(dev.warning)
-	} else {
-		if ('error' in dev) {
-			onError?.(dev.error)
-		} else {
-			result['dev'] = dev.result
-		}
+	if ('result' in dev) result['dev'] = dev.result
+	else {
+		'warning' in dev ? onWarning?.(dev.warning) : onError?.(dev.error)
 	}
 
 	const env = getEnv({
@@ -155,50 +145,30 @@ export const converter = (
 		humidity,
 		pressure,
 	})
-	if ('warning' in env) {
-		onWarning?.(env.warning)
-	} else {
-		if ('error' in env) {
-			onError?.(env.error)
-		} else {
-			result['env'] = env.result
-		}
+	if ('result' in env) result['env'] = env.result
+	else {
+		'warning' in env ? onWarning?.(env.warning) : onError?.(env.error)
 	}
 
 	const gnss = getGnss(location)
-	if ('warning' in gnss) {
-		onWarning?.(gnss.warning)
-	} else {
-		if ('error' in gnss) {
-			onError?.(gnss.error)
-		} else {
-			result['gnss'] = gnss.result
-		}
+	if ('result' in gnss) result['gnss'] = gnss.result
+	else {
+		'warning' in gnss ? onWarning?.(gnss.warning) : onError?.(gnss.error)
 	}
 
 	const roam = getRoam({
 		connectivityMonitoring,
 		device,
 	})
-	if ('warning' in roam) {
-		onWarning?.(roam.warning)
-	} else {
-		if ('error' in roam) {
-			onError?.(roam.error)
-		} else {
-			result['roam'] = roam.result
-		}
+	if ('result' in roam) result['roam'] = roam.result
+	else {
+		'warning' in roam ? onWarning?.(roam.warning) : onError?.(roam.error)
 	}
 
 	const cfg = getCfg(config)
-	if ('warning' in cfg) {
-		onWarning?.(cfg.warning)
-	} else {
-		if ('error' in cfg) {
-			onError?.(cfg.error)
-		} else {
-			result['cfg'] = cfg.result
-		}
+	if ('result' in cfg) result['cfg'] = cfg.result
+	else {
+		'warning' in cfg ? onWarning?.(cfg.warning) : onError?.(cfg.error)
 	}
 
 	return result
