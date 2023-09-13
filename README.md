@@ -198,11 +198,9 @@ The output is an object with the structure described in the
 import {
 	converter,
 	type LwM2MAssetTrackerV2,
-	type Metadata,
 } from './converter.js'
 
 const lwM2MAssetTrackerV2 = {} as LwM2MAssetTrackerV2 // Object with Asset Tracker v2 objects...
-const metadata = {} as Metadata // Metadata object from Azure Device Twin ...
 const result = converter(lwM2MAssetTrackerV2, metadata)
 console.log(result)
 ```

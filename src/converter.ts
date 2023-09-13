@@ -47,16 +47,6 @@ export const nRFAssetTrackerReported = Type.Object({
 
 export type nRFAssetTrackerReportedType = Static<typeof nRFAssetTrackerReported>
 
-export type Metadata = {
-	[Device_3_urn]?: Record<string, Date | Date[]>
-	[ConnectivityMonitoring_4_urn]?: Record<string, Date | Date[]>
-	[Location_6_urn]?: Record<string, Date | Date[]>
-	[Temperature_3303_urn]?: Record<string, Date>[]
-	[Humidity_3304_urn]?: Record<string, Date>[]
-	[Pressure_3323_urn]?: Record<string, Date>[]
-	[Config_50009_urn]?: Record<string, Date | Date[]>
-}
-
 /**
  *
  */
