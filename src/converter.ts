@@ -34,10 +34,10 @@ import { Type, type Static } from '@sinclair/typebox'
 
 /**
  * Expected input type
- * 
+ *
  * @see {@link adr/006-result-generation.md}
  */
- export type LwM2MAssetTrackerV2 = {
+export type LwM2MAssetTrackerV2 = {
 	[Device_3_urn]?: Device_3
 	[ConnectivityMonitoring_4_urn]?: ConnectivityMonitoring_4
 	[Location_6_urn]?: Location_6
@@ -49,7 +49,7 @@ import { Type, type Static } from '@sinclair/typebox'
 
 /**
  * Expected output type
- * 
+ *
  * @see {@link adr/006-result-generation.md}
  */
 export const nRFAssetTrackerReported = Type.Object({
@@ -71,7 +71,7 @@ type ErrorDescription = {
 	message?: string
 }
 
-export class typeError extends Error {
+export class TypeError extends Error {
 	description: ErrorDescription[]
 
 	constructor({
@@ -91,11 +91,32 @@ export class typeError extends Error {
 	}
 }
 
+export class Warning extends Error {
+	description: string
+
+	constructor({
+		name,
+		message,
+		description,
+	}: {
+		name: string
+		message: string
+		description: string
+	}) {
+		super()
+
+		this.name = name
+		this.message = message
+		this.description = description
+	}
+}
+
 /**
  * convert LwM2M Asset Tracker v2 format into nRF Asset Tracker format
  */
 export const converter = (
 	input: LwM2MAssetTrackerV2,
+	onWarning?: (warning: Error) => unknown,
 	onError?: (error: Error) => unknown,
 ): typeof nRFAssetTrackerReported => {
 	const result = {} as typeof nRFAssetTrackerReported
@@ -108,17 +129,25 @@ export const converter = (
 	const config = input[Config_50009_urn]
 
 	const bat = getBat(device)
-	if ('error' in bat) {
-		onError?.(bat.error)
+	if ('warning' in bat) {
+		onWarning?.(bat.warning)
 	} else {
-		result['bat'] = bat.result
+		if ('error' in bat) {
+			onError?.(bat.error)
+		} else {
+			result['bat'] = bat.result
+		}
 	}
 
 	const dev = getDev(device)
-	if ('error' in dev) {
-		onError?.(dev.error)
+	if ('warning' in dev) {
+		onWarning?.(dev.warning)
 	} else {
-		result['dev'] = dev.result
+		if ('error' in dev) {
+			onError?.(dev.error)
+		} else {
+			result['dev'] = dev.result
+		}
 	}
 
 	const env = getEnv({
@@ -126,34 +155,50 @@ export const converter = (
 		humidity,
 		pressure,
 	})
-	if ('error' in env) {
-		onError?.(env.error)
+	if ('warning' in env) {
+		onWarning?.(env.warning)
 	} else {
-		result['env'] = env.result
+		if ('error' in env) {
+			onError?.(env.error)
+		} else {
+			result['env'] = env.result
+		}
 	}
 
 	const gnss = getGnss(location)
-	if ('error' in gnss) {
-		onError?.(gnss.error)
+	if ('warning' in gnss) {
+		onWarning?.(gnss.warning)
 	} else {
-		result['gnss'] = gnss.result
+		if ('error' in gnss) {
+			onError?.(gnss.error)
+		} else {
+			result['gnss'] = gnss.result
+		}
 	}
 
 	const roam = getRoam({
 		connectivityMonitoring,
 		device,
 	})
-	if ('error' in roam) {
-		onError?.(roam.error)
+	if ('warning' in roam) {
+		onWarning?.(roam.warning)
 	} else {
-		result['roam'] = roam.result
+		if ('error' in roam) {
+			onError?.(roam.error)
+		} else {
+			result['roam'] = roam.result
+		}
 	}
 
 	const cfg = getCfg(config)
-	if ('error' in cfg) {
-		onError?.(cfg.error)
+	if ('warning' in cfg) {
+		onWarning?.(cfg.warning)
 	} else {
-		result['cfg'] = cfg.result
+		if ('error' in cfg) {
+			onError?.(cfg.error)
+		} else {
+			result['cfg'] = cfg.result
+		}
 	}
 
 	return result

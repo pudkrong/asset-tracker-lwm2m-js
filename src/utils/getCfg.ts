@@ -4,7 +4,7 @@ import {
 	type ConfigData,
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
-import { typeError } from '../converter.js'
+import { TypeError, Warning } from '../converter.js'
 
 /**
  * Check required values and build config object, expected by nRF Asset Tracker
@@ -15,9 +15,15 @@ import { typeError } from '../converter.js'
  */
 export const getCfg = (
 	config?: Config_50009,
-): { result: ConfigData } | { error: Error } => {
+): { result: ConfigData } | { error: Error } | { warning: Warning } => {
 	if (config === undefined)
-		return { error: new Error('Config (50009) object is undefined') }
+		return {
+			warning: new Warning({
+				name: 'warning',
+				message: 'Cfg object can not be created',
+				description: 'Config (50009) object is undefined',
+			}),
+		}
 
 	const act = config[0]
 	const loct = config[1]
@@ -44,7 +50,7 @@ export const getCfg = (
 
 	if ('errors' in maybeValidCfg) {
 		return {
-			error: new typeError({
+			error: new TypeError({
 				name: 'type error',
 				message: 'error validating type',
 				description: maybeValidCfg.errors,

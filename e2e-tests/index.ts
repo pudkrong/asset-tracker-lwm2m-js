@@ -6,8 +6,8 @@ import {
 } from '@nordicsemiconductor/lwm2m-types'
 import { assertThat, is, not, defined } from 'hamjest'
 import { converter } from '../src/converter.js'
-import { input, metadata } from './input.js'
-const output = converter(input, metadata)
+import { input } from './input.js'
+const output = converter(input)
 
 /**
  * Check if Device object is present in the input

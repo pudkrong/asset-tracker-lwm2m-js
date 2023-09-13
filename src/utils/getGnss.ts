@@ -4,7 +4,7 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Location_6 } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
+import { TypeError, Warning } from '../converter.js'
 
 /**
  * Check the required values and create the GNSS object required in nRF Asset Tracker
@@ -15,9 +15,15 @@ import { typeError } from '../converter.js'
  */
 export const getGnss = (
 	location?: Location_6,
-): { result: GNSSData } | { error: Error | typeError } => {
+): { result: GNSSData } | { error: Error } | { warning: Warning } => {
 	if (location === undefined)
-		return { error: new Error('Location (6) object is undefined') }
+		return {
+			warning: new Warning({
+				name: 'warning',
+				message: 'GNSS object can not be created',
+				description: 'Location (6) object is undefined',
+			}),
+		}
 
 	const lat = location['0']
 	const alt = location['2']
@@ -45,7 +51,7 @@ export const getGnss = (
 	const maybeValidGnss = validateWithType(GNSS)(object)
 	if ('errors' in maybeValidGnss) {
 		return {
-			error: new typeError({
+			error: new TypeError({
 				name: 'type error',
 				message: 'error validating type',
 				description: maybeValidGnss.errors,

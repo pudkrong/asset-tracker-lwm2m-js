@@ -7,7 +7,7 @@ import type {
 	Device_3,
 	ConnectivityMonitoring_4,
 } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
+import { TypeError, Warning } from '../converter.js'
 
 /**
  * Check the required values and create roam object, which is required in nRF Asset Tracker
@@ -22,10 +22,14 @@ export const getRoam = ({
 }: {
 	connectivityMonitoring: ConnectivityMonitoring_4 | undefined
 	device: Device_3 | undefined
-}): { result: RoamingInfoData } | { error: Error } => {
+}): { result: RoamingInfoData } | { error: Error } | { warning: Warning } => {
 	if (connectivityMonitoring === undefined)
 		return {
-			error: new Error('Connectivity Monitoring (4) object is undefined'),
+			warning: new Warning({
+				name: 'warning',
+				message: 'Roam object can not be created',
+				description: 'Connectivity Monitoring (4) object is undefined',
+			}),
 		}
 
 	const nw = String(connectivityMonitoring[0])
@@ -41,7 +45,7 @@ export const getRoam = ({
 	 * Connectivity Monitoring (4) object does not support timestamp
 	 * @see {@link adr/010-roam-timestamp-not-supported-by-lwm2m.md}
 	 */
-	 const time = device?.['13'] != null ? device['13'] * 1000 : undefined
+	const time = device?.['13'] != null ? device['13'] * 1000 : undefined
 
 	/**
 	 * band and eest from Dev object are not provided.
@@ -64,7 +68,7 @@ export const getRoam = ({
 	const maybeValidRoam = validateWithType(RoamingInfo)(object)
 	if ('errors' in maybeValidRoam) {
 		return {
-			error: new typeError({
+			error: new TypeError({
 				name: 'type error',
 				message: 'error validating type',
 				description: maybeValidRoam.errors,

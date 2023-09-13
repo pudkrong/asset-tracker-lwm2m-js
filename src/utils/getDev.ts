@@ -4,7 +4,7 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Device_3 } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
+import { TypeError, Warning } from '../converter.js'
 
 /**
  * Check required values and build the dev object, expected by nRF Asset Tracker
@@ -15,9 +15,15 @@ import { typeError } from '../converter.js'
  */
 export const getDev = (
 	device?: Device_3,
-): { error: Error } | { result: DeviceData } => {
+): { error: Error } | { result: DeviceData } | { warning: Warning } => {
 	if (device === undefined)
-		return { error: new Error('Device object (3) is undefined') }
+		return {
+			warning: new Warning({
+				name: 'warning',
+				message: 'Dev object can not be created',
+				description: 'Device (3) object is undefined',
+			}),
+		}
 
 	const imei = device['2']
 	const modV = device['3']
@@ -41,7 +47,7 @@ export const getDev = (
 	const maybeValidDeviceData = validateWithType(Device)(object)
 	if ('errors' in maybeValidDeviceData) {
 		return {
-			error: new typeError({
+			error: new TypeError({
 				name: 'type error',
 				message: 'error validating type',
 				description: maybeValidDeviceData.errors,

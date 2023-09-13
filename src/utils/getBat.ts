@@ -4,7 +4,7 @@ import {
 	validateWithType,
 } from '@nordicsemiconductor/asset-tracker-cloud-docs/protocol'
 import { type Device_3 } from '@nordicsemiconductor/lwm2m-types'
-import { typeError } from '../converter.js'
+import { TypeError, Warning } from '../converter.js'
 
 /**
  * Check the required values and create the object expected by nRF Asset Tracker related to battery transforming Device LwM2M object (3) into it
@@ -15,9 +15,15 @@ import { typeError } from '../converter.js'
  */
 export const getBat = (
 	device?: Device_3,
-): { result: BatteryData } | { error: Error } => {
+): { result: BatteryData } | { error: Error } | { warning: Warning } => {
 	if (device === undefined)
-		return { error: new Error('Device (3) object is undefined') }
+		return {
+			warning: new Warning({
+				name: 'warning',
+				message: 'Bat object can not be created',
+				description: 'Device (3) object is undefined',
+			}),
+		}
 
 	const value = device['7'] != null ? device['7'][0] : undefined
 	const time = device['13'] != null ? device['13'] * 1000 : undefined
@@ -30,7 +36,7 @@ export const getBat = (
 	const maybeValidBat = validateWithType(Battery)(object)
 	if ('errors' in maybeValidBat) {
 		return {
-			error: new typeError({
+			error: new TypeError({
 				name: 'type error',
 				message: 'error validating type',
 				description: maybeValidBat.errors,

@@ -1,13 +1,8 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import {
-	Humidity_3304_urn,
-	Pressure_3323_urn,
-	Temperature_3303,
-	Temperature_3303_urn,
-} from '@nordicsemiconductor/lwm2m-types'
+import type { Temperature_3303 } from '@nordicsemiconductor/lwm2m-types'
 import { getEnv } from './getEnv.js'
-import { typeError } from '../converter.js'
+import { TypeError, Warning } from '../converter.js'
 
 void describe('getEnv', () => {
 	void it(`should create the 'env' object expected by nRF Asset Tracker`, () => {
@@ -17,6 +12,7 @@ void describe('getEnv', () => {
 				'5602': 27.71,
 				'5700': 27.18,
 				'5701': 'Cel',
+				'5518': 1675874731,
 			},
 		]
 		const humidity = [
@@ -25,6 +21,7 @@ void describe('getEnv', () => {
 				'5602': 24.161,
 				'5700': 24.057,
 				'5701': '%RH',
+				'5518': 1675874731,
 			},
 		]
 		const pressure = [
@@ -33,10 +30,10 @@ void describe('getEnv', () => {
 				'5602': 101705,
 				'5700': 10,
 				'5701': 'Pa',
+				'5518': 1675874731,
 			},
 		]
-		const metadata = {}
-		const env = getEnv(temperature, humidity, pressure, metadata) as {
+		const env = getEnv({ temperature, humidity, pressure }) as {
 			result: unknown
 		}
 		const expected = {
@@ -45,73 +42,20 @@ void describe('getEnv', () => {
 				hum: 24.057,
 				atmp: 10,
 			},
-			ts: 1688731863032,
+			ts: 1675874731000,
 		}
 
 		assert.deepEqual(env.result, expected)
 	})
 
-	/**
-	 * @see adr/007-timestamp-hierarchy.md
-	 */
-	void it('should follow Timestamp Hierarchy in case timestamp resource is not found from LwM2M objects', () => {
-		const temperature = [{ '5700': 15 }]
-		const humidity = [{ '5700': 30 }]
-		const pressure = [
-			{
-				'5601': 101697,
-				'5602': 101705,
-				'5700': 101705,
-				'5701': 'Pa',
-				//'5518': 45612456 // Missing timestamp resource
-			},
-		]
-		const metadata = {
-			[Temperature_3303_urn]: [
-				{
-					'5700': new Date('2023-07-07T12:11:03.0324459Z'),
-				},
-			],
-
-			[Humidity_3304_urn]: [
-				{
-					'5700': new Date('2023-07-07T12:11:03.0324459Z'),
-				},
-			],
-
-			[Pressure_3323_urn]: [
-				{
-					'5601': new Date('2023-07-07T12:11:03.0324459Z'),
-					'5602': new Date('2023-07-07T12:11:03.0324459Z'),
-					'5700': new Date('2023-08-03T12:11:03.0324459Z'),
-					'5701': new Date('2023-07-07T12:11:03.0324459Z'),
-				},
-			],
-		}
-
-		const expected = {
-			v: {
-				temp: 15,
-				hum: 30,
-				atmp: 101705,
-			},
-			ts: 1688731863032,
-		}
-
-		const env = getEnv(temperature, humidity, pressure, metadata) as {
-			result: unknown
-		}
-
-		assert.deepEqual(env.result, expected)
-	})
-
-	void it(`should return error if required objects are undefined`, () => {
+	void it(`should return warning if required objects are undefined`, () => {
 		const temperature = [
 			{
 				'5601': 27.18,
 				'5602': 27.71,
 				'5700': 27.18,
 				'5701': 'Cel',
+				'5518': 1675874731,
 			},
 		]
 		const humidity = undefined
@@ -121,14 +65,17 @@ void describe('getEnv', () => {
 				'5602': 101705,
 				'5700': 10,
 				'5701': 'Pa',
+				'5518': 1675874731,
 			},
 		]
-		const metadata = {}
-		const result = getEnv(temperature, humidity, pressure, metadata) as {
-			error: Error
+		const result = getEnv({ temperature, humidity, pressure }) as {
+			warning: Warning
 		}
-
-		assert.equal(result.error.message, 'Humidity (3304) object is undefined')
+		assert.equal(result.warning.message, 'Env object can not be created')
+		assert.equal(
+			result.warning.description,
+			'Humidity (3304) object is undefined',
+		)
 	})
 
 	void it(`should return error if required resources are missing`, () => {
@@ -138,6 +85,7 @@ void describe('getEnv', () => {
 				'5602': 27.71,
 				//'5700': 27.18, // required resource is missing
 				'5701': 'Cel',
+				'5518': 1675874731,
 			},
 		] as unknown as Temperature_3303
 		const humidity = [
@@ -146,6 +94,7 @@ void describe('getEnv', () => {
 				'5602': 24.161,
 				'5700': 24.057,
 				'5701': '%RH',
+				'5518': 1675874731,
 			},
 		]
 		const pressure = [
@@ -154,11 +103,11 @@ void describe('getEnv', () => {
 				'5602': 101705,
 				'5700': 10,
 				'5701': 'Pa',
+				'5518': 1675874731,
 			},
 		]
-		const metadata = {}
-		const result = getEnv(temperature, humidity, pressure, metadata) as {
-			error: typeError
+		const result = getEnv({ temperature, humidity, pressure }) as {
+			error: TypeError
 		}
 		const instancePathError = result.error.description[0]?.instancePath
 		const message = result.error.description[0]?.message

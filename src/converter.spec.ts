@@ -162,7 +162,7 @@ void describe('converter', () => {
 		assert.deepEqual(result.gnss, expected.gnss)
 	})
 
-	void it(`should create output even when some expected objects in the input are missing`, () => {
+	void it(`should create output even when some expected objects in the input are missing`, (context) => {
 		const input = {
 			[Device_3_urn]: {
 				'0': 'Nordic Semiconductor ASA',
@@ -177,7 +177,7 @@ void describe('converter', () => {
 			},
 		}
 
-		const output = {
+		const expected = {
 			bat: {
 				v: 2754,
 				ts: 1675874731000,
@@ -193,7 +193,14 @@ void describe('converter', () => {
 			},
 		}
 
-		assert.deepEqual(converter(input), output)
+		const warningCallback = context.mock.fn()
+		const result = converter(input, warningCallback)
+		assert.deepEqual(result, expected)
+		/**
+		 * 4 objects (env, gnss, cfg, roam) from nRF Asset Tracker were not generated because dependent objects were not present in input,
+		 * thats why it is expecting the warning callback to be called 4 times
+		 */
+		assert.strictEqual(warningCallback.mock.callCount(), 4)
 	})
 
 	void it(`should select first instance when LwM2M object is an array`, () => {

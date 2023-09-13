@@ -7,10 +7,7 @@ import {
 	Pressure_3323_urn,
 } from '@nordicsemiconductor/lwm2m-types'
 import { Config_50009_urn } from './schemas/Config_50009.js'
-import {
-	converter,
-	type LwM2MAssetTrackerV2,
-} from './converter.js'
+import { converter, type LwM2MAssetTrackerV2 } from './converter.js'
 
 const lwM2MAssetTrackerV2: LwM2MAssetTrackerV2 = {
 	[Device_3_urn]: {
@@ -87,8 +84,9 @@ const lwM2MAssetTrackerV2: LwM2MAssetTrackerV2 = {
 	},
 }
 
-
-const result = converter(lwM2MAssetTrackerV2)
+const warningHandler = (warning: Error) => console.log(warning)
+const errorHandler = (error: Error) => console.log(error)
+const result = converter(lwM2MAssetTrackerV2, warningHandler, errorHandler)
 console.log(result)
 
 /**
