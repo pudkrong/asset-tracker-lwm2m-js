@@ -11,6 +11,7 @@ import { TypeError, Warning } from '../converter.js'
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/device.md
  * @see {@link ../../documents/device.md}
+ *
  * // TODO: Take a decision here
  */
 export const getDev = (

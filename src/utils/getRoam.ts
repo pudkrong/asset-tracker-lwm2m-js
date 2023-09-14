@@ -14,6 +14,7 @@ import { TypeError, Warning } from '../converter.js'
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/roam.md
  * @see {@link ../../documents/roam.md}
+ *
  * // TODO: Take a decision here
  */
 export const getRoam = ({

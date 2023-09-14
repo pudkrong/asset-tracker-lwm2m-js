@@ -11,6 +11,7 @@ import { TypeError, Warning } from '../converter.js'
  *
  * @see https://github.com/MLopezJ/asset-tracker-cloud-coiote-azure-converter-js/blob/saga/documents/gnss.md
  * @see {@link ../../documents/gnss.md}
+ *
  * // TODO: Take a decision here
  */
 export const getGnss = (
