@@ -10,7 +10,7 @@
 | iccid | [value not provided](../adr/009-nrf-asset-tracker-values-not-provided.md) |
 | modV  | /3/0/3                                                                    |
 | brdV  | /3/0/0                                                                    |
-| ts    | /3/0/13 or [Timestamp Hierarchy](../adr/007-timestamp-hierarchy.md)       |
+| ts    | /3/0/13                                                                   |
 
 // TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
 instead of MLopezJ

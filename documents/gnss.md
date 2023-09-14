@@ -12,7 +12,7 @@
 | alt               | /6/0/2                                                                    |
 | spd               | /6/0/6                                                                    |
 | hdg               | [value not provided](../adr/009-nrf-asset-tracker-values-not-provided.md) |
-| ts                | /6/0/5 or [Timestamp Hierarchy](../adr/007-timestamp-hierarchy.md)        |
+| ts                | /6/0/5                                                                    |
 
 // TODO: Update link related to Timestamp Hierarchy. Use NordicSemiconductor
 instead of MLopezJ

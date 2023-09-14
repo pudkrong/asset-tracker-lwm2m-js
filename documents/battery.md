@@ -4,10 +4,10 @@
 
 ## Data
 
-| Field | LwM2M                                                               |
-| ----- | ------------------------------------------------------------------- |
-| v     | /3/0/7                                                              |
-| ts    | /3/0/13 or [Timestamp Hierarchy](../adr/007-timestamp-hierarchy.md) |
+| Field | LwM2M   |
+| ----- | ------- |
+| v     | /3/0/7  |
+| ts    | /3/0/13 |
 
 ## Details
 
