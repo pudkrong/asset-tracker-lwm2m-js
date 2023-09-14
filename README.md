@@ -132,8 +132,7 @@ export const input = {
 
 ## Expected output
 
-The output is an object with the structure described in the
-[nRF Asset Tracker protocol documentation](https://github.com/NordicSemiconductor/asset-tracker-cloud-docs/blob/saga/docs/cloud-protocol/state.reported.azure.json)
+The output is a nRF Asset Tracker payload.
 
 ```TypeScript
 const result = {
