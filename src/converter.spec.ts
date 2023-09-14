@@ -89,8 +89,6 @@ void describe('converter', () => {
 				'8': 2.5,
 				'9': 0.5,
 			},
-
-			metadataTimestamp: 1675874731,
 		}
 
 		const expected = {
