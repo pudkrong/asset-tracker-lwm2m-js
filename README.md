@@ -1,15 +1,13 @@
 # `asset_tracker_v2` LwM2M JSON to nRF Asset Tracker JSON
 
 ```
-TODO:
-* Update link related to test and release badge. Use NordicSemiconductor instead of MLopezJ
-* release to NPM
+TODO Update link related to test and release badge. Use NordicSemiconductor instead of MLopezJ
 ```
 
 ```
-TODO:
-* Update link related to test and release badge. Use NordicSemiconductor instead of MLopezJ
-* release to NPM
+TODO: release to NPM
+
+The package will be released when receive the 'thumbs up' regarding this review
 ```
 
 [![Test and Release](https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app/actions/workflows/test-and-release.yaml/badge.svg)](https://github.com/MLopezJ/LwM2M-Asset-Tracker-V2-to-Asset-Tracker-web-app/actions/workflows/test-and-release.yaml)
