@@ -14,6 +14,7 @@ import assert from 'node:assert'
 /**
  * Idea: I want to link the ADR 008 with a test, because otherwise that could be lose when the context change
  * @see adr/008-default-lwm2m-version.md for more details
+ *
  */
 void describe('defaultLwM2MVersions()', () => {
 	const LwM2MAssetTrackerV2 = [

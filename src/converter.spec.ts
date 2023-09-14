@@ -315,4 +315,6 @@ void describe('converter', () => {
 
 		assert.deepEqual(converter(input), output)
 	})
+
+	// should test that used LwM2M versions support the conversion process
 })
