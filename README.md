@@ -30,7 +30,7 @@ npm test
 ## Coverage
 
 ```
-TODO: add command
+TODO: add command to execute coverage test
 ```
 
 ## Expected input
