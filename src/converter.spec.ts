@@ -113,7 +113,6 @@ void describe('converter', () => {
 					acc: 24.798573,
 					alt: 2,
 					spd: 0.579327,
-					hdg: 51, // TODO: remove it
 				},
 				ts: 1665149633000,
 			},
@@ -133,7 +132,6 @@ void describe('converter', () => {
 					imei: '351358815340515',
 					modV: '22.8.1+0',
 					brdV: 'Nordic Semiconductor ASA',
-					iccid: '1234567890123456789', // TODO: remove it
 				},
 				ts: 1675874731000,
 			},
@@ -145,8 +143,6 @@ void describe('converter', () => {
 					mccmnc: 24220,
 					cell: 34237196,
 					ip: '10.160.120.155',
-					eest: 5, // TODO: remove it
-					band: 3, // TODO: remove it
 				},
 				ts: 1675874731000,
 			},
@@ -187,7 +183,6 @@ void describe('converter', () => {
 					imei: '351358815340515',
 					modV: '22.8.1+0',
 					brdV: 'Nordic Semiconductor ASA',
-					iccid: '1234567890123456789', // TODO: remove it
 				},
 				ts: 1675874731000,
 			},
@@ -310,7 +305,6 @@ void describe('converter', () => {
 					brdV: 'Nordic Semiconductor ASA',
 					imei: '351358815340515',
 					modV: '22.8.1+0',
-					iccid: '1234567890123456789', // TODO: remove it
 				},
 			},
 		}

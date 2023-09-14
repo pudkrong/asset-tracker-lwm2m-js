@@ -59,8 +59,6 @@ export const getRoam = ({
 			mccmnc: Number(`${smcc}${smnc}`), // /4/0/10 & /4/0/9
 			cell,
 			ip,
-			band: 3, // TODO: remove this
-			eest: 5, // TODO: remove this
 		},
 		ts: time,
 	}
