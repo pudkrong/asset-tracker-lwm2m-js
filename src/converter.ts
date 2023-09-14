@@ -116,6 +116,7 @@ export class Warning extends Error {
  */
 export const converter = (
 	input: LwM2MAssetTrackerV2,
+	// "metadata" input was removed
 	onWarning?: (warning: Error) => unknown,
 	onError?: (error: Error) => unknown,
 ): typeof nRFAssetTrackerReported => {
