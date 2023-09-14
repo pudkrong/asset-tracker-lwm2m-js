@@ -49,6 +49,7 @@ const lwM2MAssetTrackerV2: LwM2MAssetTrackerV2 = {
 			'5602': 27.71,
 			'5700': 27.18,
 			'5701': 'Cel',
+			'5518': 1675874731,
 		},
 	],
 
@@ -58,6 +59,7 @@ const lwM2MAssetTrackerV2: LwM2MAssetTrackerV2 = {
 			'5602': 24.161,
 			'5700': 24.057,
 			'5701': '%RH',
+			'5518': 1675874731,
 		},
 	],
 
@@ -67,6 +69,7 @@ const lwM2MAssetTrackerV2: LwM2MAssetTrackerV2 = {
 			'5602': 101705,
 			'5700': 10,
 			'5701': 'Pa',
+			'5518': 1675874731,
 		},
 	],
 
@@ -90,49 +93,49 @@ const result = converter(lwM2MAssetTrackerV2, warningHandler, errorHandler)
 console.log(result)
 
 /**
- {
-  bat: { v: 2754, ts: 1675874731000 },
-  dev: {
-    v: {
-      imei: '351358815340515',
-      modV: '22.8.1+0',
-      brdV: 'Nordic Semiconductor ASA'
-    },
-    ts: 1675874731000
-  },
-  env: { v: { temp: 27.18, hum: 24.057, atmp: 10 }, ts: 1688731863032 },
-  gnss: {
-    v: {
-      lng: 153.2176,
-      lat: -43.5723,
-      acc: 24.798573,
-      alt: 2,
-      spd: 0.579327,
-    },
-    ts: 1665149633000
-  },
-  roam: {
-    v: {
-      nw: '6',
-      rsrp: -85,
-      area: 12,
-      mccmnc: 24220,
-      cell: 34237196,
-      ip: '10.160.120.155',
-    },
-    ts: 1688731863032
-  },
-  cfg: {
-    loct: 120,
-    act: true,
-    actwt: 120,
-    mvres: 600,
-    mvt: 7200,
-    accath: 8.5,
-    accith: 2.5,
-    accito: 0.5,
-    nod: []
-  }
+{
+	bat: { v: 2754, ts: 1675874731000 },
+	dev: {
+		v: {
+			imei: '351358815340515',
+			modV: '22.8.1+0',
+			brdV: 'Nordic Semiconductor ASA',
+		},
+		ts: 1675874731000,
+	},
+	env: { v: { temp: 27.18, hum: 24.057, atmp: 10 }, ts: 1675874731000 },
+	gnss: {
+		v: {
+			lng: 153.2176,
+			lat: -43.5723,
+			acc: 24.798573,
+			alt: 2,
+			spd: 0.579327,
+		},
+		ts: 1665149633000,
+	},
+	roam: {
+		v: {
+			nw: '6',
+			rsrp: -85,
+			area: 12,
+			mccmnc: 24220,
+			cell: 34237196,
+			ip: '10.160.120.155',
+		},
+		ts: 1675874731000,
+	},
+	cfg: {
+		loct: 120,
+		act: true,
+		actwt: 120,
+		mvres: 600,
+		mvt: 7200,
+		accath: 8.5,
+		accith: 2.5,
+		accito: 0.5,
+		nod: [],
+	},
 }
 
  */
