@@ -121,6 +121,8 @@ export const converter = (
 ): typeof nRFAssetTrackerReported => {
 	const result = {} as typeof nRFAssetTrackerReported
 	const device = input[Device_3_urn]
+	// There is short cut for this using destructuring object
+	// const { [Device_3_urn]: device, [Temperature_3303_urn]: temperature } = input
 	const temperature = input[Temperature_3303_urn]
 	const humidity = input[Humidity_3304_urn]
 	const pressure = input[Pressure_3323_urn]

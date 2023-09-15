@@ -26,7 +26,11 @@ export const getBat = (
 		}
 
 	const value = device['7'] != null ? device['7'][0] : undefined
+	// You can make short cut there
+	// const value = device['7']?.[0]
 	const time = device['13'] != null ? device['13'] * 1000 : undefined
+	// I would make it clear by using
+	// device['13'] !== null && device['13'] !== undefined
 
 	const object = {
 		v: value,
