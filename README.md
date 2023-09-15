@@ -190,7 +190,9 @@ import {
 } from './converter.js'
 
 const lwM2MAssetTrackerV2 = {} as LwM2MAssetTrackerV2 // Object with Asset Tracker v2 objects...
-const result = converter(lwM2MAssetTrackerV2)
+const onWarning = (warning) => console.log(warning)
+const onError = (error) => console..log(error)
+const result = converter(lwM2MAssetTrackerV2, onWarning, onError)
 console.log(result)
 ```
 
